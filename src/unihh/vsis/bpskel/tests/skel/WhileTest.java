@@ -4,15 +4,10 @@ import java.util.concurrent.Future;
 
 import org.junit.Test;
 
-import unihh.vsis.bpskel.api.skeleton.BpCondition;
-import unihh.vsis.bpskel.bpmn.api.BPMNFactory;
 import unihh.vsis.bpskel.bpmn.api.IDataContainer;
 import unihh.vsis.bpskel.tests.bpmn.DataContainer;
 import cl.niclabs.skandium.Skandium;
 import cl.niclabs.skandium.muscles.Condition;
-import cl.niclabs.skandium.muscles.Execute;
-import cl.niclabs.skandium.muscles.Muscle;
-import cl.niclabs.skandium.skeletons.For;
 import cl.niclabs.skandium.skeletons.Skeleton;
 import cl.niclabs.skandium.skeletons.While;
 

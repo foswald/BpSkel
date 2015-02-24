@@ -1,8 +1,8 @@
 package unihh.vsis.bpskel.bpmn.impl.gateway;
 
-import unihh.vsis.bpskel.bpmn.core.AbstractSplitFlowObject;
+import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 
-public class GatewayAndSplit extends AbstractSplitFlowObject {
+public class GatewayAndSplit extends GatewaySplit {
 
 
 	/** To check if Gateway was visited before (for branching)*/

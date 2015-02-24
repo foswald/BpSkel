@@ -1,6 +1,5 @@
 package unihh.vsis.bpskel.bpmn.core;
 
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
 
 /**
  * This is the basic Interface for all FlowObjects.<br>
@@ -15,7 +14,7 @@ import unihh.vsis.bpskel.bpmn.api.IDataContainer;
 public interface IFlowObject extends IBPMNElement{
 	
 	/**
-	 * Returns one or more Flowobjects preceding this FlowObject.
+	 * Returns one or more FlowObjects preceding this FlowObject.
 	 * @return
 	 */
 	FlowObjectContainer getIncomingFlowObjects();

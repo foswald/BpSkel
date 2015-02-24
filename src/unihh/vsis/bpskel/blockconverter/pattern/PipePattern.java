@@ -1,8 +1,8 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
-import unihh.vsis.bpskel.api.skeleton.ISkeleton;
 import unihh.vsis.bpskel.bpmn.api.ITask;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
+import unihh.vsis.bpskel.exceptions.PatternMismatchException;
 
 public class PipePattern implements IPattern {
 
@@ -16,18 +16,17 @@ public class PipePattern implements IPattern {
 	}
 
 	@Override
-	public ISkeleton createSkeleton(Component start) {
-		return null;
+	public IFlowObject getEndElement(IFlowObject start) throws PatternMismatchException {
+		if(!matchPattern(start)) {
+			throw new PatternMismatchException();
+		}
+		else {
+			return start.getOutgoingFlowObjects().first;
+		}
 	}
 
 	@Override
-	public Component foldToComponent(IFlowObject start) {
-		if(matchPattern(start)){
-			return new Component(this, start, start.getOutgoingFlowObjects().first);
-		}
-		else{
-			throw new Error("Pattern beginning with start node does not match!");
-		}
+	public SkeletonType getPatternType() {
+		return SkeletonType.PIPE;
 	}
-
 }

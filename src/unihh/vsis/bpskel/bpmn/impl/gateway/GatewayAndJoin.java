@@ -1,9 +1,8 @@
 package unihh.vsis.bpskel.bpmn.impl.gateway;
 
-import unihh.vsis.bpskel.bpmn.core.AbstractFlowObject;
-import unihh.vsis.bpskel.bpmn.core.IGateway;
+import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
 
-public class GatewayAndJoin extends AbstractFlowObject implements IGateway{
+public class GatewayAndJoin extends GatewayJoin{
 
 	/**
 	 * Aggregate results from both incoming branches by nesting IDataContainers.
@@ -14,16 +13,6 @@ public class GatewayAndJoin extends AbstractFlowObject implements IGateway{
 //				this.getIncomingFlowObjects().first.getResultData(),
 //				this.getIncomingFlowObjects().second.getResultData());
 //	}	
-
-	@Override
-	public boolean isFlowSplit() {
-		return false;
-	}
-
-	@Override
-	public boolean isFlowJoin() {
-		return true;
-	}
 
 
 }

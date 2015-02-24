@@ -1,17 +1,7 @@
 package unihh.vsis.bpskel.bpmn.impl.gateway;
 
-import unihh.vsis.bpskel.bpmn.core.AbstractFlowObject;
-import unihh.vsis.bpskel.bpmn.core.IGateway;
+import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
 
-public class GatewayXorJoin extends AbstractFlowObject implements IGateway {
-	@Override
-	public boolean isFlowSplit() {
-		return false;
-	}
-
-	@Override
-	public boolean isFlowJoin() {
-		return true;
-	}
+public class GatewayXorJoin extends GatewayJoin {
 
 }

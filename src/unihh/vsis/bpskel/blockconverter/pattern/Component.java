@@ -27,10 +27,5 @@ public class Component extends AbstractFlowObject{
 			this.content.add(c);
 		}
 		this.pattern = pattern;
-	}
-	
-	public ISkeleton createSkeleton(){
-		return this.pattern.createSkeleton(this);
-	}
-	
+	}	
 }

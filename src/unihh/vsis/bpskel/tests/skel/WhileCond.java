@@ -1,11 +1,11 @@
 package unihh.vsis.bpskel.tests.skel;
 
 import unihh.vsis.bpskel.bpmn.api.IDataContainer;
-import unihh.vsis.bpskel.bpmn.core.AbstractSplitConditional;
+import unihh.vsis.bpskel.bpmn.core.AbstractGatewaySplitConditional;
 import unihh.vsis.bpskel.bpmn.core.ICondition;
 import cl.niclabs.skandium.muscles.Condition;
 
-public class WhileCond extends AbstractSplitConditional implements Condition<IDataContainer> {
+public class WhileCond extends AbstractGatewaySplitConditional implements Condition<IDataContainer> {
 
 	
 	public WhileCond(ICondition condition) {

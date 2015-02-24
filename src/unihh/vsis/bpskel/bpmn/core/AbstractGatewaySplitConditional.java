@@ -1,10 +1,10 @@
 package unihh.vsis.bpskel.bpmn.core;
 
 
-public abstract class AbstractSplitConditional extends AbstractSplitFlowObject implements ICondition{
+public abstract class AbstractGatewaySplitConditional extends GatewaySplit implements ICondition{
 	protected ICondition condition;
 	
-	public AbstractSplitConditional(ICondition condition){
+	public AbstractGatewaySplitConditional(ICondition condition){
 		super();
 		this.condition = condition;
 	}

@@ -1,6 +1,7 @@
 package unihh.vsis.bpskel.blockconverter;
 
 import unihh.vsis.bpskel.api.skeleton.ISkeleton;
+import unihh.vsis.bpskel.bpmn.core.AbstractFlowObject;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
 /**
@@ -9,15 +10,15 @@ import unihh.vsis.bpskel.bpmn.core.IFlowObject;
  * @author foswald
  *
  */
-public class ProxyTask {
+public class ProxyTask extends AbstractFlowObject{
 	
 	ISkeleton skelRef;
-	IFlowObject preceeding;
-	IFlowObject succeeding;
 	
 	public ProxyTask(ISkeleton skelRef, IFlowObject preceeding, IFlowObject succeeding){
 		this.skelRef = skelRef;
-		this.preceeding = preceeding;
-		this.succeeding = succeeding;
+		
+		super.setDescription("ProxyTask");		
+		super.addIncomingFlowObject(preceeding);
+		super.addOutgoingFlowObject(succeeding);
 	}
 }

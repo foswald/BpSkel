@@ -1,6 +1,6 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
-import unihh.vsis.bpskel.api.skeleton.ISkeleton;
+import unihh.vsis.bpskel.blockconverter.ProxyTask;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 import unihh.vsis.bpskel.bpmn.core.IGateway;
 import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
@@ -16,31 +16,42 @@ public class IfPattern implements IPattern {
 			
 			// either one might be the direct join (in case we only have one task in an XOR), 
 			// at least one must be a Component 
-			boolean oneEmpty = false;
-			if((first instanceof IGateway 
-					&& ((IGateway)first).isFlowJoin())
-				|| (second instanceof IGateway 
-					&& ((IGateway)second).isFlowJoin())){
-				oneEmpty = true;
+			boolean firstEmpty = true, secondEmpty = true;
+			if((first instanceof IGateway && ((IGateway)first).isFlowJoin())){
+				firstEmpty = false;
 			}
-			// one branch has no component, so the other one must have
-			if(oneEmpty){
-				
+			// first branch has no component, so the other one must have
+			if((second instanceof IGateway && ((IGateway)second).isFlowJoin())) {
+				secondEmpty = false;
 			}
+			if(firstEmpty && secondEmpty) {
+				// invalid
+				return false;
+			}
+			else if(!firstEmpty && secondEmpty) {
+				return first instanceof ProxyTask;
+			}
+			else if(firstEmpty && !secondEmpty) {
+				return second instanceof ProxyTask;
+			}
+			else if(!firstEmpty && !secondEmpty) {
+				return (second instanceof ProxyTask) && (first instanceof ProxyTask);
+			}
+			
 		}
 		return false;
 	}
 
 	@Override
-	public Component foldToComponent(IFlowObject start) {
+	public IFlowObject getEndElement(IFlowObject start) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ISkeleton createSkeleton(Component start) {
+	public SkeletonType getPatternType() {
 		// TODO Auto-generated method stub
-		return null;
+		return SkeletonType.IF;
 	}
 
 }

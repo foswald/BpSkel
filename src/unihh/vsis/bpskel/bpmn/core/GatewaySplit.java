@@ -6,9 +6,9 @@ package unihh.vsis.bpskel.bpmn.core;
  * @author foswald
  *
  */
-public abstract class AbstractSplitFlowObject extends AbstractFlowObject implements IGateway{
+public abstract class GatewaySplit extends AbstractFlowObject implements IGateway{
 	
-	public AbstractSplitFlowObject(){
+	public GatewaySplit(){
 		super();
 	}
 	

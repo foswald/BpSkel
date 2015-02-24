@@ -2,6 +2,7 @@ package unihh.vsis.bpskel.blockconverter.pattern;
 
 import java.util.List;
 
+import unihh.vsis.bpskel.api.skeleton.ISkeleton;
 import unihh.vsis.bpskel.bpmn.core.AbstractFlowObject;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
@@ -11,15 +12,15 @@ import unihh.vsis.bpskel.bpmn.core.IFlowObject;
  * @author foswald
  *
  */
-public class Component<T> extends AbstractFlowObject{
+public class Component extends AbstractFlowObject{
 	
 	List<IFlowObject> content;
 	/** The pattern describing the content */
-	IPattern<T> pattern;
+	IPattern pattern;
 	/** The parent component of this */
-	Component<T> parent;
+	Component parent;
 	
-	public Component(IPattern<T> pattern, IFlowObject...content){
+	public Component(IPattern pattern, IFlowObject...content){
 		this.addIncomingFlowObject(content[0].getIncomingFlowObjects().first);
 		this.addOutgoingFlowObject(content[content.length-1].getOutgoingFlowObjects().first);
 		for(IFlowObject c : content){
@@ -28,7 +29,7 @@ public class Component<T> extends AbstractFlowObject{
 		this.pattern = pattern;
 	}
 	
-	public T createSkeleton(){
+	public ISkeleton createSkeleton(){
 		return this.pattern.createSkeleton(this);
 	}
 	

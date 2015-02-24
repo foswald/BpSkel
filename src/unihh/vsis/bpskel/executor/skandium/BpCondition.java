@@ -1,4 +1,4 @@
-package unihh.vsis.bpskel.api.skeleton;
+package unihh.vsis.bpskel.executor.skandium;
 
 import unihh.vsis.bpskel.bpmn.api.IDataContainer;
 import unihh.vsis.bpskel.bpmn.core.ICondition;

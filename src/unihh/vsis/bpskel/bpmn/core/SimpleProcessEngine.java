@@ -54,4 +54,10 @@ public class SimpleProcessEngine implements IProcessEngine{
 			f = next;
 		}while(!(f instanceof EndElement));
 	}
+
+	@Override
+	public boolean initialize() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

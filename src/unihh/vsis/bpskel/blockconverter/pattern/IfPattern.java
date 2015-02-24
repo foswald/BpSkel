@@ -1,10 +1,11 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
+import unihh.vsis.bpskel.api.skeleton.ISkeleton;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 import unihh.vsis.bpskel.bpmn.core.IGateway;
 import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
 
-public class IfPattern<T> implements IPattern<T> {
+public class IfPattern implements IPattern {
 
 	@Override
 	public boolean matchPattern(IFlowObject start) {
@@ -31,13 +32,13 @@ public class IfPattern<T> implements IPattern<T> {
 	}
 
 	@Override
-	public Component<T> foldToComponent(IFlowObject start) {
+	public Component foldToComponent(IFlowObject start) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public T createSkeleton(Component<T> start) {
+	public ISkeleton createSkeleton(Component start) {
 		// TODO Auto-generated method stub
 		return null;
 	}

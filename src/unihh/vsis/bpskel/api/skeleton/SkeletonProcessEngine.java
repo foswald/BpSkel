@@ -25,11 +25,9 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	}
 	@Override
 	public void execute(BusinessProcess pro) {
-		PatternMatcher m = new PatternMatcher();
 		// assume valid BPG
 		boolean isValidBPG = true;
 		
-		IFlowObject currentNode = pro.getStart();
 		// do until whole bpg has been transformed
 		while(pro.getFlowObjects().size() > 3 && isValidBPG){
 			createSkeletonStructure(pro, pro.getStart());
@@ -53,6 +51,8 @@ public class SkeletonProcessEngine implements IProcessEngine{
 				
 					// create ProxyTask
 					ProxyTask t = new ProxyTask(s, currentNode.getIncomingFlowObjects().first, lastPatternNode.getOutgoingFlowObjects().first);
+
+					// replace in BusinessProcess	
 					this.insertProxy(bpg, t);
 					
 					// continue with next node
@@ -75,10 +75,8 @@ public class SkeletonProcessEngine implements IProcessEngine{
 						this.createSkeletonStructure(bpg, branch2);
 					}
 				}
-			}
-				
+			}				
 		}			
-			// replace in BusinessProcess	
 	}
 	
 	/**

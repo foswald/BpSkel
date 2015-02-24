@@ -2,17 +2,17 @@ package unihh.vsis.bpskel.tests.bpmn;
 
 import org.junit.Test;
 
+import unihh.vsis.bpskel.api.skeleton.SkeletonProcessEngine;
 import unihh.vsis.bpskel.bpmn.api.BPMNFactory;
 import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
 import unihh.vsis.bpskel.bpmn.api.ITask;
 import unihh.vsis.bpskel.bpmn.core.IGateway;
-import unihh.vsis.bpskel.bpmn.core.SimpleProcessEngine;
 
-public class SimpleBPMNTest {
+public class SkeletonBPMNTest {
 
 	@Test
 	public void testBusinessProcess() {
-		BPMNFactory.initialize(new SimpleProcessEngine());
+		BPMNFactory.initialize(new SkeletonProcessEngine());
 		
 		ITask t1 = new ToStringTask("FirstTask");
 		ITask t2 = new ToStringTask("SecondTask");	

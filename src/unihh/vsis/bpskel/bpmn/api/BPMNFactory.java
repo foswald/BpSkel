@@ -21,16 +21,16 @@ public class BPMNFactory {
 	private static EndElement end;
 	
 	private static IProcessEngine engine;
-	
-	private BPMNFactory(){
+
+	private BPMNFactory(IProcessEngine pe){
 		start = new StartElement();
 		end = new EndElement();
-		engine = new SimpleProcessEngine();
+		engine = pe;
 	}
 	
-	public static void initialize(){
+	public static void initialize(IProcessEngine pe){
 		if(instance == null){
-			instance = new BPMNFactory();
+			instance = new BPMNFactory(pe);
 		}
 	}
 	
@@ -68,7 +68,7 @@ public class BPMNFactory {
 	 * Create a new XOR split with a condition which will be evaluated when the gateway is reached. <br>
 	 * If the condition evaluates to true, the first succeeding element will be processed next. <br>
 	 * If the condition evaluates to false, the second succeeding element will be processed next.
-	 * @param string A boolean expression EXPR which will look like <code>lhs EXPR rhs</code> (e.g. 4 < 5)
+	 * @param string A boolean expression EXPR which will look like <code>lhs EXPR rhs</code> (e.g. 4 < 5, where "<" is EXPR)
 	 * @param lhs the left hand side of the boolean expression
 	 * @param rhs the right hand side of the boolean expression
 	 * @return A XOR gateway evaluating the given expression when processed.

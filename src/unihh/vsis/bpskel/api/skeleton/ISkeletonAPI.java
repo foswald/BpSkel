@@ -1,11 +1,11 @@
 package unihh.vsis.bpskel.api.skeleton;
 
-import unihh.vsis.bpskel.blockconverter.pattern.SkeletonType;
+import unihh.vsis.bpskel.blockconverter.pattern.PatternType;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
 public interface ISkeletonAPI {
 	
-	ISkeleton createSkeleton(SkeletonType skeletonType, IFlowObject startingNode);
+	ISkeleton createSkeleton(PatternType skeletonType, IFlowObject startingNode);
 	
 	ISkeleton createSeqSkeleton(IFlowObject startingNode);
 	ISkeleton createPipeSkeleton(IFlowObject startingNode);

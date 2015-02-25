@@ -5,8 +5,7 @@ package unihh.vsis.bpskel.bpmn.core;
  * This is the basic Interface for all FlowObjects.<br>
  * FlowObjects are Activities(Tasks), Events and Gateways.
  * 
- * FlowObjects might have preceding and succeeding flowobjects.
- * These represent Objects which are connected by a SequenceFlow.
+ * A FlowObject has exacty one predecessor and one successor.
  *  
  * @author foswald
  *

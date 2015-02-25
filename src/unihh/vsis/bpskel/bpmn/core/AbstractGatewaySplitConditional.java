@@ -7,6 +7,7 @@ public abstract class AbstractGatewaySplitConditional extends GatewaySplit imple
 	public AbstractGatewaySplitConditional(ICondition condition){
 		super();
 		this.condition = condition;
+		super.setDescription(condition.getDescription());
 	}
 	
 	@Override

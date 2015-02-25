@@ -6,6 +6,7 @@ import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
 import unihh.vsis.bpskel.bpmn.api.ITask;
 import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndJoin;
 import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndSplit;
+import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
 
 public class SimpleProcessEngine implements IProcessEngine{
 	
@@ -26,7 +27,7 @@ public class SimpleProcessEngine implements IProcessEngine{
 			if(f instanceof ITask){
 				((ITask) f).execute();				
 			}
-			// Always forward to next element
+			// Process next element
 			IFlowObject next = f.getOutgoingFlowObjects().first;
 			
 			// check if we have Gateway and might branch
@@ -50,6 +51,12 @@ public class SimpleProcessEngine implements IProcessEngine{
 					visitedAndSplits.push((GatewayAndSplit) next);
 					next = next.getOutgoingFlowObjects().first;
 				}
+				
+				// next from AND task might be XOR split
+				if(next instanceof GatewayXorSplit){
+					next = ((GatewayXorSplit)next).getNextValidFlowObject();
+				}
+							
 			}
 			f = next;
 		}while(!(f instanceof EndElement));

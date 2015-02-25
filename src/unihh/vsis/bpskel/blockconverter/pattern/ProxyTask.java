@@ -1,4 +1,4 @@
-package unihh.vsis.bpskel.blockconverter;
+package unihh.vsis.bpskel.blockconverter.pattern;
 
 import unihh.vsis.bpskel.api.skeleton.ISkeleton;
 import unihh.vsis.bpskel.bpmn.core.AbstractFlowObject;

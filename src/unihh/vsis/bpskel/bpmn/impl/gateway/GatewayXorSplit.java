@@ -23,7 +23,7 @@ public class GatewayXorSplit extends AbstractGatewaySplitConditional {
 	 * If the condition evaluates to False, the second object will be returned.
 	 * 
 	 */
-	private IFlowObject getNextValidFlowObject(){
+	public IFlowObject getNextValidFlowObject(){
 		if(condition.evaluate()){
 			return super.getOutgoingFlowObjects().first;
 		}
@@ -31,12 +31,5 @@ public class GatewayXorSplit extends AbstractGatewaySplitConditional {
 			return super.getOutgoingFlowObjects().second;
 		}
 	}
-	
-	/**
-	 * Only returns the valid flow object.
-	 */
-	@Override
-	public FlowObjectContainer getOutgoingFlowObjects(){
-		return new FlowObjectContainer(this.getNextValidFlowObject());
-	}
+
 }

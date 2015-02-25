@@ -1,15 +1,15 @@
 package unihh.vsis.bpskel.api.skeleton;
 
-import unihh.vsis.bpskel.blockconverter.ProxyTask;
 import unihh.vsis.bpskel.blockconverter.pattern.IPattern;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternMatcher;
+import unihh.vsis.bpskel.blockconverter.pattern.PatternType;
+import unihh.vsis.bpskel.blockconverter.pattern.ProxyTask;
 import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
-import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 import unihh.vsis.bpskel.bpmn.core.EndElement;
 import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
+import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 import unihh.vsis.bpskel.bpmn.core.IProcessEngine;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndJoin;
 import unihh.vsis.bpskel.exceptions.PatternMismatchException;
 import unihh.vsis.bpskel.executor.skandium.SkandiumConnector;
 
@@ -28,9 +28,16 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		// assume valid BPG
 		boolean isValidBPG = true;
 		
+		// first prep tasks with proxies
+		try {
+			taskToProxy(pro);
+		} catch (PatternMismatchException e) {
+			e.printStackTrace();
+		}
+		
 		// do until whole bpg has been transformed
 		while(pro.getFlowObjects().size() > 3 && isValidBPG){
-			createSkeletonStructure(pro, pro.getStart());
+			createSkeletonStructure(pro, pro.getStart().getOutgoingFlowObjects().first);
 		}
 			
 	}
@@ -50,7 +57,9 @@ public class SkeletonProcessEngine implements IProcessEngine{
 					IFlowObject lastPatternNode = p.getEndElement(currentNode);
 				
 					// create ProxyTask
-					ProxyTask t = new ProxyTask(s, currentNode.getIncomingFlowObjects().first, lastPatternNode.getOutgoingFlowObjects().first);
+					IFlowObject prec = currentNode.getIncomingFlowObjects().first;
+					IFlowObject suc = lastPatternNode.getOutgoingFlowObjects().first;
+					ProxyTask t = new ProxyTask(s, prec, suc);
 
 					// replace in BusinessProcess	
 					this.insertProxy(bpg, t);
@@ -103,20 +112,53 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	private boolean insertProxy(BusinessProcess bpg, ProxyTask proxyTask){
 		boolean replacedPred = false;
 		boolean replacedSucc = false;
-		for(IFlowObject f:bpg.getFlowObjects()){
-			if(f.equals(proxyTask.getIncomingFlowObjects().first) && !replacedPred){
-				f.resetOutgoingFlowObjects();
-				f.addOutgoingFlowObject(proxyTask);
-				
+		
+		// first handle start and endelement
+		if(proxyTask.getIncomingFlowObjects().first.equals(bpg.getStart())) {
+			bpg.connect(bpg.getStart(), proxyTask, true);
+			replacedPred = true;
+		}
+		if(proxyTask.getOutgoingFlowObjects().first.equals(bpg.getEnd())) {
+			bpg.connect(proxyTask, bpg.getEnd(), true);
+			replacedSucc = true;
+		}
+		
+		for(int i=0; i < bpg.getFlowObjects().size() && (!replacedPred || !replacedSucc); i++){
+			IFlowObject f = bpg.getFlowObjects().get(i);
+			if(!replacedPred && f.equals(proxyTask.getIncomingFlowObjects().first)){
+				bpg.connect(f, proxyTask, true);
+				replacedPred = true;				
 			}
-			else if(f.equals(proxyTask.getOutgoingFlowObjects().first) && !replacedSucc){
-				f.resetIncomingFlowObjects();
-				f.addIncomingFlowObject(proxyTask);
+			else if(!replacedSucc && f.equals(proxyTask.getOutgoingFlowObjects().first)){
+				bpg.connect(proxyTask, f, true);
+				replacedSucc = true;
 			}
 		}
 		
 		return replacedPred && replacedSucc;
 		
+	}
+	
+	
+	/**
+	 * Iterates over all elements and replaces plain tasks with proxies.
+	 * This is required for further graph transformation, as only ProxyTasks provide pattern recognition.
+	 * @throws PatternMismatchException 
+	 */
+	private void taskToProxy(BusinessProcess bpg) throws PatternMismatchException{
+		for(IFlowObject f:bpg.getFlowObjects()){
+			if(this.patternMatcher.matchPattern(f).getPatternType() == PatternType.SEQ){
+				// context switch to skeleton
+				ISkeleton seq = this.skeletonApi.createSkeleton(PatternType.SEQ, f);
+							
+				// create ProxyTask
+				IFlowObject prec = f.getIncomingFlowObjects().first;
+				IFlowObject suc = f.getOutgoingFlowObjects().first;
+				ProxyTask t = new ProxyTask(seq, prec, suc);
+				
+				this.insertProxy(bpg, t);
+			}
+		}
 	}
 
 	@Override

@@ -31,6 +31,20 @@ public class BusinessProcess {
 		sink.addIncomingFlowObject(source);
 	}
 	
+	/**
+	 * Connects source with sink and resets previous connections if <code>reset=true</code>.
+	 * @param source
+	 * @param sink
+	 * @param reset
+	 */
+	public void connect(IFlowObject source, IFlowObject sink, boolean reset){
+		if(reset) {
+			source.resetOutgoingFlowObjects();
+			sink.resetIncomingFlowObjects();
+		}
+		this.connect(source, sink);
+	}
+	
 	public void connectToJoin(IFlowObject source1, IFlowObject source2, IFlowObject join){
 		source1.addOutgoingFlowObject(join);
 		source2.addOutgoingFlowObject(join);

@@ -24,5 +24,5 @@ public interface IPattern {
 	 * For type determination of the current pattern.
 	 * @return the type of the current pattern
 	 */
-	SkeletonType getPatternType();
+	PatternType getPatternType();
 }

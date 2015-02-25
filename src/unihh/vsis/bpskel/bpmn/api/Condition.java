@@ -71,4 +71,9 @@ public class Condition implements ICondition {
         }
         return fullfilled;
 	}
+
+	@Override
+	public String getDescription() {
+		return "Expression: "+this.expr ;
+	}
 }

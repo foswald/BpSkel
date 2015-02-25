@@ -3,12 +3,17 @@ package unihh.vsis.bpskel.executor.skandium;
 import unihh.vsis.bpskel.api.skeleton.ISkeleton;
 import unihh.vsis.bpskel.api.skeleton.ISkeletonAPI;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternType;
+import unihh.vsis.bpskel.blockconverter.pattern.ProxyTask;
 import unihh.vsis.bpskel.bpmn.api.IDataContainer;
 import unihh.vsis.bpskel.bpmn.api.ITask;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
+import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
+import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.muscles.Execute;
+import cl.niclabs.skandium.skeletons.If;
 import cl.niclabs.skandium.skeletons.Pipe;
 import cl.niclabs.skandium.skeletons.Seq;
+import cl.niclabs.skandium.skeletons.Skeleton;
 
 public class SkandiumConnector implements ISkeletonAPI {
 
@@ -38,7 +43,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 	public ISkeleton createSeqSkeleton(IFlowObject startingNode) {
 		Execute<IDataContainer, IDataContainer> ex = new ExecMuscleTask((ITask)startingNode);
 		Seq<IDataContainer, IDataContainer> seq = new Seq<IDataContainer, IDataContainer>(ex);
-		ISkeleton s = new SkandiumSkeleton(seq);
+		ISkeleton s = new SkeletonWrapper(seq);
 		return s;
 	}
 
@@ -47,7 +52,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 	public ISkeleton createPipeSkeleton(IFlowObject startingNode) {
 		Execute<IDataContainer, IDataContainer> ex1 = new ExecMuscleTask((ITask)startingNode);
 		Execute<IDataContainer, IDataContainer> ex2 = new ExecMuscleTask((ITask)startingNode.getSuccessor());
-		ISkeleton s = new SkandiumSkeleton(new Pipe<IDataContainer,IDataContainer>(ex1, ex2));
+		ISkeleton s = new SkeletonWrapper(new Pipe<IDataContainer,IDataContainer>(ex1, ex2));
 		return s;
 	}
 
@@ -66,8 +71,15 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 	@Override
 	public ISkeleton createIfSkeleton(IFlowObject startingNode) {
-		// TODO Auto-generated method stub
-		return null;
+		GatewayXorSplit split = (GatewayXorSplit)startingNode;
+		Condition<IDataContainer> cond = new SkandiumCondition(split.getCondition());
+		ProxyTask task1 = ((ProxyTask)split.getSuccessor());
+		ProxyTask task2 = ((ProxyTask)split.getSuccessor2());
+		
+		Skeleton<IDataContainer, IDataContainer> case1 = task1.getSkeletonReference().getSkeletonRef();
+		Skeleton<IDataContainer, IDataContainer> case2 = task2.getSkeletonReference().getSkeletonRef();
+		ISkeleton s = new SkeletonWrapper(new If<IDataContainer, IDataContainer>(cond, case1, case2));
+		return s;
 	}
 
 

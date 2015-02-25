@@ -1,6 +1,6 @@
 package unihh.vsis.bpskel.bpmn.impl.gateway;
 
-import unihh.vsis.bpskel.bpmn.core.AbstractGatewaySplitConditional;
+import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 import unihh.vsis.bpskel.bpmn.core.ICondition;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
@@ -9,10 +9,19 @@ import unihh.vsis.bpskel.bpmn.core.IFlowObject;
  * @author foswald
  *
  */
-public class GatewayXorSplit extends AbstractGatewaySplitConditional {
+public class GatewayXorSplit  extends GatewaySplit implements ICondition{
+	
+	protected ICondition condition;
 	
 	public GatewayXorSplit(ICondition condition){
-		super(condition);
+
+		this.condition = condition;
+		super.setDescription(condition.getDescription());
+	}
+	
+	@Override
+	public boolean evaluate() {
+		return this.condition.evaluate();
 	}
 	
 	/**
@@ -29,6 +38,10 @@ public class GatewayXorSplit extends AbstractGatewaySplitConditional {
 		else{
 			return super.getSuccessor2();
 		}
+	}
+
+	public ICondition getCondition() {
+		return this.condition;
 	}
 
 }

@@ -12,7 +12,7 @@ import unihh.vsis.bpskel.bpmn.core.IFlowObject;
  */
 public class ProxyTask extends AbstractFlowObject{
 	
-	ISkeleton skelRef;
+	private ISkeleton skelRef;
 	
 	private IFlowObject entryNode;
 	private IFlowObject exitNode;
@@ -41,5 +41,9 @@ public class ProxyTask extends AbstractFlowObject{
 
 	public void setExitNode(IFlowObject exitNode) {
 		this.exitNode = exitNode;
+	}
+	
+	public ISkeleton getSkeletonReference(){
+		return this.skelRef;
 	}
 }

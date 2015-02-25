@@ -27,14 +27,13 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	}
 	@Override
 	public void execute(BusinessProcess pro) {
-		// assume valid BPG
-		boolean isValidBPG = true;
+
 		
 		// first prep tasks with proxies
-		taskToProxy(pro);
+		//taskToProxy(pro);
 
 		// do until whole bpg has been transformed
-		while(pro.getFlowObjects().size() > 3 && isValidBPG){
+		while(!pro.getStart().getSuccessor().getSuccessor().equals(pro.getEnd())){
 			createSkeletonStructure(pro, pro.getStart().getSuccessor());
 		}
 			
@@ -43,7 +42,8 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	public void createSkeletonStructure(BusinessProcess bpg, IFlowObject currentNode) {
 		
 		// run until end of bpg has been reached
-		while(!(currentNode instanceof EndElement)) {
+		while(!(currentNode instanceof EndElement)) {			
+			// check if we have a valid pattern and insert a proxy
 			if(this.patternMatcher.isValidPattern(currentNode)){
 				IPattern p;
 
@@ -58,33 +58,41 @@ public class SkeletonProcessEngine implements IProcessEngine{
 				ProxyTask t = new ProxyTask(s, currentNode.getPredecessor(), lastPatternNode.getSuccessor(), currentNode, lastPatternNode);
 
 				// replace in BusinessProcess	
-				if(this.insertProxy(bpg, t)) {
-					this.clean(bpg);
+				if(!this.insertProxy(t)) {
+					throw new Error("Insert failed!");
 				}
 				
 				// continue with next node
 				currentNode = t.getSuccessor();
 
 			}
-			// invalid pattern, so either nesting or invalid bpg. We assume the former.
-			else{
-				// check for a split and call recursively for each open branch
-				if(currentNode instanceof GatewaySplit){
-					IFlowObject branch1 = currentNode.getSuccessor();
-					IFlowObject branch2 = currentNode.getSuccessor();
-					if(!this.isValidBranch(branch1)){
-						this.createSkeletonStructure(bpg, branch1);
-					}
-					if(!this.isValidBranch(branch2)){
-						this.createSkeletonStructure(bpg, branch2);
-					}
+			// no valid pattern but split (check branches recursively
+			else if(currentNode instanceof GatewaySplit){
+					// check for a split and call recursively for each open branch
+				GatewaySplit split = (GatewaySplit) currentNode;
+				IFlowObject branch1 = split.getSuccessor();
+				IFlowObject branch2 = split.getSuccessor2();
+				if(!this.isValidBranch(branch1)){
+					this.createSkeletonStructure(bpg, branch1);
 				}
-			}				
+				if(!this.isValidBranch(branch2)){
+					this.createSkeletonStructure(bpg, branch2);
+				}
+			} 
+			// reached the end of a branch, just abort
+			else if(currentNode instanceof GatewayJoin){
+				break;
+			}
+			// ProxyTask but next is no proxy, proceed
+			else if(currentNode instanceof ProxyTask){
+				// already processed
+				currentNode = currentNode.getSuccessor();
+			}
 		}			
 	}
 	
 	/**
-	 * A branch is valid (thus ready for reduction) if the successor of node is a direct join.
+	 * A branch is valid (thus ready for reduction) if the successor of node is a direct join and node is a ProxyTask.
 	 * It is assumed, that the predecessor of node is a split.
 	 * @param node
 	 * @return true if the branch is valid
@@ -99,7 +107,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	
 	/**
 	 * Inserts the <code>proxyTask</code> in <code>bpg</code>.
-	 * @note The old FlowObjects are not removed from the <code>bpg</code>. Call <code>bpg.clean()</code> to remove them.
+	 * @note The old FlowObjects are not removed from the <code>bpg</code>. Call <code>clean()</code> to remove them.
 	 * @param bpg
 	 * @param proxyTask
 	 * @return <code>true</code> if the nodes could be successfully replaced
@@ -132,6 +140,52 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		
 		return replacedPred && replacedSucc;
 		
+	}
+	
+	/**
+	 * Inserts the <code>proxyTask</code> in <code>bpg</code>.
+	 * @note The old FlowObjects are not removed from the <code>bpg</code>. Call <code>clean()</code> to remove them.
+	 * @param bpg
+	 * @param proxyTask
+	 * @return <code>true</code> if the nodes could be successfully replaced
+	 */
+	private boolean insertProxy(ProxyTask proxy){
+
+		boolean replacedPred = false;
+		boolean replacedSucc = false;
+		
+		IFlowObject pred = proxy.getPredecessor();
+		IFlowObject succ = proxy.getSuccessor();
+		
+		// check first branch by default
+		if(pred.getSuccessor().equals(proxy.getEntryNode())) {
+			pred.setSuccessor(proxy);
+			replacedPred = true;
+		}
+		if(succ.getPredecessor().equals(proxy.getExitNode())) {
+			pred.setPredecessor(proxy);
+			replacedSucc = true;
+		}
+
+		// if we have a proxy in a branch, we need to find the correct one
+		if(pred instanceof GatewaySplit && !replacedPred){
+			GatewaySplit split = (GatewaySplit) pred;
+			// check for second branch
+			if(split.getSuccessor2().equals(proxy.getEntryNode())) {
+				split.setSuccessor2(proxy);
+				replacedPred = true;
+			}
+		}
+		if(succ instanceof GatewayJoin && !replacedSucc){
+			GatewayJoin join = (GatewayJoin) succ;
+			// check for second incomming branch of join
+			if(join.getPredecessor2().equals(proxy.getExitNode())){
+				join.setPredecessor2(proxy);
+				replacedSucc = true;
+			}
+		}
+		
+		return replacedSucc && replacedPred;
 	}
 	
 	private void clean(BusinessProcess bpg){

@@ -14,27 +14,26 @@ public class PatternMatcher {
 		patterns[0] = new SeqPattern();
 		patterns[1] = new PipePattern();
 		patterns[2] = new IfPattern();
-		patterns[2] = new ForkPattern();
+		patterns[3] = new ForkPattern();
 		
 		
 	}
 	
 	public boolean isValidPattern(IFlowObject f){
-			try {
-				this.matchPattern(f);
+		if(this.matchPattern(f)!=null) {
 				return true;
-			} catch (PatternMismatchException e) {
-				return false;
-			}
+		}
+		
+		return false;			
 	}
 	
-	public IPattern matchPattern(IFlowObject f) throws PatternMismatchException{
+	public IPattern matchPattern(IFlowObject f){
 		for(IPattern p:patterns) {
 			if(p.matchPattern(f)){
 				return p;
 			}
 		}
-		throw new PatternMismatchException();
+		return null;
 	}
 
 }

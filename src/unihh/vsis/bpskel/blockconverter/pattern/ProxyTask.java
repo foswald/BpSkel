@@ -14,11 +14,32 @@ public class ProxyTask extends AbstractFlowObject{
 	
 	ISkeleton skelRef;
 	
-	public ProxyTask(ISkeleton skelRef, IFlowObject preceeding, IFlowObject succeeding){
-		this.skelRef = skelRef;
+	private IFlowObject entryNode;
+	private IFlowObject exitNode;
+	
+	public ProxyTask(ISkeleton skelRef, IFlowObject pred, IFlowObject succ, IFlowObject entryNode, IFlowObject exitNode){
+		super.setDescription("ProxyTask");
+		super.setPredecessor(pred);
+		super.setSuccessor(succ);
 		
-		super.setDescription("ProxyTask");		
-		super.setPredecessor(preceeding);
-		super.setSuccessor(succeeding);
+		this.skelRef = skelRef;
+		this.setEntryNode(entryNode);
+		this.setExitNode(exitNode);		
+	}
+
+	public IFlowObject getEntryNode() {
+		return entryNode;
+	}
+
+	public void setEntryNode(IFlowObject entryNode) {
+		this.entryNode = entryNode;
+	}
+
+	public IFlowObject getExitNode() {
+		return exitNode;
+	}
+
+	public void setExitNode(IFlowObject exitNode) {
+		this.exitNode = exitNode;
 	}
 }

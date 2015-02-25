@@ -18,7 +18,7 @@ public interface IPattern {
 	 * @return end element of current pattern
 	 * @throws PatternMismatchException 
 	 */
-	IFlowObject getEndElement(IFlowObject start) throws PatternMismatchException;
+	IFlowObject getEndElement(IFlowObject start);
 	
 	/**
 	 * For type determination of the current pattern.

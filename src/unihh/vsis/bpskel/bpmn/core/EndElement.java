@@ -1,6 +1,5 @@
 package unihh.vsis.bpskel.bpmn.core;
 
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
 
 /**
  * The Endelement is the only element which has no succeeding FlowObject.
@@ -16,5 +15,10 @@ public class EndElement extends AbstractFlowObject {
 	@Override
 	public IFlowObject getSuccessor(){
 		return null;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return false;
 	}
 }

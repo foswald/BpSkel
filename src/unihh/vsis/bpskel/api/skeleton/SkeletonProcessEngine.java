@@ -1,5 +1,7 @@
 package unihh.vsis.bpskel.api.skeleton;
 
+import java.util.Iterator;
+
 import unihh.vsis.bpskel.blockconverter.pattern.IPattern;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternMatcher;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternType;
@@ -29,12 +31,8 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		boolean isValidBPG = true;
 		
 		// first prep tasks with proxies
-		try {
-			taskToProxy(pro);
-		} catch (PatternMismatchException e) {
-			e.printStackTrace();
-		}
-		
+		taskToProxy(pro);
+
 		// do until whole bpg has been transformed
 		while(pro.getFlowObjects().size() > 3 && isValidBPG){
 			createSkeletonStructure(pro, pro.getStart().getSuccessor());
@@ -48,28 +46,25 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		while(!(currentNode instanceof EndElement)) {
 			if(this.patternMatcher.isValidPattern(currentNode)){
 				IPattern p;
-				try {
-					p = this.patternMatcher.matchPattern(currentNode);
-	
-					// context switch to skeleton
-					ISkeleton s = this.skeletonApi.createSkeleton(p.getPatternType(), currentNode);
-					
-					IFlowObject lastPatternNode = p.getEndElement(currentNode);
-				
-					// create ProxyTask
-					IFlowObject prec = currentNode.getPredecessor();
-					IFlowObject suc = lastPatternNode.getSuccessor();
-					ProxyTask t = new ProxyTask(s, prec, suc);
 
-					// replace in BusinessProcess	
-					this.insertProxy(bpg, t);
-					
-					// continue with next node
-					currentNode = t.getSuccessor();
-				} catch (PatternMismatchException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				p = this.patternMatcher.matchPattern(currentNode);
+
+				// context switch to skeleton
+				ISkeleton s = this.skeletonApi.createSkeleton(p.getPatternType(), currentNode);
+				
+				IFlowObject lastPatternNode = p.getEndElement(currentNode);
+			
+				// create ProxyTask
+				ProxyTask t = new ProxyTask(s, currentNode.getPredecessor(), lastPatternNode.getSuccessor(), currentNode, lastPatternNode);
+
+				// replace in BusinessProcess	
+				if(this.insertProxy(bpg, t)) {
+					this.clean(bpg);
 				}
+				
+				// continue with next node
+				currentNode = t.getSuccessor();
+
 			}
 			// invalid pattern, so either nesting or invalid bpg. We assume the former.
 			else{
@@ -115,22 +110,22 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		
 		// first handle start and endelement
 		if(proxyTask.getPredecessor().equals(bpg.getStart())) {
-			bpg.connect(bpg.getStart(), proxyTask, true);
+			bpg.reconnect(bpg.getStart(), proxyTask.getEntryNode(), proxyTask);
 			replacedPred = true;
 		}
 		if(proxyTask.getSuccessor().equals(bpg.getEnd())) {
-			bpg.connect(proxyTask, bpg.getEnd(), true);
+			bpg.reconnect(bpg.getEnd(), proxyTask.getExitNode(), proxyTask);
 			replacedSucc = true;
 		}
-		
-		for(int i=0; i < bpg.getFlowObjects().size() && (!replacedPred || !replacedSucc); i++){
-			IFlowObject f = bpg.getFlowObjects().get(i);
+		Iterator<IFlowObject> it=bpg.getFlowObjects().iterator(); 
+		while(it.hasNext() && (!replacedPred || !replacedSucc)){
+			IFlowObject f = it.next();
 			if(!replacedPred && f.equals(proxyTask.getPredecessor())){
-				bpg.connect(f, proxyTask, true);
+				bpg.reconnect(f, proxyTask.getEntryNode(), proxyTask);
 				replacedPred = true;				
 			}
 			else if(!replacedSucc && f.equals(proxyTask.getSuccessor())){
-				bpg.connect(proxyTask, f, true);
+				bpg.reconnect(f, proxyTask.getExitNode(), proxyTask);
 				replacedSucc = true;
 			}
 		}
@@ -139,24 +134,39 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		
 	}
 	
+	private void clean(BusinessProcess bpg){
+		Iterator<IFlowObject> it=bpg.getFlowObjects().iterator(); 
+		while(it.hasNext()){
+			IFlowObject f = it.next();
+			if(f.isEmpty()){
+				it.remove();
+			}
+					
+		}
+	}
+	
 	
 	/**
 	 * Iterates over all elements and replaces plain tasks with proxies.
 	 * This is required for further graph transformation, as only ProxyTasks provide pattern recognition.
 	 * @throws PatternMismatchException 
 	 */
-	private void taskToProxy(BusinessProcess bpg) throws PatternMismatchException{
+	private void taskToProxy(BusinessProcess bpg){
 		for(IFlowObject f:bpg.getFlowObjects()){
-			if(this.patternMatcher.matchPattern(f).getPatternType() == PatternType.SEQ){
+			if(this.patternMatcher.isValidPattern(f) && 
+					this.patternMatcher.matchPattern(f).getPatternType() == PatternType.SEQ){
 				// context switch to skeleton
 				ISkeleton seq = this.skeletonApi.createSkeleton(PatternType.SEQ, f);
 							
 				// create ProxyTask
 				IFlowObject prec = f.getPredecessor();
 				IFlowObject suc = f.getSuccessor();
-				ProxyTask t = new ProxyTask(seq, prec, suc);
+				ProxyTask t = new ProxyTask(seq, prec, suc, f, f);
 				
-				this.insertProxy(bpg, t);
+				
+				if(this.insertProxy(bpg, t)) {
+					this.clean(bpg);
+				}
 			}
 		}
 	}

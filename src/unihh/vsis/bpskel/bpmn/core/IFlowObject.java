@@ -49,4 +49,9 @@ public interface IFlowObject extends IBPMNElement{
 	String getDescription();
 	
 	void setDescription(String s);
+
+	/**
+	 * @return <code>true</code> if the FlowObject has no preceding and succeeding nodes.
+	 */
+	boolean isEmpty();
 }

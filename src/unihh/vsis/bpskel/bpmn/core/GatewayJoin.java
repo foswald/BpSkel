@@ -4,7 +4,7 @@ public abstract class GatewayJoin extends AbstractFlowObject implements IGateway
 	
 	private IFlowObject pred2;
 
-	public IFlowObject getPrededessor2() {
+	public IFlowObject getPredecessor2() {
 		return pred2;
 	}
 
@@ -16,4 +16,8 @@ public abstract class GatewayJoin extends AbstractFlowObject implements IGateway
 		this.pred2 = null;
 	}
 
+	@Override
+	public boolean isEmpty(){
+		return super.isEmpty() && pred2==null;
+	}
 }

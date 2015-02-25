@@ -1,7 +1,8 @@
 package unihh.vsis.bpskel.bpmn.api;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import unihh.vsis.bpskel.bpmn.core.EndElement;
 import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
@@ -12,13 +13,13 @@ import unihh.vsis.bpskel.bpmn.core.StartElement;
 
 public class BusinessProcess {
 	
-	private List<IFlowObject> flowObjects;
+	private Set<IFlowObject> flowObjects;
 	
 	private IFlowObject start;
 	private IFlowObject end;
 	
 	public BusinessProcess() {
-		flowObjects = new ArrayList<>();
+		flowObjects = new HashSet<IFlowObject>();
 		start = new StartElement();
 		end = new EndElement();
 	}
@@ -32,19 +33,35 @@ public class BusinessProcess {
 		source.setSuccessor(sink);
 		sink.setPredecessor(source);
 	}
-	
-	/**
-	 * Connects source with sink and resets previous connections if <code>reset=true</code>.
-	 * @param source
-	 * @param sink
-	 * @param reset
+
+	/** Reconnects an element to a new destination.
+	 * @note this works in both directions!
+	 * @param sourceElement
+	 * @param oldElement
+	 * @param newElement
 	 */
-	public void connect(IFlowObject source, IFlowObject sink, boolean reset){
-		if(reset) {
-			source.resetSuccessor();
-			sink.resetPredecessor();
+	public void reconnect(IFlowObject sourceElement, IFlowObject oldElement, IFlowObject newElement){
+		// no gateway means simply replace oldElement with newElement
+		if(sourceElement.getPredecessor()!=null && sourceElement.getPredecessor().equals(oldElement)){
+			sourceElement.setPredecessor(newElement);
 		}
-		this.connect(source, sink);
+		else if(sourceElement.getSuccessor()!=null && sourceElement.getSuccessor().equals(oldElement)){
+			sourceElement.setSuccessor(newElement);
+		}
+		else if(sourceElement instanceof GatewaySplit && 
+				((GatewaySplit) sourceElement).getSuccessor2().equals(oldElement)){
+			// try second element
+			((GatewaySplit) sourceElement).setSuccessor2(oldElement);
+		}
+		else if(sourceElement instanceof GatewayJoin && 
+				((GatewayJoin) sourceElement).getPredecessor2().equals(oldElement)){
+			// try second element
+			((GatewayJoin) sourceElement).setPredecessor2(oldElement);
+		}
+		else{
+			throw new Error("Old Element not referenced by sourceElement");
+		}
+		
 	}
 	
 	public void connectToJoin(IFlowObject source1, IFlowObject source2, GatewayJoin join){
@@ -69,7 +86,7 @@ public class BusinessProcess {
 		this.flowObjects.add(f);
 	}
 	
-	public List<IFlowObject> getFlowObjects(){
+	public Set<IFlowObject> getFlowObjects(){
 		return this.flowObjects;
 	}
 	

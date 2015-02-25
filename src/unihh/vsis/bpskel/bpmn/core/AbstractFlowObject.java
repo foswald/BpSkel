@@ -52,6 +52,11 @@ public abstract class AbstractFlowObject implements IFlowObject {
 	public IFlowObject getSuccessor() {
 		return succ;
 	}
+	
+	@Override 
+	public boolean isEmpty(){
+		return succ == null && pred == null;
+	}
 
 
 }

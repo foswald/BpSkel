@@ -15,8 +15,7 @@ public class SeqPattern implements IPattern{
 	}
 
 	@Override
-	public IFlowObject getEndElement(IFlowObject start)
-			throws PatternMismatchException {
+	public IFlowObject getEndElement(IFlowObject start){
 		return start;
 	}
 

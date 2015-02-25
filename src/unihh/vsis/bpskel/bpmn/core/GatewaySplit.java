@@ -22,4 +22,9 @@ public abstract class GatewaySplit extends AbstractFlowObject implements IGatewa
 		this.succ2 = null;
 	}
 	
+	@Override
+	public boolean isEmpty(){
+		return super.isEmpty() && succ2==null;
+	}
+	
 }

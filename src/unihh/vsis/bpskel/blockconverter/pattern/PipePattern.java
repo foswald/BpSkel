@@ -1,7 +1,6 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
-import unihh.vsis.bpskel.exceptions.PatternMismatchException;
 
 public class PipePattern implements IPattern {
 
@@ -15,9 +14,9 @@ public class PipePattern implements IPattern {
 	}
 
 	@Override
-	public IFlowObject getEndElement(IFlowObject start) throws PatternMismatchException {
+	public IFlowObject getEndElement(IFlowObject start){
 		if(!matchPattern(start)) {
-			throw new PatternMismatchException();
+			return null;
 		}
 		else {
 			return start.getSuccessor();

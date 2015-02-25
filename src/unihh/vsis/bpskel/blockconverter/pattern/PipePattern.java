@@ -8,7 +8,7 @@ public class PipePattern implements IPattern {
 	@Override
 	public boolean matchPattern(IFlowObject start) {
 		if(start instanceof ProxyTask 
-				&& start.getOutgoingFlowObjects().first instanceof ProxyTask){
+				&& start.getSuccessor() instanceof ProxyTask){
 			return true;
 		}
 		return false;
@@ -20,7 +20,7 @@ public class PipePattern implements IPattern {
 			throw new PatternMismatchException();
 		}
 		else {
-			return start.getOutgoingFlowObjects().first;
+			return start.getSuccessor();
 		}
 	}
 

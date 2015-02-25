@@ -8,24 +8,18 @@ package unihh.vsis.bpskel.bpmn.core;
  */
 public abstract class GatewaySplit extends AbstractFlowObject implements IGateway{
 	
-	public GatewaySplit(){
-		super();
-	}
-	
-	
-	public void setIncomingFlowObject(IFlowObject flowObject){
-		resetIncomingFlowObjects();
-		setIncomingFlowObject(flowObject);
+	private IFlowObject succ2;
+
+	public IFlowObject getSuccessor2() {
+		return succ2;
 	}
 
-	@Override
-	public boolean isFlowSplit(){
-		return true;
+	public void setSuccessor2(IFlowObject succ2) {
+		this.succ2 = succ2;
 	}
 	
-	@Override
-	public boolean isFlowJoin(){
-		return false;
+	public void resetSuccessor2() {
+		this.succ2 = null;
 	}
-
+	
 }

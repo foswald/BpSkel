@@ -1,4 +1,6 @@
-package unihh.vsis.bpskel.bpmn.core;
+package unihh.vsis.bpskel.old;
+
+import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
 
 /**

@@ -37,7 +37,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		
 		// do until whole bpg has been transformed
 		while(pro.getFlowObjects().size() > 3 && isValidBPG){
-			createSkeletonStructure(pro, pro.getStart().getOutgoingFlowObjects().first);
+			createSkeletonStructure(pro, pro.getStart().getSuccessor());
 		}
 			
 	}
@@ -57,15 +57,15 @@ public class SkeletonProcessEngine implements IProcessEngine{
 					IFlowObject lastPatternNode = p.getEndElement(currentNode);
 				
 					// create ProxyTask
-					IFlowObject prec = currentNode.getIncomingFlowObjects().first;
-					IFlowObject suc = lastPatternNode.getOutgoingFlowObjects().first;
+					IFlowObject prec = currentNode.getPredecessor();
+					IFlowObject suc = lastPatternNode.getSuccessor();
 					ProxyTask t = new ProxyTask(s, prec, suc);
 
 					// replace in BusinessProcess	
 					this.insertProxy(bpg, t);
 					
 					// continue with next node
-					currentNode = t.getOutgoingFlowObjects().first;
+					currentNode = t.getSuccessor();
 				} catch (PatternMismatchException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -75,8 +75,8 @@ public class SkeletonProcessEngine implements IProcessEngine{
 			else{
 				// check for a split and call recursively for each open branch
 				if(currentNode instanceof GatewaySplit){
-					IFlowObject branch1 = currentNode.getOutgoingFlowObjects().first;
-					IFlowObject branch2 = currentNode.getOutgoingFlowObjects().second;
+					IFlowObject branch1 = currentNode.getSuccessor();
+					IFlowObject branch2 = currentNode.getSuccessor();
 					if(!this.isValidBranch(branch1)){
 						this.createSkeletonStructure(bpg, branch1);
 					}
@@ -96,7 +96,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	 */
 	private boolean isValidBranch(IFlowObject node){
 		if((node instanceof ProxyTask) && 
-				(node.getOutgoingFlowObjects().first instanceof GatewayJoin) ) {
+				(node.getSuccessor() instanceof GatewayJoin) ) {
 			return true;
 		}
 		return false;
@@ -114,22 +114,22 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		boolean replacedSucc = false;
 		
 		// first handle start and endelement
-		if(proxyTask.getIncomingFlowObjects().first.equals(bpg.getStart())) {
+		if(proxyTask.getPredecessor().equals(bpg.getStart())) {
 			bpg.connect(bpg.getStart(), proxyTask, true);
 			replacedPred = true;
 		}
-		if(proxyTask.getOutgoingFlowObjects().first.equals(bpg.getEnd())) {
+		if(proxyTask.getSuccessor().equals(bpg.getEnd())) {
 			bpg.connect(proxyTask, bpg.getEnd(), true);
 			replacedSucc = true;
 		}
 		
 		for(int i=0; i < bpg.getFlowObjects().size() && (!replacedPred || !replacedSucc); i++){
 			IFlowObject f = bpg.getFlowObjects().get(i);
-			if(!replacedPred && f.equals(proxyTask.getIncomingFlowObjects().first)){
+			if(!replacedPred && f.equals(proxyTask.getPredecessor())){
 				bpg.connect(f, proxyTask, true);
 				replacedPred = true;				
 			}
-			else if(!replacedSucc && f.equals(proxyTask.getOutgoingFlowObjects().first)){
+			else if(!replacedSucc && f.equals(proxyTask.getSuccessor())){
 				bpg.connect(proxyTask, f, true);
 				replacedSucc = true;
 			}
@@ -152,8 +152,8 @@ public class SkeletonProcessEngine implements IProcessEngine{
 				ISkeleton seq = this.skeletonApi.createSkeleton(PatternType.SEQ, f);
 							
 				// create ProxyTask
-				IFlowObject prec = f.getIncomingFlowObjects().first;
-				IFlowObject suc = f.getOutgoingFlowObjects().first;
+				IFlowObject prec = f.getPredecessor();
+				IFlowObject suc = f.getSuccessor();
 				ProxyTask t = new ProxyTask(seq, prec, suc);
 				
 				this.insertProxy(bpg, t);

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import unihh.vsis.bpskel.bpmn.core.EndElement;
+import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
+import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 import unihh.vsis.bpskel.bpmn.core.IGateway;
 import unihh.vsis.bpskel.bpmn.core.StartElement;
@@ -27,8 +29,8 @@ public class BusinessProcess {
 	 * @param e2 Gateway or Task
 	 */
 	public void connect(IFlowObject source, IFlowObject sink){
-		source.addOutgoingFlowObject(sink);
-		sink.addIncomingFlowObject(source);
+		source.setSuccessor(sink);
+		sink.setPredecessor(source);
 	}
 	
 	/**
@@ -39,24 +41,24 @@ public class BusinessProcess {
 	 */
 	public void connect(IFlowObject source, IFlowObject sink, boolean reset){
 		if(reset) {
-			source.resetOutgoingFlowObjects();
-			sink.resetIncomingFlowObjects();
+			source.resetSuccessor();
+			sink.resetPredecessor();
 		}
 		this.connect(source, sink);
 	}
 	
-	public void connectToJoin(IFlowObject source1, IFlowObject source2, IFlowObject join){
-		source1.addOutgoingFlowObject(join);
-		source2.addOutgoingFlowObject(join);
-		join.addIncomingFlowObject(source1);
-		join.addIncomingFlowObject(source2);
+	public void connectToJoin(IFlowObject source1, IFlowObject source2, GatewayJoin join){
+		source1.setSuccessor(join);
+		source2.setSuccessor(join);
+		join.setPredecessor(source1);
+		join.setPredecessor2(source2);
 	}
 	
-	public void connectFromSplit(IFlowObject source, IFlowObject branch1, IFlowObject branch2){
-		source.addOutgoingFlowObject(branch1);
-		source.addOutgoingFlowObject(branch2);
-		branch1.addIncomingFlowObject(source);
-		branch2.addIncomingFlowObject(source);
+	public void connectFromSplit(GatewaySplit source, IFlowObject branch1, IFlowObject branch2){
+		source.setSuccessor(branch1);
+		source.setSuccessor2(branch2);
+		branch1.setPredecessor(source);
+		branch2.setPredecessor(source);
 	}
 	
 	public void addTask(ITask t){

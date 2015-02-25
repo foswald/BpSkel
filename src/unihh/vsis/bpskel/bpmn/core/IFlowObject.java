@@ -5,7 +5,7 @@ package unihh.vsis.bpskel.bpmn.core;
  * This is the basic Interface for all FlowObjects.<br>
  * FlowObjects are Activities(Tasks), Events and Gateways.
  * 
- * A FlowObject has exacty one predecessor and one successor.
+ * A FlowObject has exactly one predecessor and one successor.
  *  
  * @author foswald
  *
@@ -16,35 +16,35 @@ public interface IFlowObject extends IBPMNElement{
 	 * Returns one or more FlowObjects preceding this FlowObject.
 	 * @return
 	 */
-	FlowObjectContainer getIncomingFlowObjects();
+	IFlowObject getPredecessor();
 	
 	/**
 	 * Returns one or more FlowObjects succeeding this FlowObject.
 	 * @return
 	 */
-	FlowObjectContainer getOutgoingFlowObjects();
+	IFlowObject getSuccessor();
 	
 	/**
 	 * Reset the list of incoming FlowObjects
 	 */
-	void resetIncomingFlowObjects();
+	void resetPredecessor();
 	
 	/**
 	 * Reset the list of outgoing FlowObjects
 	 */
-	void resetOutgoingFlowObjects();
+	void resetSuccessor();
 	
 	/**
 	 * Add an incomingFlowObject
 	 * @param flowObject
 	 */
-	void addIncomingFlowObject(IFlowObject flowObject);
+	void setPredecessor(IFlowObject flowObject);
 	
 	/**
 	 * Add an outgoingFlowObject
 	 * @param flowObject
 	 */
-	void addOutgoingFlowObject(IFlowObject flowObject);
+	void setSuccessor(IFlowObject flowObject);
 	
 	String getDescription();
 	

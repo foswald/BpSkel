@@ -46,7 +46,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 	@Override
 	public ISkeleton createPipeSkeleton(IFlowObject startingNode) {
 		Execute<IDataContainer, IDataContainer> ex1 = new ExecMuscleTask((ITask)startingNode);
-		Execute<IDataContainer, IDataContainer> ex2 = new ExecMuscleTask((ITask)startingNode.getOutgoingFlowObjects().first);
+		Execute<IDataContainer, IDataContainer> ex2 = new ExecMuscleTask((ITask)startingNode.getSuccessor());
 		ISkeleton s = new SkandiumSkeleton(new Pipe<IDataContainer,IDataContainer>(ex1, ex2));
 		return s;
 	}

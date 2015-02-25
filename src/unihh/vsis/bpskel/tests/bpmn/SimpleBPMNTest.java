@@ -5,7 +5,8 @@ import org.junit.Test;
 import unihh.vsis.bpskel.bpmn.api.BPMNFactory;
 import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
 import unihh.vsis.bpskel.bpmn.api.ITask;
-import unihh.vsis.bpskel.bpmn.core.IGateway;
+import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
+import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 import unihh.vsis.bpskel.bpmn.core.SimpleProcessEngine;
 
 public class SimpleBPMNTest {
@@ -23,12 +24,12 @@ public class SimpleBPMNTest {
 		ITask tr = new RandomizeTask();
 		
 		// create XorGateway and split condition for gateway
-		IGateway splitXor1 = BPMNFactory.createGatewayXorSplit(" < ", tr.getResultData(), new DataContainer(5));
-		IGateway joinXor1 = BPMNFactory.createGatewayXorJoin();
+		GatewaySplit splitXor1 = BPMNFactory.createGatewayXorSplit(" < ", tr.getResultData(), new DataContainer(5));
+		GatewayJoin joinXor1 = BPMNFactory.createGatewayXorJoin();
 		
 		// Create And Gateway
-		IGateway splitAnd1 = BPMNFactory.createGatewayAndSplit();
-		IGateway joinAnd1 = BPMNFactory.createGatewayAndJoin();
+		GatewaySplit splitAnd1 = BPMNFactory.createGatewayAndSplit();
+		GatewayJoin joinAnd1 = BPMNFactory.createGatewayAndJoin();
 		
 		// create BuisnessProcess
 		BusinessProcess pro = new BusinessProcess();

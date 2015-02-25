@@ -9,7 +9,7 @@ public class ForkPattern extends AbstractSplitPattern {
 	public boolean matchPattern(IFlowObject start) {
 		boolean valid = false;
 		if(start instanceof GatewayAndSplit){
-			valid = super.matchSplitPattern(start);
+			valid = super.matchSplitPattern((GatewayAndSplit)start);
 		}
 		return valid;
 	}

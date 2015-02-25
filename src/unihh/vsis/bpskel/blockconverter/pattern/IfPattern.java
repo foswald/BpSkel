@@ -9,7 +9,7 @@ public class IfPattern extends AbstractSplitPattern {
 	public boolean matchPattern(IFlowObject start) {
 		boolean valid = false;
 		if(start instanceof GatewayXorSplit){
-			valid = super.matchSplitPattern(start);
+			valid = super.matchSplitPattern((GatewayXorSplit)start);
 
 		}
 		return valid;

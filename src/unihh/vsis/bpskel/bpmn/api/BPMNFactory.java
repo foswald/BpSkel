@@ -1,10 +1,10 @@
 package unihh.vsis.bpskel.bpmn.api;
 
 import unihh.vsis.bpskel.bpmn.core.EndElement;
-import unihh.vsis.bpskel.bpmn.core.IProcessEngine;
+import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
+import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 import unihh.vsis.bpskel.bpmn.core.ICondition;
-import unihh.vsis.bpskel.bpmn.core.IGateway;
-import unihh.vsis.bpskel.bpmn.core.SimpleProcessEngine;
+import unihh.vsis.bpskel.bpmn.core.IProcessEngine;
 import unihh.vsis.bpskel.bpmn.core.StartElement;
 import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndJoin;
 import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndSplit;
@@ -46,21 +46,21 @@ public class BPMNFactory {
 		return end;
 	}
 	
-	public static IGateway createGatewayAndSplit(){
+	public static GatewaySplit createGatewayAndSplit(){
 		return new GatewayAndSplit();
 	}
 	
-	public static IGateway createGatewayAndJoin(){
+	public static GatewayJoin createGatewayAndJoin(){
 		return new GatewayAndJoin();
 	}
 
-	public static IGateway createGatewayXorSplit(ICondition cond){
+	public static GatewaySplit createGatewayXorSplit(ICondition cond){
 		return new GatewayXorSplit(cond);
 	}
 	
 	
 	
-	public static IGateway createGatewayXorJoin(){
+	public static GatewayJoin createGatewayXorJoin(){
 		return new GatewayXorJoin();
 	}
 
@@ -73,7 +73,7 @@ public class BPMNFactory {
 	 * @param rhs the right hand side of the boolean expression
 	 * @return A XOR gateway evaluating the given expression when processed.
 	 */
-	public static IGateway createGatewayXorSplit(String string,
+	public static GatewaySplit createGatewayXorSplit(String string,
 			IDataContainer lhs, IDataContainer rhs) {
 		return createGatewayXorSplit(new Condition(string, lhs, rhs));
 	}

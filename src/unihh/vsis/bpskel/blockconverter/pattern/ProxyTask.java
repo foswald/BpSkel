@@ -18,7 +18,7 @@ public class ProxyTask extends AbstractFlowObject{
 		this.skelRef = skelRef;
 		
 		super.setDescription("ProxyTask");		
-		super.addIncomingFlowObject(preceeding);
-		super.addOutgoingFlowObject(succeeding);
+		super.setPredecessor(preceeding);
+		super.setSuccessor(succeeding);
 	}
 }

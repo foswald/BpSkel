@@ -16,7 +16,7 @@ public class SimpleProcessEngine implements IProcessEngine{
 	public void execute(BusinessProcess pro) {
 		visitedAndSplits = new Stack<>();
 		// first find element after start
-		IFlowObject f = pro.getStart().getOutgoingFlowObjects().first;
+		IFlowObject f = pro.getStart().getSuccessor();
 		run(f);
 
 	}
@@ -28,7 +28,7 @@ public class SimpleProcessEngine implements IProcessEngine{
 				((ITask) f).execute();				
 			}
 			// Process next element
-			IFlowObject next = f.getOutgoingFlowObjects().first;
+			IFlowObject next = f.getSuccessor();
 			
 			// check if we have Gateway and might branch
 			if(next instanceof IGateway) {
@@ -38,18 +38,18 @@ public class SimpleProcessEngine implements IProcessEngine{
 					GatewayAndSplit split = visitedAndSplits.lastElement();
 					if(!split.didBranch()){
 						// We computed the first branch of an AND split, fetch the second element of the split
-						next = split.getOutgoingFlowObjects().second;
+						next = split.getSuccessor2();
 						split.setBranched();
 					}
 					else if(split.didBranch()){
 						// the second branch arrived, so its safe to proceed
-						next = next.getOutgoingFlowObjects().first;
+						next = next.getSuccessor();
 						visitedAndSplits.pop();
 					}
 				}
 				else if(next instanceof GatewayAndSplit){
 					visitedAndSplits.push((GatewayAndSplit) next);
-					next = next.getOutgoingFlowObjects().first;
+					next = next.getSuccessor();
 				}
 				
 				// next from AND task might be XOR split

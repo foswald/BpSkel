@@ -14,7 +14,7 @@ public class EndElement extends AbstractFlowObject {
 	}
 	
 	@Override
-	public FlowObjectContainer getOutgoingFlowObjects(){
+	public IFlowObject getSuccessor(){
 		return null;
 	}
 }

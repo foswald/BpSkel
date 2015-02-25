@@ -1,14 +1,15 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
 import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
+import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
 public abstract class AbstractSplitPattern implements IPattern {
 
-	public boolean matchSplitPattern(IFlowObject start) {
+	public boolean matchSplitPattern(GatewaySplit start) {
 		boolean valid = false;
-		IFlowObject first = start.getOutgoingFlowObjects().first;
-		IFlowObject second = start.getOutgoingFlowObjects().second;
+		IFlowObject first = start.getSuccessor();
+		IFlowObject second = start.getSuccessor2();
 		// we must have two succeeding objects, both of them must be a component to make folding possible
 		
 		// either one might be the direct join (in case we only have one task in an XOR), 
@@ -22,33 +23,37 @@ public abstract class AbstractSplitPattern implements IPattern {
 		}
 		else if(!firstEmpty && secondEmpty) {
 			valid = first instanceof ProxyTask;
-			valid &= first.getOutgoingFlowObjects().first.equals(second);
+			valid &= first.getSuccessor().equals(second);
 		}
 		else if(firstEmpty && !secondEmpty) {
 			valid = second instanceof ProxyTask;
-			valid &= second.getOutgoingFlowObjects().first.equals(first);
+			valid &= second.getSuccessor().equals(first);
 		}
 		else if(!firstEmpty && !secondEmpty) {
 			valid = (second instanceof ProxyTask) && (first instanceof ProxyTask);
-			valid &= second.getOutgoingFlowObjects().first.equals(first.getOutgoingFlowObjects().first);
+			valid &= second.getSuccessor().equals(first.getSuccessor());
 		}
 		return valid;
 	}
 
 	@Override
 	public IFlowObject getEndElement(IFlowObject start){
-		if(matchSplitPattern(start)){
-			IFlowObject first = start.getOutgoingFlowObjects().first;
-			IFlowObject second = start.getOutgoingFlowObjects().second;
-			
-			if(first instanceof GatewayJoin){
-				return first;
-			}
-			else if(second instanceof GatewayJoin){
-				return second;
-			}
-			else {
-				return first.getOutgoingFlowObjects().first;
+		if(start instanceof GatewaySplit){
+			GatewaySplit split = (GatewaySplit)start;
+		
+			if(matchSplitPattern(split)){
+				IFlowObject first = split.getSuccessor();
+				IFlowObject second = split.getSuccessor2();
+				
+				if(first instanceof GatewayJoin){
+					return first;
+				}
+				else if(second instanceof GatewayJoin){
+					return second;
+				}
+				else {
+					return first.getSuccessor();
+				}
 			}
 		}
 		return null;

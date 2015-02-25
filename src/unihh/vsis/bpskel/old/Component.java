@@ -1,8 +1,8 @@
-package unihh.vsis.bpskel.blockconverter.pattern;
+package unihh.vsis.bpskel.old;
 
 import java.util.List;
 
-import unihh.vsis.bpskel.api.skeleton.ISkeleton;
+import unihh.vsis.bpskel.blockconverter.pattern.IPattern;
 import unihh.vsis.bpskel.bpmn.core.AbstractFlowObject;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
@@ -20,12 +20,12 @@ public class Component extends AbstractFlowObject{
 	/** The parent component of this */
 	Component parent;
 	
-	public Component(IPattern pattern, IFlowObject...content){
-		this.addIncomingFlowObject(content[0].getIncomingFlowObjects().first);
-		this.addOutgoingFlowObject(content[content.length-1].getOutgoingFlowObjects().first);
-		for(IFlowObject c : content){
-			this.content.add(c);
-		}
-		this.pattern = pattern;
-	}	
+//	public Component(IPattern pattern, IFlowObject...content){
+//		this.addPredecessor(content[0].getPredecessor().first);
+//		this.addSuccessor(content[content.length-1].getSuccessor().first);
+//		for(IFlowObject c : content){
+//			this.content.add(c);
+//		}
+//		this.pattern = pattern;
+//	}	
 }

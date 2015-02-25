@@ -8,15 +8,10 @@ package unihh.vsis.bpskel.bpmn.core;
  */
 public abstract class AbstractFlowObject implements IFlowObject {
 
-	private FlowObjectContainer incomingFlowObjects;
-	private FlowObjectContainer outgoingFlowObjects;
+	private IFlowObject pred;
+	private IFlowObject succ;
 	
 	private String description;
-	
-	public AbstractFlowObject(){
-		incomingFlowObjects = new FlowObjectContainer();
-		outgoingFlowObjects = new FlowObjectContainer();
-	}
 	
 	@Override
 	public void setDescription(String s){
@@ -29,49 +24,33 @@ public abstract class AbstractFlowObject implements IFlowObject {
 	}
 
 	@Override
-	public void resetIncomingFlowObjects(){
-		incomingFlowObjects = new FlowObjectContainer();
+	public void resetPredecessor(){
+		pred = null;
 	}
 
 	@Override
-	public void resetOutgoingFlowObjects(){
-		outgoingFlowObjects = new FlowObjectContainer();
+	public void resetSuccessor(){
+		succ = null;
 	}
 
 	@Override
-	public void addIncomingFlowObject(IFlowObject flowObject){
-		if(incomingFlowObjects.first == null){
-			incomingFlowObjects.first = flowObject;
-		}
-		else if(incomingFlowObjects.second == null){
-			incomingFlowObjects.second = flowObject;
-		}
-		else {
-			throw new Error("All connections occupied. Reset first!");
-		}
+	public void setPredecessor(IFlowObject flowObject){
+		pred = flowObject;
 	}
 	
 	@Override
-	public void addOutgoingFlowObject(IFlowObject flowObject){
-		if(outgoingFlowObjects.first == null){
-			outgoingFlowObjects.first = flowObject;
-		}
-		else if(outgoingFlowObjects.second == null){
-			outgoingFlowObjects.second = flowObject;
-		}
-		else {
-			throw new Error("All connections occupied. Reset first!");
-		}
+	public void setSuccessor(IFlowObject flowObject){
+		succ = flowObject;
 	}
 	
 	@Override
-	public FlowObjectContainer getIncomingFlowObjects() {
-		return incomingFlowObjects;
+	public IFlowObject getPredecessor() {
+		return pred;
 	}
 
 	@Override
-	public FlowObjectContainer getOutgoingFlowObjects() {
-		return outgoingFlowObjects;
+	public IFlowObject getSuccessor() {
+		return succ;
 	}
 
 

@@ -12,5 +12,5 @@ public interface ITask extends IFlowObject{
 	 * Any FlowObject has either ResultData of preceding FlowObjects (such as Gateways) or produces them (such as Tasks)
 	 * @return
 	 */
-	IDataContainer getResultData();		
+	IDataContainer getResultData();
 }

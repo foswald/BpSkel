@@ -11,9 +11,9 @@ import bpskel.bpg.impl.gateway.GatewayXorJoin;
 import bpskel.bpg.impl.gateway.GatewayXorSplit;
 
 
-public class BPMNFactory {
+public class BPGFactory {
 
-	static private BPMNFactory instance;
+	static private BPGFactory instance;
 	
 	// only one start/end element
 	private static StartElement start;
@@ -21,7 +21,7 @@ public class BPMNFactory {
 	
 	private static IProcessEngine engine;
 
-	private BPMNFactory(IProcessEngine pe){
+	private BPGFactory(IProcessEngine pe){
 		start = new StartElement();
 		end = new EndElement();
 		engine = pe;
@@ -29,7 +29,7 @@ public class BPMNFactory {
 	
 	public static void initialize(IProcessEngine pe){
 		if(instance == null){
-			instance = new BPMNFactory(pe);
+			instance = new BPGFactory(pe);
 		}
 	}
 	

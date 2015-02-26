@@ -1,8 +1,8 @@
-package bpskel.bpg.impl;
+package bpskel.bpg.impl.executor.simple;
 
 import java.util.Stack;
 
-import bpskel.bpg.api.BusinessProcess;
+import bpskel.bpg.api.BusinessProcessGraph;
 import bpskel.bpg.api.IProcessEngine;
 import bpskel.bpg.api.ITask;
 import bpskel.bpg.impl.core.EndElement;
@@ -17,7 +17,7 @@ public class SimpleProcessEngine implements IProcessEngine{
 	private static Stack<GatewayAndSplit> visitedAndSplits;
 
 	@Override
-	public void execute(BusinessProcess pro) {
+	public void execute(BusinessProcessGraph pro) {
 		visitedAndSplits = new Stack<>();
 		// first find element after start
 		IFlowObject f = pro.getStart().getSuccessor();

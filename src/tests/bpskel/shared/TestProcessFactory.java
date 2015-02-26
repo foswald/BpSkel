@@ -3,15 +3,15 @@ package tests.bpskel.shared;
 import tests.bpskel.bpg.DataContainer;
 import tests.bpskel.bpg.RandomizeTask;
 import tests.bpskel.bpg.ToStringTask;
-import bpskel.bpg.api.BPMNFactory;
-import bpskel.bpg.api.BusinessProcess;
+import bpskel.bpg.api.BPGFactory;
+import bpskel.bpg.api.BusinessProcessGraph;
 import bpskel.bpg.api.ITask;
 import bpskel.bpg.impl.gateway.GatewayJoin;
 import bpskel.bpg.impl.gateway.GatewaySplit;
 
 public class TestProcessFactory {
 
-	public static BusinessProcess generateProcess1(){
+	public static BusinessProcessGraph generateProcess1(){
 		ITask t1 = new ToStringTask("FirstTask");
 		ITask t2 = new ToStringTask("SecondTask");	
 		
@@ -21,15 +21,15 @@ public class TestProcessFactory {
 		ITask tr = new RandomizeTask();
 		
 		// create XorGateway and split condition for gateway
-		GatewaySplit splitXor1 = BPMNFactory.createGatewayXorSplit(" < ", tr.getResultData(), new DataContainer(5));
-		GatewayJoin joinXor1 = BPMNFactory.createGatewayXorJoin();
+		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", tr.getResultData(), new DataContainer(5));
+		GatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// Create And Gateway
-		GatewaySplit splitAnd1 = BPMNFactory.createGatewayAndSplit();
-		GatewayJoin joinAnd1 = BPMNFactory.createGatewayAndJoin();
+		GatewaySplit splitAnd1 = BPGFactory.createGatewayAndSplit();
+		GatewayJoin joinAnd1 = BPGFactory.createGatewayAndJoin();
 		
 		// create BuisnessProcess
-		BusinessProcess pro = new BusinessProcess();
+		BusinessProcessGraph pro = new BusinessProcessGraph();
 		
 		// add elements to process
 		pro.addTask(tr);		
@@ -55,17 +55,17 @@ public class TestProcessFactory {
 		return pro;
 	}
 	
-	public static BusinessProcess generatePipeXorPipeBPG(){
+	public static BusinessProcessGraph generatePipeXorPipeBPG(){
 		ITask t1 = new RandomizeTask();
 		ITask t2 = new ToStringTask("Task2.1-Xor");			
 		ITask t3 = new ToStringTask("Task2.2-Xor");
 		ITask t4 = new ToStringTask("Task3-Pipe");
 		
-		GatewaySplit splitXor1 = BPMNFactory.createGatewayXorSplit(" < ", t1.getResultData(), new DataContainer(5));
-		GatewayJoin joinXor1 = BPMNFactory.createGatewayXorJoin();
+		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", t1.getResultData(), new DataContainer(5));
+		GatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// create BuisnessProcess
-		BusinessProcess pro = new BusinessProcess();
+		BusinessProcessGraph pro = new BusinessProcessGraph();
 		
 		// add elements to process	
 		pro.addTask(t1);

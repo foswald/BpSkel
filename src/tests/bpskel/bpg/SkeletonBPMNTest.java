@@ -2,20 +2,21 @@ package tests.bpskel.bpg;
 
 import org.junit.Test;
 
-import bpskel.bpg.api.BPMNFactory;
-import bpskel.bpg.api.BusinessProcess;
+import bpskel.bpg.api.BPGFactory;
+import bpskel.bpg.api.BusinessProcessGraph;
 import bpskel.skeleton.api.SkeletonProcessEngine;
+import bpskel.skeleton.impl.executor.skandium.SkandiumConnector;
 import tests.bpskel.shared.TestProcessFactory;
 
 public class SkeletonBPMNTest {
 
 	@Test
 	public void testBusinessProcess() {
-		BPMNFactory.initialize(new SkeletonProcessEngine());
+		BPGFactory.initialize(new SkeletonProcessEngine(SkandiumConnector.class));
 		
-		BusinessProcess pro = TestProcessFactory.generatePipeXorPipeBPG();
+		BusinessProcessGraph pro = TestProcessFactory.generatePipeXorPipeBPG();
 		
-		BPMNFactory.getProcessEngine().execute(pro);
+		BPGFactory.getProcessEngine().execute(pro);
 	}
 
 }

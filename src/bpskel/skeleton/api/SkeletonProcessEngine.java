@@ -1,8 +1,6 @@
 package bpskel.skeleton.api;
 
-import java.util.Iterator;
-
-import bpskel.bpg.api.BusinessProcess;
+import bpskel.bpg.api.BusinessProcessGraph;
 import bpskel.bpg.api.IGatewayJoin;
 import bpskel.bpg.api.IGatewaySplit;
 import bpskel.bpg.api.IProcessEngine;
@@ -10,11 +8,8 @@ import bpskel.bpg.impl.core.EndElement;
 import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.bpg.impl.gateway.GatewayJoin;
 import bpskel.bpg.impl.gateway.GatewaySplit;
-import bpskel.exceptions.PatternMismatchException;
-import bpskel.skeleton.impl.executor.skandium.SkandiumConnector;
 import bpskel.skeleton.impl.pattern.IPattern;
 import bpskel.skeleton.impl.pattern.PatternMatcher;
-import bpskel.skeleton.impl.pattern.PatternType;
 import bpskel.skeleton.impl.pattern.ProxyTask;
 
 public class SkeletonProcessEngine implements IProcessEngine{
@@ -22,13 +17,17 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	ISkeletonAPI skeletonApi;
 	PatternMatcher patternMatcher;
 	
-	public SkeletonProcessEngine(){
-		this.skeletonApi = new SkandiumConnector();
+	public SkeletonProcessEngine(Class<? extends ISkeletonAPI> skeletonApi){
+		try {
+			this.skeletonApi = skeletonApi.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		this.patternMatcher = new PatternMatcher();
 		
 	}
 	@Override
-	public void execute(BusinessProcess pro) {
+	public void execute(BusinessProcessGraph pro) {
 
 		// do until whole bpg has been transformed
 		while(!pro.getStart().getSuccessor().getSuccessor().equals(pro.getEnd())){
@@ -38,11 +37,11 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		ProxyTask root = (ProxyTask) pro.getStart().getSuccessor();
 		
 		// now start the skeleton application
-		this.skeletonApi.execute(root.getSkeletonReference(), null);
+		this.skeletonApi.execute(root.getSkeletonReference());
 			
 	}
 	
-	public void createSkeletonStructure(BusinessProcess bpg, IFlowObject currentNode) {
+	private void createSkeletonStructure(BusinessProcessGraph bpg, IFlowObject currentNode) {
 		
 		// run until end of bpg has been reached
 		while(!(currentNode instanceof EndElement)) {			
@@ -107,44 +106,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		}
 		return false;
 	}
-	
-	/**
-	 * Inserts the <code>proxyTask</code> in <code>bpg</code>.
-	 * @note The old FlowObjects are not removed from the <code>bpg</code>. Call <code>clean()</code> to remove them.
-	 * @param bpg
-	 * @param proxyTask
-	 * @return <code>true</code> if the nodes could be successfully replaced
-	 */
-	private boolean insertProxy(BusinessProcess bpg, ProxyTask proxyTask){
-		boolean replacedPred = false;
-		boolean replacedSucc = false;
 		
-		// first handle start and endelement
-		if(proxyTask.getPredecessor().equals(bpg.getStart())) {
-			bpg.reconnect(bpg.getStart(), proxyTask.getEntryNode(), proxyTask);
-			replacedPred = true;
-		}
-		if(proxyTask.getSuccessor().equals(bpg.getEnd())) {
-			bpg.reconnect(bpg.getEnd(), proxyTask.getExitNode(), proxyTask);
-			replacedSucc = true;
-		}
-		Iterator<IFlowObject> it=bpg.getFlowObjects().iterator(); 
-		while(it.hasNext() && (!replacedPred || !replacedSucc)){
-			IFlowObject f = it.next();
-			if(!replacedPred && f.equals(proxyTask.getPredecessor())){
-				bpg.reconnect(f, proxyTask.getEntryNode(), proxyTask);
-				replacedPred = true;				
-			}
-			else if(!replacedSucc && f.equals(proxyTask.getSuccessor())){
-				bpg.reconnect(f, proxyTask.getExitNode(), proxyTask);
-				replacedSucc = true;
-			}
-		}
-		
-		return replacedPred && replacedSucc;
-		
-	}
-	
 	/**
 	 * Inserts the <code>proxyTask</code> in <code>bpg</code>.
 	 * @note The old FlowObjects are not removed from the <code>bpg</code>. Call <code>clean()</code> to remove them.
@@ -190,44 +152,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		
 		return replacedSucc && replacedPred;
 	}
-	
-	private void clean(BusinessProcess bpg){
-		Iterator<IFlowObject> it=bpg.getFlowObjects().iterator(); 
-		while(it.hasNext()){
-			IFlowObject f = it.next();
-			if(f.isEmpty()){
-				it.remove();
-			}
-					
-		}
-	}
-	
-	
-	/**
-	 * Iterates over all elements and replaces plain tasks with proxies.
-	 * This is required for further graph transformation, as only ProxyTasks provide pattern recognition.
-	 * @throws PatternMismatchException 
-	 */
-	@SuppressWarnings("unused")
-	private void taskToProxy(BusinessProcess bpg){
-		for(IFlowObject f:bpg.getFlowObjects()){
-			if(this.patternMatcher.isValidPattern(f) && 
-					this.patternMatcher.matchPattern(f).getPatternType() == PatternType.SEQ){
-				// context switch to skeleton
-				ISkeleton seq = this.skeletonApi.createSkeleton(PatternType.SEQ, f);
-							
-				// create ProxyTask
-				IFlowObject prec = f.getPredecessor();
-				IFlowObject suc = f.getSuccessor();
-				ProxyTask t = new ProxyTask(seq, prec, suc, f, f);
-				
-				
-				if(this.insertProxy(bpg, t)) {
-					this.clean(bpg);
-				}
-			}
-		}
-	}
+		
 
 	@Override
 	public boolean initialize() {

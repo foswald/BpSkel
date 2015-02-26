@@ -1,6 +1,5 @@
 package bpskel.skeleton.api;
 
-import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.skeleton.impl.pattern.PatternType;
 
@@ -17,5 +16,5 @@ public interface ISkeletonAPI {
 	ISkeleton createForkSkeleton(IFlowObject startingNode);
 	ISkeleton createDCSkeleton(IFlowObject startingNode);
 
-	void execute(ISkeleton iSkeleton, IDataContainer initialInput);
+	void execute(ISkeleton skeletonReference);
 }

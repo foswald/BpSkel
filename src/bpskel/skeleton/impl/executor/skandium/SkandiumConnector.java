@@ -115,12 +115,12 @@ public class SkandiumConnector implements ISkeletonAPI {
 	}
 
 	@Override
-	public void execute(ISkeleton skeleton, IDataContainer initialInput) {
+	public void execute(ISkeleton skeleton) {
 		Skeleton<IDataContainer, IDataContainer> skel = skeleton.getSkeletonRef();
 
 		Skandium skandium = new Skandium(8);
 
-		Future<IDataContainer> future = skel.input(initialInput);
+		Future<IDataContainer> future = skel.input((IDataContainer)null);
 		
 		long init = System.currentTimeMillis();
 		IDataContainer out;

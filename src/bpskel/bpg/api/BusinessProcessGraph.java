@@ -1,6 +1,7 @@
 package bpskel.bpg.api;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import bpskel.bpg.impl.core.EndElement;
@@ -10,14 +11,14 @@ import bpskel.bpg.impl.gateway.GatewayJoin;
 import bpskel.bpg.impl.gateway.GatewaySplit;
 import bpskel.bpg.impl.gateway.IGateway;
 
-public class BusinessProcess {
+public class BusinessProcessGraph {
 	
 	private Set<IFlowObject> flowObjects;
 	
 	private IFlowObject start;
 	private IFlowObject end;
 	
-	public BusinessProcess() {
+	public BusinessProcessGraph() {
 		flowObjects = new HashSet<IFlowObject>();
 		start = new StartElement();
 		end = new EndElement();
@@ -84,17 +85,27 @@ public class BusinessProcess {
 	public void addGateway(IGateway f){
 		this.flowObjects.add(f);
 	}
-	
-	public Set<IFlowObject> getFlowObjects(){
-		return this.flowObjects;
-	}
-	
+		
 	public IFlowObject getStart(){
 		return start;
 	}
 
 	public IFlowObject getEnd() {
 		return end;
+	}
+	
+	private Set<IFlowObject> getFlowObjects(){
+		return this.flowObjects;
+	}
+	
+	public void clean(){
+		Iterator<IFlowObject> it=this.getFlowObjects().iterator(); 
+		while(it.hasNext()){
+			IFlowObject f = it.next();
+			if(f.isEmpty()){
+				it.remove();
+			}
+		}
 	}
 
 }

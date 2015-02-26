@@ -1,7 +1,7 @@
 package bpskel.engine.skeleton.impl.pattern;
 
-import bpskel.api.ITask;
-import bpskel.impl.core.IFlowObject;
+import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.core.IFlowObject;
 
 public class SeqPattern implements IPattern{
 

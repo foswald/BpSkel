@@ -1,11 +1,13 @@
-package bpskel.api;
+package bpskel.bpg.api;
 
-import bpskel.impl.core.IFlowObject;
+import java.util.concurrent.ExecutionException;
+
+import bpskel.bpg.impl.core.IFlowObject;
 
 public interface ITask extends IFlowObject{
 
 	void setInputData(IDataContainer in);
-	void execute();
+	void execute() throws ExecutionException;
 	/**
 	 * Returns a data container describing any type of result data from previous tasks or Gateways (i.e. FlowObjects)
 	 * These will be evaluated by IConditional Objects such as SplitGateways.

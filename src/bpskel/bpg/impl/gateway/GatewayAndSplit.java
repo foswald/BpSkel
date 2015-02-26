@@ -1,4 +1,4 @@
-package bpskel.impl.gateway;
+package bpskel.bpg.impl.gateway;
 
 
 public class GatewayAndSplit extends GatewaySplit {

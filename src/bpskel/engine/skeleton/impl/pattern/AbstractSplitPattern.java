@@ -1,8 +1,8 @@
 package bpskel.engine.skeleton.impl.pattern;
 
-import bpskel.impl.core.IFlowObject;
-import bpskel.impl.gateway.GatewayJoin;
-import bpskel.impl.gateway.GatewaySplit;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
 
 public abstract class AbstractSplitPattern implements IPattern {
 

@@ -1,7 +1,7 @@
-package bpskel.impl.gateway;
+package bpskel.bpg.impl.gateway;
 
-import bpskel.api.ICondition;
-import bpskel.impl.core.IFlowObject;
+import bpskel.bpg.api.ICondition;
+import bpskel.bpg.impl.core.IFlowObject;
 
 /**
  * Describes Gateways which have to decide for which path to proceed.

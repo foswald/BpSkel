@@ -1,14 +1,14 @@
-package bpskel.api;
+package bpskel.bpg.api;
 
-import bpskel.impl.core.Condition;
-import bpskel.impl.core.EndElement;
-import bpskel.impl.core.StartElement;
-import bpskel.impl.gateway.GatewayAndJoin;
-import bpskel.impl.gateway.GatewayAndSplit;
-import bpskel.impl.gateway.GatewayJoin;
-import bpskel.impl.gateway.GatewaySplit;
-import bpskel.impl.gateway.GatewayXorJoin;
-import bpskel.impl.gateway.GatewayXorSplit;
+import bpskel.bpg.impl.core.Condition;
+import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.StartElement;
+import bpskel.bpg.impl.gateway.GatewayAndJoin;
+import bpskel.bpg.impl.gateway.GatewayAndSplit;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
+import bpskel.bpg.impl.gateway.GatewayXorJoin;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
 
 
 public class BPGFactory {
@@ -74,7 +74,13 @@ public class BPGFactory {
 	 */
 	public static GatewaySplit createGatewayXorSplit(String string,
 			IDataContainer lhs, IDataContainer rhs) {
-		return createGatewayXorSplit(new Condition(string, lhs, rhs));
+		return createGatewayXorSplit(createCondition(string, lhs, rhs));
+	}
+	
+	
+	public static ICondition createCondition(String string,
+			IDataContainer lhs, IDataContainer rhs){
+		return new Condition(string, lhs, rhs);
 	}
 	
 	public static ITask createTask(ITask task){

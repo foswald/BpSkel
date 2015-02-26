@@ -1,21 +1,20 @@
 package tests.bpskel.bpg;
 
-import bpskel.api.IDataContainer;
+import bpskel.bpg.api.IDataContainer;
 
-public class DataContainer implements IDataContainer {
+public class UniversalContainer implements IDataContainer {
 
 	Object data;
-	public DataContainer(String s){
+	public UniversalContainer(String s){
 		this.data = s;
 	}
 	
-	public DataContainer(int i){
+	public UniversalContainer(int i){
 		this.data = i;
 	}
 	
 	@Override
 	public Object getData() {
-		// TODO Auto-generated method stub
 		return data;
 	}
 

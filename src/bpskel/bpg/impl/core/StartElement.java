@@ -1,4 +1,4 @@
-package bpskel.impl.core;
+package bpskel.bpg.impl.core;
 
 
 public class StartElement extends AbstractFlowObject {

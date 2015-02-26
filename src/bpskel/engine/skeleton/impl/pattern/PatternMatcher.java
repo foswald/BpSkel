@@ -1,10 +1,10 @@
 package bpskel.engine.skeleton.impl.pattern;
 
-import bpskel.impl.core.IFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
 
 public class PatternMatcher {
 	
-	private static final int NUM_PATTERNS = 4;
+	private static final int NUM_PATTERNS = 5;
 	
 	private IPattern[] patterns;
 
@@ -14,7 +14,7 @@ public class PatternMatcher {
 		patterns[1] = new PipePattern();
 		patterns[2] = new IfPattern();
 		patterns[3] = new ForkPattern();
-		
+		patterns[4] = new WhilePattern();
 		
 	}
 	

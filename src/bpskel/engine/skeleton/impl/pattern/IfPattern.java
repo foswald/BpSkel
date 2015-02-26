@@ -1,7 +1,7 @@
 package bpskel.engine.skeleton.impl.pattern;
 
-import bpskel.impl.core.IFlowObject;
-import bpskel.impl.gateway.GatewayXorSplit;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
 
 public class IfPattern extends AbstractSplitPattern {
 

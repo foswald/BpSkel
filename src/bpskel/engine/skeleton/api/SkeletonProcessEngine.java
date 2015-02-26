@@ -1,16 +1,16 @@
 package bpskel.engine.skeleton.api;
 
-import bpskel.api.BusinessProcessGraph;
-import bpskel.api.IGatewayJoin;
-import bpskel.api.IGatewaySplit;
-import bpskel.api.IProcessEngine;
+import bpskel.bpg.api.BusinessProcessGraph;
+import bpskel.bpg.api.IGatewayJoin;
+import bpskel.bpg.api.IGatewaySplit;
+import bpskel.bpg.api.IProcessEngine;
+import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
 import bpskel.engine.skeleton.impl.pattern.IPattern;
 import bpskel.engine.skeleton.impl.pattern.PatternMatcher;
 import bpskel.engine.skeleton.impl.pattern.ProxyTask;
-import bpskel.impl.core.EndElement;
-import bpskel.impl.core.IFlowObject;
-import bpskel.impl.gateway.GatewayJoin;
-import bpskel.impl.gateway.GatewaySplit;
 
 public class SkeletonProcessEngine implements IProcessEngine{
 
@@ -81,7 +81,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 					this.createSkeletonStructure(bpg, branch2);
 				}
 			} 
-			// reached the end of a branch, just abort
+			// reached the end of a branch, just proceed
 			else if(currentNode instanceof GatewayJoin){
 				break;
 			}

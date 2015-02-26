@@ -1,4 +1,4 @@
-package bpskel.impl.core;
+package bpskel.bpg.impl.core;
 
 /**
  * Basic BPG elements are Tasks, and Gateways.

@@ -1,11 +1,11 @@
-package bpskel.impl.core;
+package bpskel.bpg.impl.core;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-import bpskel.api.ICondition;
-import bpskel.api.IDataContainer;
+import bpskel.bpg.api.ICondition;
+import bpskel.bpg.api.IDataContainer;
 
 public class Condition implements ICondition {
 	

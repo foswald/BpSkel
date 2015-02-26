@@ -1,15 +1,15 @@
-package bpskel.impl.gateway;
+package bpskel.bpg.impl.gateway;
 
-import bpskel.api.IGatewayJoin;
-import bpskel.impl.core.AbstractFlowObject;
-import bpskel.impl.core.IFlowObject;
+import bpskel.bpg.api.IGatewayJoin;
+import bpskel.bpg.impl.core.AbstractFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
 
 public abstract class GatewayJoin extends AbstractFlowObject implements IGatewayJoin{
 	
 	private IFlowObject pred2;
 
 	/**
-	 * @see bpskel.api.IGatewayJoin#getPredecessor2()
+	 * @see bpskel.bpg.api.IGatewayJoin#getPredecessor2()
 	 */
 	@Override
 	public IFlowObject getPredecessor2() {
@@ -17,7 +17,7 @@ public abstract class GatewayJoin extends AbstractFlowObject implements IGateway
 	}
 
 	/**
-	 * @see bpskel.api.IGatewayJoin#setPredecessor2(bpskel.impl.core.IFlowObject)
+	 * @see bpskel.bpg.api.IGatewayJoin#setPredecessor2(bpskel.bpg.impl.core.IFlowObject)
 	 */
 	@Override
 	public void setPredecessor2(IFlowObject pred2) {
@@ -25,7 +25,7 @@ public abstract class GatewayJoin extends AbstractFlowObject implements IGateway
 	}
 	
 	/**
-	 * @see bpskel.api.IGatewayJoin#resetPredecessor2()
+	 * @see bpskel.bpg.api.IGatewayJoin#resetPredecessor2()
 	 */
 	@Override
 	public void resetPredecessor2() {

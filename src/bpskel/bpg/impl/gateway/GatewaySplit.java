@@ -1,8 +1,8 @@
-package bpskel.impl.gateway;
+package bpskel.bpg.impl.gateway;
 
-import bpskel.api.IGatewaySplit;
-import bpskel.impl.core.AbstractFlowObject;
-import bpskel.impl.core.IFlowObject;
+import bpskel.bpg.api.IGatewaySplit;
+import bpskel.bpg.impl.core.AbstractFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
 
 
 /**
@@ -15,7 +15,7 @@ public abstract class GatewaySplit extends AbstractFlowObject implements IGatewa
 	private IFlowObject succ2;
 
 	/**
-	 * @see bpskel.api.IGatewaySplit#getSuccessor2()
+	 * @see bpskel.bpg.api.IGatewaySplit#getSuccessor2()
 	 */
 	@Override
 	public IFlowObject getSuccessor2() {
@@ -23,7 +23,7 @@ public abstract class GatewaySplit extends AbstractFlowObject implements IGatewa
 	}
 
 	/**
-	 * @see bpskel.api.IGatewaySplit#setSuccessor2(bpskel.impl.core.IFlowObject)
+	 * @see bpskel.bpg.api.IGatewaySplit#setSuccessor2(bpskel.bpg.impl.core.IFlowObject)
 	 */
 	@Override
 	public void setSuccessor2(IFlowObject succ2) {
@@ -31,7 +31,7 @@ public abstract class GatewaySplit extends AbstractFlowObject implements IGatewa
 	}
 	
 	/**
-	 * @see bpskel.api.IGatewaySplit#resetSuccessor2()
+	 * @see bpskel.bpg.api.IGatewaySplit#resetSuccessor2()
 	 */
 	@Override
 	public void resetSuccessor2() {
@@ -39,7 +39,7 @@ public abstract class GatewaySplit extends AbstractFlowObject implements IGatewa
 	}
 	
 	/**
-	 * @see bpskel.api.IGatewaySplit#resetSuccessor2()
+	 * @see bpskel.bpg.api.IGatewaySplit#resetSuccessor2()
 	 */
 	@Override
 	public boolean isEmpty(){

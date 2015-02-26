@@ -1,8 +1,8 @@
 package bpskel.engine.skeleton.impl.pattern;
 
+import bpskel.bpg.impl.core.AbstractFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.engine.skeleton.api.ISkeleton;
-import bpskel.impl.core.AbstractFlowObject;
-import bpskel.impl.core.IFlowObject;
 
 /**
  * This class is used during transformation of the BPG.

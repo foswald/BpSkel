@@ -1,7 +1,7 @@
-package bpskel.api;
+package bpskel.bpg.api;
 
-import bpskel.impl.core.IFlowObject;
-import bpskel.impl.gateway.IGateway;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.IGateway;
 
 public interface IGatewaySplit extends IGateway{
 

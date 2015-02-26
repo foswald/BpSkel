@@ -1,16 +1,17 @@
 package bpskel.engine.simple;
 
 import java.util.Stack;
+import java.util.concurrent.ExecutionException;
 
-import bpskel.api.BusinessProcessGraph;
-import bpskel.api.IProcessEngine;
-import bpskel.api.ITask;
-import bpskel.impl.core.EndElement;
-import bpskel.impl.core.IFlowObject;
-import bpskel.impl.gateway.GatewayAndJoin;
-import bpskel.impl.gateway.GatewayAndSplit;
-import bpskel.impl.gateway.GatewayXorSplit;
-import bpskel.impl.gateway.IGateway;
+import bpskel.bpg.api.BusinessProcessGraph;
+import bpskel.bpg.api.IProcessEngine;
+import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayAndJoin;
+import bpskel.bpg.impl.gateway.GatewayAndSplit;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
+import bpskel.bpg.impl.gateway.IGateway;
 
 public class SimpleProcessEngine implements IProcessEngine{
 	
@@ -29,7 +30,12 @@ public class SimpleProcessEngine implements IProcessEngine{
 		do{
 			// check if we have a simple task and execute
 			if(f instanceof ITask){
-				((ITask) f).execute();				
+				try {
+					((ITask) f).execute();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
 			}
 			// Process next element
 			IFlowObject next = f.getSuccessor();

@@ -1,6 +1,6 @@
 package tests.bpskel.shared;
 
-import bpskel.api.IDataContainer;
+import bpskel.bpg.api.IDataContainer;
 
 public class IntegerDatacontainer implements IDataContainer {
 

@@ -1,15 +1,15 @@
-package bpskel.api;
+package bpskel.bpg.api;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import bpskel.impl.core.EndElement;
-import bpskel.impl.core.IFlowObject;
-import bpskel.impl.core.StartElement;
-import bpskel.impl.gateway.GatewayJoin;
-import bpskel.impl.gateway.GatewaySplit;
-import bpskel.impl.gateway.IGateway;
+import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.core.StartElement;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
+import bpskel.bpg.impl.gateway.IGateway;
 
 public class BusinessProcessGraph {
 	
@@ -64,18 +64,47 @@ public class BusinessProcessGraph {
 		
 	}
 	
-	public void connectToJoin(IFlowObject source1, IFlowObject source2, GatewayJoin join){
+	public void connectToJoin(IFlowObject source1, IFlowObject source2, IGatewayJoin join){
 		source1.setSuccessor(join);
 		source2.setSuccessor(join);
 		join.setPredecessor(source1);
 		join.setPredecessor2(source2);
 	}
 	
-	public void connectFromSplit(GatewaySplit source, IFlowObject branch1, IFlowObject branch2){
+	public void connectFromSplit(IGatewaySplit source, IFlowObject branch1, IFlowObject branch2){
 		source.setSuccessor(branch1);
 		source.setSuccessor2(branch2);
 		branch1.setPredecessor(source);
 		branch2.setPredecessor(source);
+	}
+	
+	/**
+	 * Creates a while lopp inside the BPG.
+	 * @param source The source object leading to the loop.
+	 * @param sink The object after the while loop
+	 * @param cond The condition for the while loop
+	 * @param firstItem The first item inside the while loop
+	 */
+	public void insertIntoWhileLoop(IFlowObject source, IFlowObject sink, ICondition cond, IFlowObject firstItem, IFlowObject lastItem){
+		IGatewaySplit split = BPGFactory.createGatewayXorSplit(cond);
+		IGatewayJoin join = BPGFactory.createGatewayXorJoin();
+		
+		this.connectToJoin(source, split, join);
+		this.connect(join, firstItem);
+		this.connect(lastItem, split);
+		split.setSuccessor2(sink);
+		
+	}
+	
+	/**
+	 * Creates a while lopp inside the BPG.
+	 * @param source The source object leading to the loop.
+	 * @param sink The object after the while loop
+	 * @param cond The condition for the while loop
+	 * @param content The first item inside the while loop
+	 */
+	public void insertIntoWhileLoop(IFlowObject source, IFlowObject sink, ICondition cond, IFlowObject content){
+		insertIntoWhileLoop(source, sink, cond, content, content);
 	}
 	
 	public void addTask(ITask t){

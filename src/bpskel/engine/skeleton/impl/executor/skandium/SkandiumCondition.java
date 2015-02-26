@@ -1,7 +1,7 @@
 package bpskel.engine.skeleton.impl.executor.skandium;
 
-import bpskel.api.ICondition;
-import bpskel.api.IDataContainer;
+import bpskel.bpg.api.ICondition;
+import bpskel.bpg.api.IDataContainer;
 import cl.niclabs.skandium.muscles.Condition;
 
 public class SkandiumCondition implements Condition<IDataContainer> {

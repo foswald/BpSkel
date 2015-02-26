@@ -1,7 +1,7 @@
 package bpskel.engine.skeleton.impl.pattern;
 
+import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.exceptions.PatternMismatchException;
-import bpskel.impl.core.IFlowObject;
 
 public interface IPattern {
 	

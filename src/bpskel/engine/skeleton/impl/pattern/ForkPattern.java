@@ -1,7 +1,7 @@
 package bpskel.engine.skeleton.impl.pattern;
 
-import bpskel.impl.core.IFlowObject;
-import bpskel.impl.gateway.GatewayAndSplit;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayAndSplit;
 
 public class ForkPattern extends AbstractSplitPattern {
 

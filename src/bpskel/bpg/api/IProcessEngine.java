@@ -1,4 +1,4 @@
-package bpskel.api;
+package bpskel.bpg.api;
 
 
 public interface IProcessEngine {

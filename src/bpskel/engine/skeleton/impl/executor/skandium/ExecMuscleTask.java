@@ -1,7 +1,7 @@
 package bpskel.engine.skeleton.impl.executor.skandium;
 
-import bpskel.api.IDataContainer;
-import bpskel.api.ITask;
+import bpskel.bpg.api.IDataContainer;
+import bpskel.bpg.api.ITask;
 import cl.niclabs.skandium.muscles.Execute;
 
 public class ExecMuscleTask implements Execute<IDataContainer, IDataContainer> {

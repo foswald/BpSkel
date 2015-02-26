@@ -2,14 +2,14 @@ package bpskel.engine.skeleton.impl.executor.skandium;
 
 import java.util.concurrent.Future;
 
-import bpskel.api.IDataContainer;
-import bpskel.api.ITask;
+import bpskel.bpg.api.IDataContainer;
+import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
 import bpskel.engine.skeleton.api.ISkeleton;
 import bpskel.engine.skeleton.api.ISkeletonAPI;
 import bpskel.engine.skeleton.impl.pattern.PatternType;
 import bpskel.engine.skeleton.impl.pattern.ProxyTask;
-import bpskel.impl.core.IFlowObject;
-import bpskel.impl.gateway.GatewayXorSplit;
 import cl.niclabs.skandium.Skandium;
 import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.muscles.Execute;
@@ -17,6 +17,7 @@ import cl.niclabs.skandium.skeletons.If;
 import cl.niclabs.skandium.skeletons.Pipe;
 import cl.niclabs.skandium.skeletons.Seq;
 import cl.niclabs.skandium.skeletons.Skeleton;
+import cl.niclabs.skandium.skeletons.While;
 
 public class SkandiumConnector implements ISkeletonAPI {
 
@@ -48,6 +49,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 	 */
 	private Skeleton<IDataContainer, IDataContainer> getSkeletonFromProxy(IFlowObject node){
 		ProxyTask task = ((ProxyTask)node);
+		System.out.println("SkelRef queried: " + task.getSkeletonReference().getSkeletonRef());
 		return task.getSkeletonReference().getSkeletonRef();
 	}
 
@@ -71,14 +73,19 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 	@Override
 	public ISkeleton createWhileSkeleton(IFlowObject startingNode) {
-		// TODO Auto-generated method stub
-		return null;
+		ProxyTask task = (ProxyTask) startingNode.getSuccessor();
+		GatewayXorSplit split = (GatewayXorSplit)task.getSuccessor();
+		Condition<IDataContainer> cond = new SkandiumCondition(split.getCondition());
+		Skeleton<IDataContainer, IDataContainer> skel = this.getSkeletonFromProxy(split.getSuccessor());
+		
+		ISkeleton s = new SkeletonWrapper(new While<IDataContainer>(skel, cond));
+		return s;
 	}
 
 	@Override
 	public ISkeleton createForSkeleton(IFlowObject startingNode) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new Error();
 	}
 
 
@@ -97,21 +104,21 @@ public class SkandiumConnector implements ISkeletonAPI {
 	@Override
 	public ISkeleton createMapSkeleton(IFlowObject startingNode) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new Error();
 	}
 
 
 	@Override
 	public ISkeleton createForkSkeleton(IFlowObject startingNode) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new Error();
 	}
 
 
 	@Override
 	public ISkeleton createDCSkeleton(IFlowObject startingNode) {
 		// TODO Auto-generated method stub
-		return null;
+		throw new Error();
 	}
 
 	@Override
@@ -120,7 +127,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 		Skandium skandium = new Skandium(8);
 
-		Future<IDataContainer> future = skel.input((IDataContainer)null);
+		Future<IDataContainer> future = skel.input(new ProxyDataContainer());
 		
 		long init = System.currentTimeMillis();
 		IDataContainer out;

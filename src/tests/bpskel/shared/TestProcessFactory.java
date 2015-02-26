@@ -1,13 +1,16 @@
 package tests.bpskel.shared;
 
-import tests.bpskel.bpg.DataContainer;
 import tests.bpskel.bpg.RandomizeTask;
 import tests.bpskel.bpg.ToStringTask;
-import bpskel.api.BPGFactory;
-import bpskel.api.BusinessProcessGraph;
-import bpskel.api.ITask;
-import bpskel.impl.gateway.GatewayJoin;
-import bpskel.impl.gateway.GatewaySplit;
+import tests.bpskel.bpg.ToStringWhile;
+import tests.bpskel.bpg.UniversalContainer;
+import bpskel.bpg.api.BPGFactory;
+import bpskel.bpg.api.BusinessProcessGraph;
+import bpskel.bpg.api.ICondition;
+import bpskel.bpg.api.IDataContainer;
+import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
 
 public class TestProcessFactory {
 
@@ -21,7 +24,7 @@ public class TestProcessFactory {
 		ITask tr = new RandomizeTask();
 		
 		// create XorGateway and split condition for gateway
-		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", tr.getResultData(), new DataContainer(5));
+		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", tr.getResultData(), new UniversalContainer(5));
 		GatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// Create And Gateway
@@ -61,7 +64,7 @@ public class TestProcessFactory {
 		ITask t3 = new ToStringTask("Task2.2-Xor");
 		ITask t4 = new ToStringTask("Task3-Pipe");
 		
-		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", t1.getResultData(), new DataContainer(5));
+		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", t1.getResultData(), new UniversalContainer(5));
 		GatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// create BuisnessProcess
@@ -85,5 +88,27 @@ public class TestProcessFactory {
 		
 		return pro;
 	
+	}
+	
+	public static BusinessProcessGraph generatePipeWhilePipeBPG(){
+		ITask t1 = new RandomizeTask();
+		
+		ITask t2 = new ToStringWhile("While");			
+		ITask t3 = new ToStringTask("Task3-Pipe");
+		
+		
+		IDataContainer start = new UniversalContainer(10);
+		t2.setInputData(start);
+		ICondition cond = BPGFactory.createCondition(" < ", t2.getResultData(), t1.getResultData());
+		
+		// create BuisnessProcess
+		BusinessProcessGraph pro = new BusinessProcessGraph();
+		
+		// Add connectors
+		pro.connect(pro.getStart(), t1);
+		pro.insertIntoWhileLoop(t1, t3, cond, t2);
+		pro.connect(t3, pro.getEnd());
+		
+		return pro;
 	}
 }

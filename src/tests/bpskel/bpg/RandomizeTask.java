@@ -2,14 +2,14 @@ package tests.bpskel.bpg;
 
 import java.util.Random;
 
-import bpskel.api.IDataContainer;
-import bpskel.impl.core.AbstractTask;
+import bpskel.bpg.api.IDataContainer;
+import bpskel.bpg.impl.core.AbstractTask;
 
 public class RandomizeTask extends AbstractTask {
 
 	IDataContainer data;
 	public RandomizeTask(){
-		data = new DataContainer(1);
+		data = new UniversalContainer(1);
 		super.setDescription("Randomize!");
 		
 	}
@@ -23,7 +23,9 @@ public class RandomizeTask extends AbstractTask {
 	public void execute() {
 		Random r  = new Random();
 		
-		data.setData(r.nextInt(10));
+		int rand = r.nextInt(10);
+		super.setDescription("Randomize!(" + (rand) + ")");
+		data.setData(rand);
 	}
 
 	@Override

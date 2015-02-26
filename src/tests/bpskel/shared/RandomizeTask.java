@@ -1,4 +1,4 @@
-package tests.bpskel.bpg;
+package tests.bpskel.shared;
 
 import java.util.Random;
 

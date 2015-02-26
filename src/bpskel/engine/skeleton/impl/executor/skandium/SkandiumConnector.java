@@ -76,7 +76,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 		ProxyTask task = (ProxyTask) startingNode.getSuccessor();
 		GatewayXorSplit split = (GatewayXorSplit)task.getSuccessor();
 		Condition<IDataContainer> cond = new SkandiumCondition(split.getCondition());
-		Skeleton<IDataContainer, IDataContainer> skel = this.getSkeletonFromProxy(split.getSuccessor());
+		Skeleton<IDataContainer, IDataContainer> skel = this.getSkeletonFromProxy(task);
 		
 		ISkeleton s = new SkeletonWrapper(new While<IDataContainer>(skel, cond));
 		return s;

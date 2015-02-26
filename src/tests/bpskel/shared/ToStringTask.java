@@ -1,15 +1,15 @@
-package tests.bpskel.bpg;
+package tests.bpskel.shared;
 
 import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.impl.core.AbstractTask;
 
-public class ToStringWhile extends AbstractTask {
+public class ToStringTask extends AbstractTask {
 
 	String thisString = null;
 	
 	IDataContainer thisData;
 	
-	public ToStringWhile(String s){
+	public ToStringTask(String s){
 		thisString = s;
 		this.setDescription(s);
 	}
@@ -26,13 +26,6 @@ public class ToStringWhile extends AbstractTask {
 
 	@Override
 	public void execute() {
-
-
-		try{
-			System.out.println(thisString + "Repetition: " + (int)thisData.getData());
-			thisData.setData((int)thisData.getData() + 1);
-		}catch(NullPointerException e){
-			e.printStackTrace();
-		}
+		System.out.println(thisString);
 	}
 }

@@ -1,9 +1,5 @@
 package tests.bpskel.shared;
 
-import tests.bpskel.bpg.RandomizeTask;
-import tests.bpskel.bpg.ToStringTask;
-import tests.bpskel.bpg.ToStringWhile;
-import tests.bpskel.bpg.UniversalContainer;
 import bpskel.bpg.api.BPGFactory;
 import bpskel.bpg.api.BusinessProcessGraph;
 import bpskel.bpg.api.ICondition;
@@ -91,22 +87,22 @@ public class TestProcessFactory {
 	}
 	
 	public static BusinessProcessGraph generatePipeWhilePipeBPG(){
-		ITask t1 = new RandomizeTask();
+		ITask tr = new RandomizeTask();
 		
 		ITask t2 = new ToStringWhile("While");			
-		ITask t3 = new ToStringTask("Task3-Pipe");
+		ITask t3 = new ToStringTask("EndTask");
 		
 		
 		IDataContainer start = new UniversalContainer(10);
 		t2.setInputData(start);
-		ICondition cond = BPGFactory.createCondition(" < ", t2.getResultData(), t1.getResultData());
+		ICondition cond = BPGFactory.createCondition(" < ", tr.getResultData(), t2.getResultData());
 		
 		// create BuisnessProcess
 		BusinessProcessGraph pro = new BusinessProcessGraph();
 		
 		// Add connectors
-		pro.connect(pro.getStart(), t1);
-		pro.insertIntoWhileLoop(t1, t3, cond, t2);
+		pro.connect(pro.getStart(), tr);
+		pro.insertIntoWhileLoop(tr, t3, cond, t2);
 		pro.connect(t3, pro.getEnd());
 		
 		return pro;

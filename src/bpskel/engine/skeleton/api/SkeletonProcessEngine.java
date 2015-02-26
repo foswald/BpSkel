@@ -31,7 +31,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 
 		// do until whole bpg has been transformed
 		while(!pro.getStart().getSuccessor().getSuccessor().equals(pro.getEnd())){
-			createSkeletonStructure(pro, pro.getStart().getSuccessor());
+			createSkeletonStructure(pro, pro.getStart().getSuccessor(), false);
 		}
 		
 		ProxyTask root = (ProxyTask) pro.getStart().getSuccessor();
@@ -41,26 +41,35 @@ public class SkeletonProcessEngine implements IProcessEngine{
 			
 	}
 	
-	private void createSkeletonStructure(BusinessProcessGraph bpg, IFlowObject currentNode) {
+	private void createSkeletonStructure(BusinessProcessGraph bpg, IFlowObject currentNode, boolean isBranch) {
 		
 		// run until end of bpg has been reached
-		while(!(currentNode instanceof EndElement)) {			
+		do {			
 			// check if we have a valid pattern and insert a proxy
 			if(this.patternMatcher.isValidPattern(currentNode)){
-				IPattern p;
-
-				p = this.patternMatcher.matchPattern(currentNode);
+				IPattern pattern = this.patternMatcher.matchPattern(currentNode);
 
 				// context switch to skeleton
-				ISkeleton s = this.skeletonApi.createSkeleton(p.getPatternType(), currentNode);
+				ISkeleton skel = this.skeletonApi.createSkeleton(pattern.getPatternType(), currentNode);
 				
-				IFlowObject lastPatternNode = p.getEndElement(currentNode);
+				IFlowObject lastPatternNode = pattern.getEndElement(currentNode);
+				IFlowObject succ = lastPatternNode.getSuccessor();
+				IFlowObject pred = currentNode.getPredecessor();
+				
+				// loop detection
+				if(succ.equals(currentNode)){
+					assert lastPatternNode instanceof IGatewaySplit;
+					
+					// change successor node
+					succ = ((IGatewaySplit)lastPatternNode).getSuccessor2();
+				}
 			
 				// create ProxyTask
-				ProxyTask t = new ProxyTask(s, currentNode.getPredecessor(), lastPatternNode.getSuccessor(), currentNode, lastPatternNode);
+				ProxyTask t = new ProxyTask(skel, pred, succ, currentNode, lastPatternNode);
 
-				// replace in BusinessProcess	
-				if(!this.insertProxy(t)) {
+				// replace in BusinessProcess
+				boolean inserted = this.insertProxy(t);
+				if(!inserted) {
 					throw new Error("Insert failed!");
 				}
 				
@@ -74,15 +83,22 @@ public class SkeletonProcessEngine implements IProcessEngine{
 				GatewaySplit split = (GatewaySplit) currentNode;
 				IFlowObject branch1 = split.getSuccessor();
 				IFlowObject branch2 = split.getSuccessor2();
+				
+				// process one branch per run (otherwise you might get data inconsistency in this scope)
 				if(!this.isValidBranch(branch1)){
-					this.createSkeletonStructure(bpg, branch1);
+					this.createSkeletonStructure(bpg, branch1, true);
 				}
 				if(!this.isValidBranch(branch2)){
-					this.createSkeletonStructure(bpg, branch2);
+					this.createSkeletonStructure(bpg, branch2, true);
 				}
+				break;
 			} 
-			// reached the end of a branch, just proceed
-			else if(currentNode instanceof GatewayJoin){
+			// probably a while loop
+			else if(!isBranch && currentNode instanceof GatewayJoin){
+				currentNode = currentNode.getSuccessor();
+			}
+			// end branching
+			else if(isBranch && currentNode instanceof GatewayJoin){
 				break;
 			}
 			// ProxyTask but next is no proxy, proceed
@@ -90,7 +106,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 				// already processed
 				currentNode = currentNode.getSuccessor();
 			}
-		}			
+		} while(!(currentNode instanceof EndElement) && !isBranch);
 	}
 	
 	/**

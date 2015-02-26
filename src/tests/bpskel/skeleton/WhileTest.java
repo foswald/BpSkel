@@ -5,7 +5,7 @@ import java.util.concurrent.Future;
 import org.junit.Test;
 
 import bpskel.bpg.api.IDataContainer;
-import tests.bpskel.bpg.UniversalContainer;
+import tests.bpskel.shared.UniversalContainer;
 import cl.niclabs.skandium.Skandium;
 import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.skeletons.Skeleton;

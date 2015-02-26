@@ -93,6 +93,7 @@ public class BusinessProcessGraph {
 		this.connect(join, firstItem);
 		this.connect(lastItem, split);
 		split.setSuccessor2(sink);
+		sink.setPredecessor(split);
 		
 	}
 	

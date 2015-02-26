@@ -1,6 +1,6 @@
 package bpskel.bpg.api;
 
-import bpskel.bpg.impl.Condition;
+import bpskel.bpg.impl.core.Condition;
 import bpskel.bpg.impl.core.EndElement;
 import bpskel.bpg.impl.core.StartElement;
 import bpskel.bpg.impl.gateway.GatewayAndJoin;

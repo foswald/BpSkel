@@ -37,6 +37,16 @@ public class SkandiumConnector implements ISkeletonAPI {
 		
 		return skel;
 	}
+	
+	/**
+	 * This helper method retrieves the skeleton reference of a ProxyTask and casts it to a Skandium Skeleton.
+	 * @param node
+	 * @return
+	 */
+	private Skeleton<IDataContainer, IDataContainer> getSkeletonFromProxy(IFlowObject node){
+		ProxyTask task = ((ProxyTask)node);
+		return task.getSkeletonReference().getSkeletonRef();
+	}
 
 
 	@Override
@@ -50,8 +60,8 @@ public class SkandiumConnector implements ISkeletonAPI {
 	
 	@Override
 	public ISkeleton createPipeSkeleton(IFlowObject startingNode) {
-		Execute<IDataContainer, IDataContainer> ex1 = new ExecMuscleTask((ITask)startingNode);
-		Execute<IDataContainer, IDataContainer> ex2 = new ExecMuscleTask((ITask)startingNode.getSuccessor());
+		Skeleton<IDataContainer, IDataContainer> ex1 = this.getSkeletonFromProxy(startingNode);
+		Skeleton<IDataContainer, IDataContainer> ex2 = this.getSkeletonFromProxy(startingNode.getSuccessor());
 		ISkeleton s = new SkeletonWrapper(new Pipe<IDataContainer,IDataContainer>(ex1, ex2));
 		return s;
 	}
@@ -73,11 +83,9 @@ public class SkandiumConnector implements ISkeletonAPI {
 	public ISkeleton createIfSkeleton(IFlowObject startingNode) {
 		GatewayXorSplit split = (GatewayXorSplit)startingNode;
 		Condition<IDataContainer> cond = new SkandiumCondition(split.getCondition());
-		ProxyTask task1 = ((ProxyTask)split.getSuccessor());
-		ProxyTask task2 = ((ProxyTask)split.getSuccessor2());
 		
-		Skeleton<IDataContainer, IDataContainer> case1 = task1.getSkeletonReference().getSkeletonRef();
-		Skeleton<IDataContainer, IDataContainer> case2 = task2.getSkeletonReference().getSkeletonRef();
+		Skeleton<IDataContainer, IDataContainer> case1 = this.getSkeletonFromProxy(split.getSuccessor());
+		Skeleton<IDataContainer, IDataContainer> case2 = this.getSkeletonFromProxy(split.getSuccessor2());
 		ISkeleton s = new SkeletonWrapper(new If<IDataContainer, IDataContainer>(cond, case1, case2));
 		return s;
 	}

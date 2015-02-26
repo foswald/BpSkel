@@ -163,7 +163,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 			replacedPred = true;
 		}
 		if(succ.getPredecessor().equals(proxy.getExitNode())) {
-			pred.setPredecessor(proxy);
+			succ.setPredecessor(proxy);
 			replacedSucc = true;
 		}
 

@@ -13,8 +13,10 @@ public class SimpleBPMNTest {
 	public void testBusinessProcess() {
 		BPMNFactory.initialize(new SimpleProcessEngine());
 		
-		BusinessProcess pro = TestProcessFactory.generateProcess1();
-		
+		//BusinessProcess pro = TestProcessFactory.generateProcess1();
+
+		BusinessProcess pro = TestProcessFactory.generatePipeXorPipeBPG();
+
 		BPMNFactory.getProcessEngine().execute(pro);
 	}
 

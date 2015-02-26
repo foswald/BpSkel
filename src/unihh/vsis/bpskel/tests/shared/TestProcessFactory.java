@@ -54,4 +54,36 @@ public class TestProcessFactory {
 		
 		return pro;
 	}
+	
+	public static BusinessProcess generatePipeXorPipeBPG(){
+		ITask t1 = new RandomizeTask();
+		ITask t2 = new ToStringTask("Task2.1-Xor");			
+		ITask t3 = new ToStringTask("Task2.2-Xor");
+		ITask t4 = new ToStringTask("Task3-Pipe");
+		
+		GatewaySplit splitXor1 = BPMNFactory.createGatewayXorSplit(" < ", t1.getResultData(), new DataContainer(5));
+		GatewayJoin joinXor1 = BPMNFactory.createGatewayXorJoin();
+		
+		// create BuisnessProcess
+		BusinessProcess pro = new BusinessProcess();
+		
+		// add elements to process	
+		pro.addTask(t1);
+		pro.addTask(t2);
+		pro.addTask(t3);
+		pro.addTask(t4);
+		pro.addGateway(splitXor1);
+		pro.addGateway(joinXor1);
+		
+		// Add connectors
+		pro.connect(pro.getStart(), t1);
+		pro.connect(t1, splitXor1);
+		pro.connectFromSplit(splitXor1, t2, t3);
+		pro.connectToJoin(t2, t3, joinXor1);
+		pro.connect(joinXor1, t4);
+		pro.connect(t4, pro.getEnd());
+		
+		return pro;
+	
+	}
 }

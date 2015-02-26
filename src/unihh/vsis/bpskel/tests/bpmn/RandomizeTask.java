@@ -10,6 +10,7 @@ public class RandomizeTask extends AbstractTask {
 	IDataContainer data;
 	public RandomizeTask(){
 		data = new DataContainer(1);
+		super.setDescription("Randomize!");
 		
 	}
 	

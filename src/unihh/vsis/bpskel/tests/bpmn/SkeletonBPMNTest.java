@@ -13,7 +13,7 @@ public class SkeletonBPMNTest {
 	public void testBusinessProcess() {
 		BPMNFactory.initialize(new SkeletonProcessEngine());
 		
-		BusinessProcess pro = TestProcessFactory.generateProcess1();
+		BusinessProcess pro = TestProcessFactory.generatePipeXorPipeBPG();
 		
 		BPMNFactory.getProcessEngine().execute(pro);
 	}

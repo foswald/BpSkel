@@ -2,8 +2,8 @@ package tests.bpskel.bpg;
 
 import java.util.Random;
 
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.core.AbstractTask;
+import bpskel.api.IDataContainer;
+import bpskel.impl.core.AbstractTask;
 
 public class RandomizeTask extends AbstractTask {
 

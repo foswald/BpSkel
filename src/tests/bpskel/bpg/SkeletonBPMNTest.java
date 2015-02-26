@@ -2,10 +2,10 @@ package tests.bpskel.bpg;
 
 import org.junit.Test;
 
-import bpskel.bpg.api.BPGFactory;
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.skeleton.api.SkeletonProcessEngine;
-import bpskel.skeleton.impl.executor.skandium.SkandiumConnector;
+import bpskel.api.BPGFactory;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.engine.skeleton.api.SkeletonProcessEngine;
+import bpskel.engine.skeleton.impl.executor.skandium.SkandiumConnector;
 import tests.bpskel.shared.TestProcessFactory;
 
 public class SkeletonBPMNTest {

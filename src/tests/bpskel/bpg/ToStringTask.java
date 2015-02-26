@@ -1,7 +1,7 @@
 package tests.bpskel.bpg;
 
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.core.AbstractTask;
+import bpskel.api.IDataContainer;
+import bpskel.impl.core.AbstractTask;
 
 public class ToStringTask extends AbstractTask {
 

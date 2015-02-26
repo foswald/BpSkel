@@ -1,6 +1,6 @@
 package xxx.bpskel.old;
 
-import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.impl.core.IFlowObject;
 
 
 /**

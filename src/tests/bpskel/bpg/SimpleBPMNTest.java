@@ -2,9 +2,9 @@ package tests.bpskel.bpg;
 
 import org.junit.Test;
 
-import bpskel.bpg.api.BPGFactory;
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.bpg.impl.executor.simple.SimpleProcessEngine;
+import bpskel.api.BPGFactory;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.engine.simple.SimpleProcessEngine;
 import tests.bpskel.shared.TestProcessFactory;
 
 public class SimpleBPMNTest {

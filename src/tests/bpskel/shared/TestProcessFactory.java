@@ -3,11 +3,11 @@ package tests.bpskel.shared;
 import tests.bpskel.bpg.DataContainer;
 import tests.bpskel.bpg.RandomizeTask;
 import tests.bpskel.bpg.ToStringTask;
-import bpskel.bpg.api.BPGFactory;
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.bpg.api.ITask;
-import bpskel.bpg.impl.gateway.GatewayJoin;
-import bpskel.bpg.impl.gateway.GatewaySplit;
+import bpskel.api.BPGFactory;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.api.ITask;
+import bpskel.impl.gateway.GatewayJoin;
+import bpskel.impl.gateway.GatewaySplit;
 
 public class TestProcessFactory {
 

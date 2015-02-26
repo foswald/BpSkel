@@ -28,14 +28,15 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	@Override
 	public void execute(BusinessProcess pro) {
 
-		
-		// first prep tasks with proxies
-		//taskToProxy(pro);
-
 		// do until whole bpg has been transformed
 		while(!pro.getStart().getSuccessor().getSuccessor().equals(pro.getEnd())){
 			createSkeletonStructure(pro, pro.getStart().getSuccessor());
 		}
+		
+		ProxyTask root = (ProxyTask) pro.getStart().getSuccessor();
+		
+		// now start the skeleton application
+		this.skeletonApi.execute(root.getSkeletonReference(), null);
 			
 	}
 	

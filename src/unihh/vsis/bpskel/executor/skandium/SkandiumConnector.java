@@ -1,5 +1,7 @@
 package unihh.vsis.bpskel.executor.skandium;
 
+import java.util.concurrent.Future;
+
 import unihh.vsis.bpskel.api.skeleton.ISkeleton;
 import unihh.vsis.bpskel.api.skeleton.ISkeletonAPI;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternType;
@@ -8,6 +10,7 @@ import unihh.vsis.bpskel.bpmn.api.IDataContainer;
 import unihh.vsis.bpskel.bpmn.api.ITask;
 import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
+import cl.niclabs.skandium.Skandium;
 import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.muscles.Execute;
 import cl.niclabs.skandium.skeletons.If;
@@ -109,6 +112,26 @@ public class SkandiumConnector implements ISkeletonAPI {
 	public ISkeleton createDCSkeleton(IFlowObject startingNode) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void execute(ISkeleton skeleton, IDataContainer initialInput) {
+		Skeleton<IDataContainer, IDataContainer> skel = skeleton.getSkeletonRef();
+
+		Skandium skandium = new Skandium(8);
+
+		Future<IDataContainer> future = skel.input(initialInput);
+		
+		long init = System.currentTimeMillis();
+		IDataContainer out;
+		try {
+			out = future.get();
+			System.out.println((System.currentTimeMillis() - init)+"[ms]: "+(Integer)out.getData());
+
+			skandium.shutdown();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 

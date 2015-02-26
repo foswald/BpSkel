@@ -3,15 +3,15 @@ package tests.bpskel.shared;
 import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.impl.core.AbstractTask;
 
-public class ToStringWhile extends AbstractTask {
+public class WhileTruePrintTask extends AbstractTask {
 
 	String thisString = null;
 	
 	IDataContainer thisData;
 	
-	public ToStringWhile(String s){
-		thisString = s;
-		this.setDescription(s);
+	public WhileTruePrintTask(){
+		thisString = "While do. Repetition: ";
+		this.setDescription(thisString);
 	}
 	
 	@Override
@@ -21,7 +21,7 @@ public class ToStringWhile extends AbstractTask {
 
 	@Override
 	public IDataContainer getResultData() {
-		return new UniversalContainer(thisString.length());
+		return thisData;
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class ToStringWhile extends AbstractTask {
 
 
 		try{
-			System.out.println(thisString + "Repetition: " + (int)thisData.getData());
+			System.out.println(thisString + (int)thisData.getData());
 			thisData.setData((int)thisData.getData() + 1);
 		}catch(NullPointerException e){
 			e.printStackTrace();

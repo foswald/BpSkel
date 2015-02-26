@@ -8,10 +8,17 @@ import bpskel.bpg.impl.core.AbstractTask;
 public class RandomizeTask extends AbstractTask {
 
 	IDataContainer data;
+	private int max;
+	public RandomizeTask(int max){
+		data = new UniversalContainer(1);
+		super.setDescription("Randomize!");
+		this.max = max;
+	}
+	
 	public RandomizeTask(){
 		data = new UniversalContainer(1);
 		super.setDescription("Randomize!");
-		
+		this.max = 10;
 	}
 	
 	@Override
@@ -23,7 +30,7 @@ public class RandomizeTask extends AbstractTask {
 	public void execute() {
 		Random r  = new Random();
 		
-		int rand = r.nextInt(10);
+		int rand = r.nextInt(max);
 		super.setDescription("Randomize!(" + (rand) + ")");
 		data.setData(rand);
 	}

@@ -87,15 +87,15 @@ public class TestProcessFactory {
 	}
 	
 	public static BusinessProcessGraph generatePipeWhilePipeBPG(){
-		ITask tr = new RandomizeTask();
+		ITask tr = new RandomizeTask(10000);
 		
-		ITask t2 = new ToStringWhile("While");			
+		ITask t2 = new WhileTruePrintTask();			
 		ITask t3 = new ToStringTask("EndTask");
 		
 		
 		IDataContainer start = new UniversalContainer(10);
 		t2.setInputData(start);
-		ICondition cond = BPGFactory.createCondition(" < ", tr.getResultData(), t2.getResultData());
+		ICondition cond = BPGFactory.createCondition(" < ", t2.getResultData(), tr.getResultData());
 		
 		// create BuisnessProcess
 		BusinessProcessGraph pro = new BusinessProcessGraph();

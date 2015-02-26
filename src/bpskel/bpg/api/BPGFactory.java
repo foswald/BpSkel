@@ -77,7 +77,13 @@ public class BPGFactory {
 		return createGatewayXorSplit(createCondition(string, lhs, rhs));
 	}
 	
-	
+	/**
+	 * Creates a expression which will evaluate at some point.
+	 * @param string A boolean expression EXPR which will look like <code>lhs EXPR rhs</code> (e.g. 4 < 5, where "<" is EXPR)
+	 * @param lhs the left hand side of the boolean expression
+	 * @param rhs the right hand side of the boolean expression
+	 * @return a condition
+	 */
 	public static ICondition createCondition(String string,
 			IDataContainer lhs, IDataContainer rhs){
 		return new Condition(string, lhs, rhs);

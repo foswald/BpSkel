@@ -2,7 +2,6 @@ package bpskel.skeleton.impl.pattern;
 
 import bpskel.bpg.api.ITask;
 import bpskel.bpg.impl.core.IFlowObject;
-import bpskel.exceptions.PatternMismatchException;
 
 public class SeqPattern implements IPattern{
 

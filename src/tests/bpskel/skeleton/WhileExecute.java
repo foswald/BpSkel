@@ -12,6 +12,7 @@ public class WhileExecute<P extends IDataContainer, R extends IDataContainer> ex
 		integerData = in;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public R execute(P p) throws Exception {
 		Integer intP = (Integer) p.getData();

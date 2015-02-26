@@ -208,6 +208,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	 * This is required for further graph transformation, as only ProxyTasks provide pattern recognition.
 	 * @throws PatternMismatchException 
 	 */
+	@SuppressWarnings("unused")
 	private void taskToProxy(BusinessProcess bpg){
 		for(IFlowObject f:bpg.getFlowObjects()){
 			if(this.patternMatcher.isValidPattern(f) && 

@@ -2,7 +2,6 @@ package bpskel.skeleton.api;
 
 import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.impl.core.IFlowObject;
-import bpskel.skeleton.impl.executor.skandium.SkeletonWrapper;
 import bpskel.skeleton.impl.pattern.PatternType;
 
 public interface ISkeletonAPI {

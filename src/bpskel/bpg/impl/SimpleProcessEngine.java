@@ -1,12 +1,16 @@
-package unihh.vsis.bpskel.bpmn.core;
+package bpskel.bpg.impl;
 
 import java.util.Stack;
 
-import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
-import unihh.vsis.bpskel.bpmn.api.ITask;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndJoin;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndSplit;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
+import bpskel.bpg.api.BusinessProcess;
+import bpskel.bpg.api.IProcessEngine;
+import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayAndJoin;
+import bpskel.bpg.impl.gateway.GatewayAndSplit;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
+import bpskel.bpg.impl.gateway.IGateway;
 
 public class SimpleProcessEngine implements IProcessEngine{
 	

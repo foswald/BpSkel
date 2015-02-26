@@ -2,9 +2,9 @@ package unihh.vsis.bpskel.old;
 
 import java.util.List;
 
+import bpskel.bpg.impl.core.AbstractFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
 import unihh.vsis.bpskel.blockconverter.pattern.IPattern;
-import unihh.vsis.bpskel.bpmn.core.AbstractFlowObject;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
 /** A component is a concrete representation of a Pattern whithin an BusinessProcess.
  * It contains the reference to aligned Nodes/Components as well as to the 

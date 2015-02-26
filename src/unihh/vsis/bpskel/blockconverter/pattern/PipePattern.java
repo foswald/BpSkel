@@ -1,6 +1,6 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
 
 public class PipePattern implements IPattern {
 

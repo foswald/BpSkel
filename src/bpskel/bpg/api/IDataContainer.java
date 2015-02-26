@@ -1,4 +1,4 @@
-package unihh.vsis.bpskel.bpmn.api;
+package bpskel.bpg.api;
 
 public interface IDataContainer {
 	

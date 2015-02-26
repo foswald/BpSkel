@@ -1,15 +1,14 @@
-package unihh.vsis.bpskel.bpmn.api;
+package bpskel.bpg.api;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import unihh.vsis.bpskel.bpmn.core.EndElement;
-import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
-import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
-import unihh.vsis.bpskel.bpmn.core.IGateway;
-import unihh.vsis.bpskel.bpmn.core.StartElement;
+import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.core.StartElement;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
+import bpskel.bpg.impl.gateway.IGateway;
 
 public class BusinessProcess {
 	
@@ -49,14 +48,14 @@ public class BusinessProcess {
 			sourceElement.setSuccessor(newElement);
 		}
 		else if(sourceElement instanceof GatewaySplit && 
-				((GatewaySplit) sourceElement).getSuccessor2().equals(oldElement)){
+				((IGatewaySplit) sourceElement).getSuccessor2().equals(oldElement)){
 			// try second element
-			((GatewaySplit) sourceElement).setSuccessor2(oldElement);
+			((IGatewaySplit) sourceElement).setSuccessor2(oldElement);
 		}
 		else if(sourceElement instanceof GatewayJoin && 
-				((GatewayJoin) sourceElement).getPredecessor2().equals(oldElement)){
+				((IGatewayJoin) sourceElement).getPredecessor2().equals(oldElement)){
 			// try second element
-			((GatewayJoin) sourceElement).setPredecessor2(oldElement);
+			((IGatewayJoin) sourceElement).setPredecessor2(oldElement);
 		}
 		else{
 			throw new Error("Old Element not referenced by sourceElement");

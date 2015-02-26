@@ -1,7 +1,7 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
 
 public class IfPattern extends AbstractSplitPattern {
 

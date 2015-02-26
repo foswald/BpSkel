@@ -1,8 +1,8 @@
 package unihh.vsis.bpskel.api.skeleton;
 
+import bpskel.bpg.api.IDataContainer;
+import bpskel.bpg.impl.core.IFlowObject;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternType;
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 import unihh.vsis.bpskel.executor.skandium.SkeletonWrapper;
 
 public interface ISkeletonAPI {

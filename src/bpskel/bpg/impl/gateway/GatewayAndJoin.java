@@ -1,6 +1,5 @@
-package unihh.vsis.bpskel.bpmn.impl.gateway;
+package bpskel.bpg.impl.gateway;
 
-import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
 
 public class GatewayAndJoin extends GatewayJoin{
 

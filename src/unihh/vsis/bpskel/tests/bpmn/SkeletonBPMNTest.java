@@ -2,9 +2,9 @@ package unihh.vsis.bpskel.tests.bpmn;
 
 import org.junit.Test;
 
+import bpskel.bpg.api.BPMNFactory;
+import bpskel.bpg.api.BusinessProcess;
 import unihh.vsis.bpskel.api.skeleton.SkeletonProcessEngine;
-import unihh.vsis.bpskel.bpmn.api.BPMNFactory;
-import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
 import unihh.vsis.bpskel.tests.shared.TestProcessFactory;
 
 public class SkeletonBPMNTest {

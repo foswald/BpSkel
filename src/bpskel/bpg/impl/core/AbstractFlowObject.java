@@ -1,4 +1,5 @@
-package unihh.vsis.bpskel.bpmn.core;
+package bpskel.bpg.impl.core;
+
 
 
 /**

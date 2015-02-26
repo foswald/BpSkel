@@ -1,7 +1,7 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
-import unihh.vsis.bpskel.bpmn.api.ITask;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
+import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.core.IFlowObject;
 import unihh.vsis.bpskel.exceptions.PatternMismatchException;
 
 public class SeqPattern implements IPattern{

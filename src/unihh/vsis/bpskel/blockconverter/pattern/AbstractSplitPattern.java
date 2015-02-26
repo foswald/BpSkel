@@ -1,8 +1,8 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
-import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
-import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
 
 public abstract class AbstractSplitPattern implements IPattern {
 

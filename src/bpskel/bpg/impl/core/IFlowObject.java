@@ -1,4 +1,5 @@
-package unihh.vsis.bpskel.bpmn.core;
+package bpskel.bpg.impl.core;
+
 
 
 /**
@@ -10,7 +11,7 @@ package unihh.vsis.bpskel.bpmn.core;
  * @author foswald
  *
  */
-public interface IFlowObject extends IBPMNElement{
+public interface IFlowObject extends IBPGElement{
 	
 	/**
 	 * Returns one or more FlowObjects preceding this FlowObject.

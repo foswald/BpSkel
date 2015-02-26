@@ -1,8 +1,8 @@
 package unihh.vsis.bpskel.blockconverter.pattern;
 
+import bpskel.bpg.impl.core.AbstractFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
 import unihh.vsis.bpskel.api.skeleton.ISkeleton;
-import unihh.vsis.bpskel.bpmn.core.AbstractFlowObject;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
 
 /**
  * This class is used during transformation of the BPG.

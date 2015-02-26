@@ -1,6 +1,6 @@
 package unihh.vsis.bpskel.tests.bpmn;
 
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
+import bpskel.bpg.api.IDataContainer;
 
 public class DataContainer implements IDataContainer {
 

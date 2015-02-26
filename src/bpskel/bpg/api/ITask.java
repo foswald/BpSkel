@@ -1,6 +1,6 @@
-package unihh.vsis.bpskel.bpmn.api;
+package bpskel.bpg.api;
 
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
+import bpskel.bpg.impl.core.IFlowObject;
 
 public interface ITask extends IFlowObject{
 

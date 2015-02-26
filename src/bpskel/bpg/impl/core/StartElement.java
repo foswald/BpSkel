@@ -1,4 +1,4 @@
-package unihh.vsis.bpskel.bpmn.core;
+package bpskel.bpg.impl.core;
 
 
 public class StartElement extends AbstractFlowObject {

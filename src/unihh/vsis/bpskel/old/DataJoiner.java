@@ -1,6 +1,6 @@
-package unihh.vsis.bpskel.bpmn.core;
+package unihh.vsis.bpskel.old;
 
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
+import bpskel.bpg.api.IDataContainer;
 
 public class DataJoiner implements IDataContainer {
 

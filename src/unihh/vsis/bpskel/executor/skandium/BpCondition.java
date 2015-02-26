@@ -1,7 +1,7 @@
 package unihh.vsis.bpskel.executor.skandium;
 
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
-import unihh.vsis.bpskel.bpmn.core.ICondition;
+import bpskel.bpg.api.ICondition;
+import bpskel.bpg.api.IDataContainer;
 import cl.niclabs.skandium.muscles.Condition;
 
 public abstract class BpCondition<P extends IDataContainer> implements Condition<IDataContainer>{

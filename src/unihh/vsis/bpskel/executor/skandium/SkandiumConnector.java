@@ -2,14 +2,14 @@ package unihh.vsis.bpskel.executor.skandium;
 
 import java.util.concurrent.Future;
 
+import bpskel.bpg.api.IDataContainer;
+import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
 import unihh.vsis.bpskel.api.skeleton.ISkeleton;
 import unihh.vsis.bpskel.api.skeleton.ISkeletonAPI;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternType;
 import unihh.vsis.bpskel.blockconverter.pattern.ProxyTask;
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
-import unihh.vsis.bpskel.bpmn.api.ITask;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
 import cl.niclabs.skandium.Skandium;
 import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.muscles.Execute;

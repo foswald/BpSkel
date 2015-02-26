@@ -4,7 +4,7 @@ import java.util.concurrent.Future;
 
 import org.junit.Test;
 
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
+import bpskel.bpg.api.IDataContainer;
 import unihh.vsis.bpskel.tests.bpmn.DataContainer;
 import cl.niclabs.skandium.Skandium;
 import cl.niclabs.skandium.muscles.Condition;
@@ -21,7 +21,7 @@ public class WhileTest {
 
 		WhileExecute<IDataContainer,IDataContainer> exec= new WhileExecute<>(new DataContainer(1));
 		
-		Condition<IDataContainer> cond = new WhileCond(new unihh.vsis.bpskel.bpmn.api.Condition("<", exec.getResultData(), new DataContainer(20)));
+		Condition<IDataContainer> cond = new WhileCond(new bpskel.bpg.impl.Condition("<", exec.getResultData(), new DataContainer(20)));
 		
 		Skeleton<IDataContainer, IDataContainer> f = new While<IDataContainer>(exec, cond);
 

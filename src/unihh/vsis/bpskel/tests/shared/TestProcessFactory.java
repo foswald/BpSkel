@@ -1,13 +1,13 @@
 package unihh.vsis.bpskel.tests.shared;
 
-import unihh.vsis.bpskel.bpmn.api.BPMNFactory;
-import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
-import unihh.vsis.bpskel.bpmn.api.ITask;
-import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
-import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
 import unihh.vsis.bpskel.tests.bpmn.DataContainer;
 import unihh.vsis.bpskel.tests.bpmn.RandomizeTask;
 import unihh.vsis.bpskel.tests.bpmn.ToStringTask;
+import bpskel.bpg.api.BPMNFactory;
+import bpskel.bpg.api.BusinessProcess;
+import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
 
 public class TestProcessFactory {
 

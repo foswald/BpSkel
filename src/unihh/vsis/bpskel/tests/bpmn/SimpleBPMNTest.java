@@ -2,9 +2,9 @@ package unihh.vsis.bpskel.tests.bpmn;
 
 import org.junit.Test;
 
-import unihh.vsis.bpskel.bpmn.api.BPMNFactory;
-import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
-import unihh.vsis.bpskel.bpmn.core.SimpleProcessEngine;
+import bpskel.bpg.api.BPMNFactory;
+import bpskel.bpg.api.BusinessProcess;
+import bpskel.bpg.impl.SimpleProcessEngine;
 import unihh.vsis.bpskel.tests.shared.TestProcessFactory;
 
 public class SimpleBPMNTest {

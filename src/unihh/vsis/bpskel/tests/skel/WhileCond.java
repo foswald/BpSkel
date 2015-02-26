@@ -1,8 +1,8 @@
 package unihh.vsis.bpskel.tests.skel;
 
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
-import unihh.vsis.bpskel.bpmn.core.ICondition;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
+import bpskel.bpg.api.ICondition;
+import bpskel.bpg.api.IDataContainer;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
 import cl.niclabs.skandium.muscles.Condition;
 
 public class WhileCond extends GatewayXorSplit implements Condition<IDataContainer> {

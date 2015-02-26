@@ -2,16 +2,18 @@ package unihh.vsis.bpskel.api.skeleton;
 
 import java.util.Iterator;
 
+import bpskel.bpg.api.BusinessProcess;
+import bpskel.bpg.api.IGatewayJoin;
+import bpskel.bpg.api.IGatewaySplit;
+import bpskel.bpg.api.IProcessEngine;
+import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
 import unihh.vsis.bpskel.blockconverter.pattern.IPattern;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternMatcher;
 import unihh.vsis.bpskel.blockconverter.pattern.PatternType;
 import unihh.vsis.bpskel.blockconverter.pattern.ProxyTask;
-import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
-import unihh.vsis.bpskel.bpmn.core.EndElement;
-import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
-import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
-import unihh.vsis.bpskel.bpmn.core.IProcessEngine;
 import unihh.vsis.bpskel.exceptions.PatternMismatchException;
 import unihh.vsis.bpskel.executor.skandium.SkandiumConnector;
 
@@ -170,7 +172,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 
 		// if we have a proxy in a branch, we need to find the correct one
 		if(pred instanceof GatewaySplit && !replacedPred){
-			GatewaySplit split = (GatewaySplit) pred;
+			IGatewaySplit split = (IGatewaySplit) pred;
 			// check for second branch
 			if(split.getSuccessor2().equals(proxy.getEntryNode())) {
 				split.setSuccessor2(proxy);
@@ -178,7 +180,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 			}
 		}
 		if(succ instanceof GatewayJoin && !replacedSucc){
-			GatewayJoin join = (GatewayJoin) succ;
+			IGatewayJoin join = (IGatewayJoin) succ;
 			// check for second incomming branch of join
 			if(join.getPredecessor2().equals(proxy.getExitNode())){
 				join.setPredecessor2(proxy);

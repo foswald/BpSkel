@@ -1,6 +1,5 @@
-package unihh.vsis.bpskel.bpmn.core;
+package bpskel.bpg.api;
 
-import unihh.vsis.bpskel.bpmn.api.BusinessProcess;
 
 public interface IProcessEngine {
 	boolean initialize();

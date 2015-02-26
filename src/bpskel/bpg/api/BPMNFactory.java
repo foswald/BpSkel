@@ -1,15 +1,14 @@
-package unihh.vsis.bpskel.bpmn.api;
+package bpskel.bpg.api;
 
-import unihh.vsis.bpskel.bpmn.core.EndElement;
-import unihh.vsis.bpskel.bpmn.core.GatewayJoin;
-import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
-import unihh.vsis.bpskel.bpmn.core.ICondition;
-import unihh.vsis.bpskel.bpmn.core.IProcessEngine;
-import unihh.vsis.bpskel.bpmn.core.StartElement;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndJoin;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayAndSplit;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorJoin;
-import unihh.vsis.bpskel.bpmn.impl.gateway.GatewayXorSplit;
+import bpskel.bpg.impl.Condition;
+import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.StartElement;
+import bpskel.bpg.impl.gateway.GatewayAndJoin;
+import bpskel.bpg.impl.gateway.GatewayAndSplit;
+import bpskel.bpg.impl.gateway.GatewayJoin;
+import bpskel.bpg.impl.gateway.GatewaySplit;
+import bpskel.bpg.impl.gateway.GatewayXorJoin;
+import bpskel.bpg.impl.gateway.GatewayXorSplit;
 
 
 public class BPMNFactory {

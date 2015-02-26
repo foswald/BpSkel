@@ -1,8 +1,7 @@
-package unihh.vsis.bpskel.bpmn.impl.gateway;
+package bpskel.bpg.impl.gateway;
 
-import unihh.vsis.bpskel.bpmn.core.GatewaySplit;
-import unihh.vsis.bpskel.bpmn.core.ICondition;
-import unihh.vsis.bpskel.bpmn.core.IFlowObject;
+import bpskel.bpg.api.ICondition;
+import bpskel.bpg.impl.core.IFlowObject;
 
 /**
  * Describes Gateways which have to decide for which path to proceed.

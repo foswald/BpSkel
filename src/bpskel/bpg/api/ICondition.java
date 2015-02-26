@@ -1,4 +1,4 @@
-package unihh.vsis.bpskel.bpmn.core;
+package bpskel.bpg.api;
 
 
 public interface ICondition{

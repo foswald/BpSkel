@@ -2,8 +2,8 @@ package unihh.vsis.bpskel.tests.bpmn;
 
 import java.util.Random;
 
-import unihh.vsis.bpskel.bpmn.api.IDataContainer;
-import unihh.vsis.bpskel.bpmn.core.AbstractTask;
+import bpskel.bpg.api.IDataContainer;
+import bpskel.bpg.impl.core.AbstractTask;
 
 public class RandomizeTask extends AbstractTask {
 

@@ -5,6 +5,7 @@ import java.util.concurrent.Future;
 import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.api.ITask;
 import bpskel.bpg.impl.core.IFlowObject;
+import bpskel.bpg.impl.core.IForTask;
 import bpskel.bpg.impl.gateway.GatewayXorSplit;
 import bpskel.engine.skeleton.api.ISkeleton;
 import bpskel.engine.skeleton.api.ISkeletonAPI;
@@ -13,6 +14,7 @@ import bpskel.engine.skeleton.impl.pattern.ProxyTask;
 import cl.niclabs.skandium.Skandium;
 import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.muscles.Execute;
+import cl.niclabs.skandium.skeletons.For;
 import cl.niclabs.skandium.skeletons.If;
 import cl.niclabs.skandium.skeletons.Pipe;
 import cl.niclabs.skandium.skeletons.Seq;
@@ -84,8 +86,10 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 	@Override
 	public ISkeleton createForSkeleton(IFlowObject startingNode) {
-		// TODO Auto-generated method stub
-		throw new Error();
+		IForTask forTask = (IForTask)startingNode;
+		Execute<IDataContainer, IDataContainer> ex = new ExecMuscleTask((ITask)startingNode);
+		ISkeleton s = new SkeletonWrapper(new For<>(ex, forTask.getNumIterations()));
+		return s;
 	}
 
 

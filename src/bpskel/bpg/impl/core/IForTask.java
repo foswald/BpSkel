@@ -14,9 +14,4 @@ public interface IForTask extends ITask {
 	 * @param numIterations
 	 */
 	public void setNumIterations(int numIterations);
-	
-	/**
-	 * @return the current iteration of getNumIterations
-	 */
-	public int getCurrentIteration();
 }

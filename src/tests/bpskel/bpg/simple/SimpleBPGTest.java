@@ -1,4 +1,4 @@
-package tests.bpskel.bpg;
+package tests.bpskel.bpg.simple;
 
 import org.junit.Test;
 

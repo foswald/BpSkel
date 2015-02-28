@@ -8,7 +8,7 @@ import bpskel.engine.skeleton.api.SkeletonProcessEngine;
 import bpskel.engine.skeleton.impl.executor.skandium.SkandiumConnector;
 import tests.bpskel.shared.TestProcessFactory;
 
-public class SkeletonBPGTest {
+public class PipeXorTest {
 
 	@Test
 	public void testBusinessProcess() {

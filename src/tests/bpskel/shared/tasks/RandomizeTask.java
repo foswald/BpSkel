@@ -3,9 +3,9 @@ package tests.bpskel.shared.tasks;
 import java.util.Random;
 
 import tests.bpskel.shared.UniversalContainer;
-import bpskel.bpg.impl.core.AbstractTask;
+import bpskel.bpg.impl.core.AbstractSimpleTask;
 
-public class RandomizeTask extends AbstractTask {
+public class RandomizeTask extends AbstractSimpleTask {
 
 
 	private int max;

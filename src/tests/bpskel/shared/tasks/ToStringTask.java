@@ -1,9 +1,10 @@
-package tests.bpskel.shared;
+package tests.bpskel.shared.tasks;
 
+import tests.bpskel.shared.UniversalContainer;
 import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.core.AbstractTask;
+import bpskel.bpg.impl.core.AbstractSimpleTask;
 
-public class ToStringTask extends AbstractTask {
+public class ToStringTask extends AbstractSimpleTask {
 
 	String thisString = null;
 	

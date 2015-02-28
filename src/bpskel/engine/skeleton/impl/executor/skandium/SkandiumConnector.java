@@ -131,9 +131,9 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 		Skandium skandium = new Skandium(8);
 
+		long init = System.currentTimeMillis();
 		Future<IDataContainer> future = skel.input(new ProxyDataContainer());
 		
-		long init = System.currentTimeMillis();
 		IDataContainer out;
 		try {
 			out = future.get();

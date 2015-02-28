@@ -1,6 +1,7 @@
 package tests.bpskel.shared;
 
 import tests.bpskel.shared.tasks.RandomizeTask;
+import tests.bpskel.shared.tasks.ToStringTask;
 import tests.bpskel.shared.tasks.WhileTruePrintTask;
 import bpskel.bpg.api.BPGFactory;
 import bpskel.bpg.api.BusinessProcessGraph;

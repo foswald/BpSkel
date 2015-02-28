@@ -12,7 +12,7 @@ public abstract class AbstractForTask extends AbstractTask implements IForTask {
 
 
 	private int numIterations;
-	private int numCurrentItartion;
+	protected int numCurrentItartion;
 	
 	public AbstractForTask(int numIterations){
 		this.numIterations = numIterations;
@@ -35,12 +35,5 @@ public abstract class AbstractForTask extends AbstractTask implements IForTask {
 		this.numIterations = numIterations;
 	}
 
-	/**
-	 * @see bpskel.bpg.impl.core.IForTask#getCurrentIteration()
-	 */
-	@Override
-	public int getCurrentIteration() {
-		return this.numCurrentItartion;
-	}
 
 }

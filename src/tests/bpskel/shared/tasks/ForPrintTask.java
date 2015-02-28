@@ -16,8 +16,6 @@ public class ForPrintTask extends AbstractForTask {
 	@Override
 	public void execute() throws ExecutionException {
 		System.out.println("Repeat this: " + ++this.numCurrentItartion);
-		
-
 	}
 
 }

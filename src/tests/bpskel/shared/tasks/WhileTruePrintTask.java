@@ -13,8 +13,6 @@ public class WhileTruePrintTask extends AbstractSimpleTask {
 
 	@Override
 	public void execute() {
-
-
 		try{
 			int rep = (int)this.getResultData().getData();
 			System.out.println(thisString + rep);

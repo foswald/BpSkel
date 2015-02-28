@@ -11,7 +11,7 @@ import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.skeletons.Skeleton;
 import cl.niclabs.skandium.skeletons.While;
 
-public class WhileTest {
+public class WhileSkelTest {
 
 	@Test
 	public void test() {

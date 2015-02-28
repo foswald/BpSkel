@@ -2,8 +2,9 @@ package tests.bpskel.bpg;
 
 import org.junit.Test;
 
+import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.ForPrintTask;
-import tests.bpskel.shared.tasks.ToStringTask;
+import tests.bpskel.shared.tasks.StaticPrintTask;
 import bpskel.bpg.api.BPGFactory;
 import bpskel.bpg.api.BusinessProcessGraph;
 import bpskel.bpg.api.ITask;
@@ -19,11 +20,14 @@ public class ForTest {
 		
 		BusinessProcessGraph pro = new BusinessProcessGraph();
 		
-		IForTask t = new ForPrintTask(12300);
-		ITask t2 = new ToStringTask("Finished!");
-		pro.connect(pro.getStart(), t);
-		pro.connect(t, t2);
-		pro.connect(t2, pro.getEnd());
+		IForTask forTask = new ForPrintTask(12300);
+		ITask t1 = new StaticPrintTask("Finished!");
+		ITask t2 = new DataPrintTask();
+		t2.setInputData(forTask.getResultData());
+		
+		pro.connect(pro.getStart(), forTask);
+		pro.connect(forTask, t1);
+		pro.connect(t1, pro.getEnd());
 		
 		BPGFactory.getProcessEngine().execute(pro);
 	}

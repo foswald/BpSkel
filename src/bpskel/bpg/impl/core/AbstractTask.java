@@ -11,7 +11,7 @@ import bpskel.bpg.api.ITask;
 abstract class AbstractTask extends AbstractFlowObject implements ITask{
 
 	protected IDataContainer data;
-	
+		
 	@Override
 	public void setInputData(IDataContainer in) {
 		this.data = in;

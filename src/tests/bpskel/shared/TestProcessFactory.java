@@ -1,7 +1,8 @@
 package tests.bpskel.shared;
 
+import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.RandomizeTask;
-import tests.bpskel.shared.tasks.ToStringTask;
+import tests.bpskel.shared.tasks.StaticPrintTask;
 import tests.bpskel.shared.tasks.WhileTruePrintTask;
 import bpskel.bpg.api.BPGFactory;
 import bpskel.bpg.api.BusinessProcessGraph;
@@ -14,11 +15,11 @@ import bpskel.bpg.impl.gateway.GatewaySplit;
 public class TestProcessFactory {
 
 	public static BusinessProcessGraph generateProcess1(){
-		ITask t1 = new ToStringTask("FirstTask");
-		ITask t2 = new ToStringTask("SecondTask");	
+		ITask t1 = new StaticPrintTask("FirstTask");
+		ITask t2 = new StaticPrintTask("SecondTask");	
 		
-		ITask t3 = new ToStringTask("ThirdOrTask");
-		ITask t4 = new ToStringTask("FourthOrTask");	
+		ITask t3 = new StaticPrintTask("ThirdOrTask");
+		ITask t4 = new StaticPrintTask("FourthOrTask");	
 		
 		ITask tr = new RandomizeTask();
 		
@@ -59,9 +60,9 @@ public class TestProcessFactory {
 	
 	public static BusinessProcessGraph generatePipeXorPipeBPG(){
 		ITask t1 = new RandomizeTask();
-		ITask t2 = new ToStringTask("Task2.1-Xor");			
-		ITask t3 = new ToStringTask("Task2.2-Xor");
-		ITask t4 = new ToStringTask("Task3-Pipe");
+		ITask t2 = new StaticPrintTask("Task2.1-Xor");			
+		ITask t3 = new StaticPrintTask("Task2.2-Xor");
+		ITask t4 = new StaticPrintTask("Task3-Pipe");
 		
 		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", t1.getResultData(), new UniversalContainer(5));
 		GatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
@@ -92,20 +93,31 @@ public class TestProcessFactory {
 	public static BusinessProcessGraph generatePipeWhilePipeBPG(){
 		ITask tr = new RandomizeTask(10000);
 		
-		ITask t2 = new WhileTruePrintTask();			
-		ITask t3 = new ToStringTask("EndTask");
-		
-		
+		ITask whileTask = new WhileTruePrintTask();
 		IDataContainer start = new UniversalContainer(10);
-		t2.setInputData(start);
-		ICondition cond = BPGFactory.createCondition(" < ", t2.getResultData(), tr.getResultData());
+		whileTask.setInputData(start);
+		
+		ITask inLoop1 = new StaticPrintTask("Repetition: ");
+		ITask inLoop2 = new DataPrintTask();
+		
+		// inLoop2 recieves data from t2
+		inLoop2.setInputData(whileTask.getResultData());
+		
+		ITask t3 = new StaticPrintTask("EndTask");
+		
+		
+
+		ICondition cond = BPGFactory.createCondition(" < ", whileTask.getResultData(), tr.getResultData());
 		
 		// create BuisnessProcess
 		BusinessProcessGraph pro = new BusinessProcessGraph();
 		
 		// Add connectors
 		pro.connect(pro.getStart(), tr);
-		pro.insertIntoWhileLoop(tr, t3, cond, t2);
+		pro.connect(whileTask, inLoop1);
+		pro.connect(inLoop1, inLoop2);
+		
+		pro.insertIntoWhileLoop(tr, t3, cond, whileTask, inLoop2);
 		pro.connect(t3, pro.getEnd());
 		
 		return pro;

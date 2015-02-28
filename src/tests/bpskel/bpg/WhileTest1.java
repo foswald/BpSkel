@@ -8,7 +8,7 @@ import bpskel.bpg.api.BusinessProcessGraph;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
 import bpskel.engine.skeleton.impl.executor.skandium.SkandiumConnector;
 
-public class SkeletonWhileTest {
+public class WhileTest1 {
 
 	@Test
 	public void test() {

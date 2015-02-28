@@ -31,7 +31,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 
 		// do until whole bpg has been transformed
 		while(!pro.getStart().getSuccessor().getSuccessor().equals(pro.getEnd())){
-			createSkeletonStructure(pro, pro.getStart().getSuccessor(), false);
+			createSkeletonStructure(pro, pro.getStart().getSuccessor());
 		}
 		
 		ProxyTask root = (ProxyTask) pro.getStart().getSuccessor();
@@ -41,7 +41,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 			
 	}
 	
-	private void createSkeletonStructure(BusinessProcessGraph bpg, IFlowObject currentNode, boolean isBranch) {
+	private void createSkeletonStructure(BusinessProcessGraph bpg, IFlowObject currentNode) {
 		
 		// run until end of bpg has been reached
 		do {			
@@ -86,19 +86,15 @@ public class SkeletonProcessEngine implements IProcessEngine{
 				
 				// process one branch per run (otherwise you might get data inconsistency in this scope)
 				if(!this.isValidBranch(branch1)){
-					this.createSkeletonStructure(bpg, branch1, true);
+					this.createSkeletonStructure(bpg, branch1);
 				}
 				if(!this.isValidBranch(branch2)){
-					this.createSkeletonStructure(bpg, branch2, true);
+					this.createSkeletonStructure(bpg, branch2);
 				}
 				break;
-			} 
-			// probably a while loop
-			else if(!isBranch && currentNode instanceof GatewayJoin){
-				currentNode = currentNode.getSuccessor();
 			}
 			// end branching
-			else if(isBranch && currentNode instanceof GatewayJoin){
+			else if(currentNode instanceof GatewayJoin){
 				break;
 			}
 			// ProxyTask but next is no proxy, proceed
@@ -106,7 +102,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 				// already processed
 				currentNode = currentNode.getSuccessor();
 			}
-		} while(!(currentNode instanceof EndElement) && !isBranch);
+		} while(!(currentNode instanceof EndElement));
 	}
 	
 	/**

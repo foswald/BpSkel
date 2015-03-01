@@ -30,7 +30,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	public void execute(BusinessProcessGraph pro) {
 
 		// do until whole bpg has been transformed
-		while(!pro.getStart().getSuccessor().getSuccessor().equals(pro.getEnd())){
+		while(!isReduced(pro) || !(pro.getStart().getSuccessor() instanceof ProxyTask)){
 			createSkeletonStructure(pro, pro.getStart().getSuccessor(), false);
 		}
 		
@@ -174,6 +174,10 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	public boolean initialize() {
 		// Setup Skandium engine here
 		return false;
+	}
+	
+	private boolean isReduced(BusinessProcessGraph pro){
+		return pro.getStart().getSuccessor().getSuccessor().equals(pro.getEnd());
 	}
 	
 }

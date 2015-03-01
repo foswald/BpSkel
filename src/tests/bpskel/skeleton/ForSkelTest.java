@@ -4,14 +4,13 @@ import java.util.concurrent.Future;
 
 import org.junit.Test;
 
-import bpskel.bpg.api.IDataContainer;
 import tests.bpskel.shared.UniversalContainer;
+import bpskel.bpg.api.IDataContainer;
 import cl.niclabs.skandium.Skandium;
-import cl.niclabs.skandium.muscles.Condition;
+import cl.niclabs.skandium.skeletons.For;
 import cl.niclabs.skandium.skeletons.Skeleton;
-import cl.niclabs.skandium.skeletons.While;
 
-public class WhileTest {
+public class ForSkelTest {
 
 	@Test
 	public void test() {
@@ -21,9 +20,7 @@ public class WhileTest {
 
 		WhileExecute<IDataContainer,IDataContainer> exec= new WhileExecute<>(new UniversalContainer(1));
 		
-		Condition<IDataContainer> cond = new WhileCond(new bpskel.bpg.impl.core.Condition("<", exec.getResultData(), new UniversalContainer(20)));
-		
-		Skeleton<IDataContainer, IDataContainer> f = new While<IDataContainer>(exec, cond);
+		Skeleton<IDataContainer, IDataContainer> f = new For<IDataContainer>(exec, 123);
 
 
 		System.out.println("Computing Mergesort threads="+THREADS+" size="+ SIZE + ".");

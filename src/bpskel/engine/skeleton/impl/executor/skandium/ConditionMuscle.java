@@ -4,10 +4,10 @@ import bpskel.bpg.api.ICondition;
 import bpskel.bpg.api.IDataContainer;
 import cl.niclabs.skandium.muscles.Condition;
 
-public class SkandiumCondition implements Condition<IDataContainer> {
+public class ConditionMuscle implements Condition<IDataContainer> {
 	
 	private ICondition bpgCondition;
-	public SkandiumCondition(ICondition cond){
+	public ConditionMuscle(ICondition cond){
 		this.bpgCondition = cond;
 	}
 

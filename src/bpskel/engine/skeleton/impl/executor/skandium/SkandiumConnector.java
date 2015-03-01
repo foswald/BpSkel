@@ -75,7 +75,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 	public ISkeleton createWhileSkeleton(IFlowObject startingNode) {
 		ProxyTask task = (ProxyTask) startingNode.getSuccessor();
 		GatewayXorSplit split = (GatewayXorSplit)task.getSuccessor();
-		Condition<IDataContainer> cond = new SkandiumCondition(split.getCondition());
+		Condition<IDataContainer> cond = new ConditionMuscle(split.getCondition());
 		Skeleton<IDataContainer, IDataContainer> skel = this.getSkeletonFromProxy(task);
 		
 		ISkeleton s = new SkeletonWrapper(new While<IDataContainer>(skel, cond));
@@ -92,7 +92,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 	@Override
 	public ISkeleton createIfSkeleton(IFlowObject startingNode) {
 		GatewayXorSplit split = (GatewayXorSplit)startingNode;
-		Condition<IDataContainer> cond = new SkandiumCondition(split.getCondition());
+		Condition<IDataContainer> cond = new ConditionMuscle(split.getCondition());
 		
 		Skeleton<IDataContainer, IDataContainer> case1 = this.getSkeletonFromProxy(split.getSuccessor());
 		Skeleton<IDataContainer, IDataContainer> case2 = this.getSkeletonFromProxy(split.getSuccessor2());

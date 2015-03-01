@@ -15,7 +15,7 @@ import bpskel.bpg.impl.gateway.GatewaySplit;
 public class TestProcessFactory {
 
 	public static BusinessProcessGraph generateProcess1(){
-		ITask t1 = new StaticPrintTask("FirstTask");
+		ITask t1 = new StaticPrintTask("FirstAndTask");
 		ITask t2 = new StaticPrintTask("SecondTask");	
 		
 		ITask t3 = new StaticPrintTask("ThirdOrTask");

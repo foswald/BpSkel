@@ -34,6 +34,8 @@ public class SkeletonProcessEngine implements IProcessEngine{
 			createSkeletonStructure(pro, pro.getStart().getSuccessor(), false);
 		}
 		
+		System.out.println("Conversion finished.");
+		
 		ProxyTask root = (ProxyTask) pro.getStart().getSuccessor();
 		
 		// now start the skeleton application
@@ -106,7 +108,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 				// already processed
 				currentNode = currentNode.getSuccessor();
 			}
-		} while(!(currentNode instanceof EndElement) && !isBranch);
+		} while(!(currentNode instanceof EndElement));
 	}
 	
 	/**

@@ -6,6 +6,7 @@ import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.api.ITask;
 import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.bpg.impl.core.IForTask;
+import bpskel.bpg.impl.gateway.GatewaySplit;
 import bpskel.bpg.impl.gateway.GatewayXorSplit;
 import bpskel.engine.skeleton.api.ISkeleton;
 import bpskel.engine.skeleton.api.ISkeletonAPI;
@@ -14,7 +15,10 @@ import bpskel.engine.skeleton.impl.pattern.ProxyTask;
 import cl.niclabs.skandium.Skandium;
 import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.muscles.Execute;
+import cl.niclabs.skandium.muscles.Merge;
+import cl.niclabs.skandium.muscles.Split;
 import cl.niclabs.skandium.skeletons.For;
+import cl.niclabs.skandium.skeletons.Fork;
 import cl.niclabs.skandium.skeletons.If;
 import cl.niclabs.skandium.skeletons.Pipe;
 import cl.niclabs.skandium.skeletons.Seq;
@@ -114,8 +118,26 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 	@Override
 	public ISkeleton createForkSkeleton(IFlowObject startingNode) {
-		// TODO Auto-generated method stub
-		throw new Error();
+		GatewaySplit split = (GatewaySplit) startingNode;
+		ProxyTask task1 = ((ProxyTask) split.getSuccessor());
+		ProxyTask task2 = (ProxyTask) split.getSuccessor2();
+		
+		IDataContainer data1 = new ProxyDataContainer();
+		IDataContainer data2 = new ProxyDataContainer();		
+		Split<IDataContainer,IDataContainer> splitMuscle = new SplitMuscleFork(data1, data2);
+
+		Skeleton<IDataContainer, IDataContainer> skel1 = this.getSkeletonFromProxy(split.getSuccessor());
+		Skeleton<IDataContainer, IDataContainer> skel2 = this.getSkeletonFromProxy(split.getSuccessor2());
+		
+		@SuppressWarnings("unchecked")
+		Skeleton<IDataContainer, IDataContainer>[] skel = new Skeleton[2];
+		skel[0] = skel1;
+		skel[1] = skel2;
+		
+		Merge<IDataContainer, IDataContainer> mergeMuscle = new MergeMuscleFork();
+		
+		ISkeleton s = new SkeletonWrapper(new Fork<IDataContainer, IDataContainer>(splitMuscle, skel, mergeMuscle));
+		return s;
 	}
 
 

@@ -16,6 +16,11 @@ abstract class AbstractTask extends AbstractFlowObject implements ITask{
 	public void setInputData(IDataContainer in) {
 		this.data = in;
 	}
+	
+	@Override
+	public IDataContainer getInputData() {
+		return this.data;
+	}
 
 	@Override
 	public IDataContainer getResultData() {

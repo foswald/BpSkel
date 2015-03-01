@@ -16,7 +16,6 @@ public class ForkPattern extends AbstractSplitPattern {
 
 	@Override
 	public PatternType getPatternType() {
-		// TODO Auto-generated method stub
 		return PatternType.FORK;
 	}
 

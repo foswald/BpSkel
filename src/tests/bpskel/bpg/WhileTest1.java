@@ -21,7 +21,7 @@ public class WhileTest1 {
 	public void test() {
 		BPGFactory.initialize(new SkeletonProcessEngine(SkandiumConnector.class));
 		
-		ITask randomizeOutputData = new RandomizeTask(10000);
+		ITask randomizeOutputData = new RandomizeTask(1000);
 		
 		ITask whileTask = new WhileTruePrintTask();
 		IDataContainer start = new UniversalContainer(10);
@@ -50,7 +50,7 @@ public class WhileTest1 {
 		pro.insertIntoWhileLoop(randomizeOutputData, t3, cond, whileTask, inLoop2);
 		pro.connect(t3, pro.getEnd());
 		
-		BPGFactory.getProcessEngine().execute(pro);
+		BPGFactory.executeProcess(pro);
 	}
 
 }

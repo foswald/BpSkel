@@ -33,8 +33,8 @@ public class BPGFactory {
 		}
 	}
 	
-	public static IProcessEngine getProcessEngine(){
-		return engine;
+	public static void executeProcess(BusinessProcessGraph pro){
+		engine.execute(pro);
 	}
 	
 	public static StartElement getStartElement(){
@@ -86,7 +86,7 @@ public class BPGFactory {
 	 */
 	public static ICondition createCondition(IDataContainer lhs,
 			String string, IDataContainer rhs){
-		return new Condition(string, lhs, rhs);
+		return new Condition(lhs, string, rhs);
 	}
 	
 	public static ITask createTask(ITask task){

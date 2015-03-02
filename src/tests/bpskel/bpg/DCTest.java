@@ -38,7 +38,7 @@ public class DCTest {
 		
 		
 		
-		BPGFactory.getProcessEngine().execute(pro);
+		BPGFactory.executeProcess(pro);
 	}
 
 }

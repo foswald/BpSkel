@@ -17,7 +17,7 @@ public class SimpleBPGTest {
 
 		BusinessProcessGraph pro = TestProcessFactory.generatePipeXorPipeBPG();
 
-		BPGFactory.getProcessEngine().execute(pro);
+		BPGFactory.executeProcess(pro);
 	}
 
 }

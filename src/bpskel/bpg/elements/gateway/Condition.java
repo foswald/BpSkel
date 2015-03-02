@@ -21,7 +21,7 @@ public class Condition implements ICondition {
 	private IDataContainer rhs;
 	private String expr;
   
-	public Condition(String booleanExpression, IDataContainer leftHandDataRef, IDataContainer rightHandDataRef) {
+	public Condition(IDataContainer leftHandDataRef, String booleanExpression, IDataContainer rightHandDataRef) {
 		this.expr = booleanExpression;
 		this.lhs = leftHandDataRef;
 		this.rhs = rightHandDataRef;

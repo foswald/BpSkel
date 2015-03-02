@@ -34,11 +34,11 @@ public class AndTest {
 		pro2.connect(joinAnd1, t3);
 		pro2.connect(t3, pro2.getEnd());
 		
-		BPGFactory.getProcessEngine().execute(pro2);
+		BPGFactory.executeProcess(pro2);
 		
 
 		BusinessProcessGraph pro = TestProcessFactory.generateProcess1();
-		BPGFactory.getProcessEngine().execute(pro);
+		BPGFactory.executeProcess(pro);
 	}
 
 }

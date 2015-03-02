@@ -15,7 +15,7 @@ public class PipeXorTest {
 		BPGFactory.initialize(new SkeletonProcessEngine(SkandiumConnector.class));
 		
 		BusinessProcessGraph pro = TestProcessFactory.generatePipeXorPipeBPG();
-		BPGFactory.getProcessEngine().execute(pro);
+		BPGFactory.executeProcess(pro);
 	}
 
 }

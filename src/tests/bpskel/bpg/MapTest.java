@@ -39,7 +39,7 @@ public class MapTest {
 		
 		
 		
-		BPGFactory.getProcessEngine().execute(pro);
+		BPGFactory.executeProcess(pro);
 	}
 
 }

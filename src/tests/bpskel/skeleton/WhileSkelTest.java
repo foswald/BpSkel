@@ -4,6 +4,7 @@ import java.util.concurrent.Future;
 
 import org.junit.Test;
 
+import bpskel.api.BPGFactory;
 import bpskel.api.IDataContainer;
 import tests.bpskel.shared.UniversalContainer;
 import cl.niclabs.skandium.Skandium;
@@ -21,7 +22,7 @@ public class WhileSkelTest {
 
 		WhileExecute<IDataContainer,IDataContainer> exec= new WhileExecute<>(new UniversalContainer(1));
 		
-		Condition<IDataContainer> cond = new WhileCond(new bpskel.bpg.elements.gateway.Condition("<", exec.getResultData(), new UniversalContainer(20)));
+		Condition<IDataContainer> cond = new WhileCond(BPGFactory.createCondition(exec.getResultData(), "<", new UniversalContainer(20)));
 		
 		Skeleton<IDataContainer, IDataContainer> f = new While<IDataContainer>(exec, cond);
 

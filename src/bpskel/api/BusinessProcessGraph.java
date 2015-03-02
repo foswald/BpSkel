@@ -1,21 +1,26 @@
 package bpskel.api;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
 import bpskel.bpg.elements.core.EndElement;
 import bpskel.bpg.elements.core.IFlowObject;
 import bpskel.bpg.elements.core.StartElement;
 import bpskel.bpg.elements.gateway.GatewayJoin;
 import bpskel.bpg.elements.gateway.GatewaySplit;
-import bpskel.bpg.elements.gateway.IGateway;
 
+/**
+ * This class represents a BPG.
+ * It only holds direct references to the start and end events. All connect events can be accessed through the
+ * traversion of the graph.
+ * @author foswald
+ *
+ */
 public class BusinessProcessGraph {
 
 	private IFlowObject start;
 	private IFlowObject end;
 	
+	/**
+	 * Creates a new BPG with unique Start and Endelement.
+	 */
 	public BusinessProcessGraph() {
 		start = new StartElement();
 		end = new EndElement();
@@ -61,6 +66,12 @@ public class BusinessProcessGraph {
 		
 	}
 	
+	/**
+	 * Connect two sources to a GatewayJoin
+	 * @param source1
+	 * @param source2
+	 * @param join
+	 */
 	public void connectToJoin(IFlowObject source1, IFlowObject source2, IGatewayJoin join){
 		source1.setSuccessor(join);
 		source2.setSuccessor(join);
@@ -68,6 +79,12 @@ public class BusinessProcessGraph {
 		join.setPredecessor2(source2);
 	}
 	
+	/**
+	 * Connect two FlowObjects from a GatewaySplit
+	 * @param source
+	 * @param branch1
+	 * @param branch2
+	 */
 	public void connectFromSplit(IGatewaySplit source, IFlowObject branch1, IFlowObject branch2){
 		source.setSuccessor(branch1);
 		source.setSuccessor2(branch2);
@@ -104,13 +121,18 @@ public class BusinessProcessGraph {
 	public void insertIntoWhileLoop(IFlowObject source, IFlowObject sink, ICondition cond, IFlowObject content){
 		insertIntoWhileLoop(source, sink, cond, content, content);
 	}
-		
+	
+	/**
+	 * The start event of this BPG
+	 */
 	public IFlowObject getStart(){
 		return start;
 	}
 
+	/**
+	 * The Endevent of this BPG
+	 */
 	public IFlowObject getEnd() {
 		return end;
 	}
-
 }

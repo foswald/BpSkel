@@ -29,7 +29,7 @@ public class ForTest {
 		pro.connect(forTask, t1);
 		pro.connect(t1, pro.getEnd());
 		
-		BPGFactory.getProcessEngine().execute(pro);
+		BPGFactory.executeProcess(pro);
 	}
 
 }

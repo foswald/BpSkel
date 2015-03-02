@@ -36,17 +36,6 @@ public class TestProcessFactory {
 		// create BuisnessProcess
 		BusinessProcessGraph pro = new BusinessProcessGraph();
 		
-		// add elements to process
-		pro.addTask(tr);		
-		pro.addTask(t1);
-		pro.addTask(t2);
-		pro.addTask(t3);
-		pro.addTask(t4);
-		pro.addGateway(splitAnd1);
-		pro.addGateway(joinAnd1);
-		pro.addGateway(splitXor1);
-		pro.addGateway(joinXor1);
-		
 		// Add connectors
 		pro.connect(pro.getStart(), tr);
 		pro.connect(tr, splitAnd1);
@@ -72,14 +61,6 @@ public class TestProcessFactory {
 		
 		// create BuisnessProcess
 		BusinessProcessGraph pro = new BusinessProcessGraph();
-		
-		// add elements to process	
-		pro.addTask(t1);
-		pro.addTask(t2);
-		pro.addTask(t3);
-		pro.addTask(t4);
-		pro.addGateway(splitXor1);
-		pro.addGateway(joinXor1);
 		
 		// Add connectors
 		pro.connect(pro.getStart(), t1);

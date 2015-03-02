@@ -20,6 +20,7 @@ public class BusinessProcessGraph implements IBPG {
 	
 	/**
 	 * Creates a new BPG with unique Start and Endelement.
+	 * This ctor is abstract and should only be used by BPGFactory
 	 */
 	BusinessProcessGraph() {
 		start = new StartElement();

@@ -3,8 +3,6 @@ package bpskel.api;
 import bpskel.bpg.elements.gateway.Condition;
 import bpskel.bpg.elements.gateway.GatewayAndJoin;
 import bpskel.bpg.elements.gateway.GatewayAndSplit;
-import bpskel.bpg.elements.gateway.GatewayJoin;
-import bpskel.bpg.elements.gateway.GatewaySplit;
 import bpskel.bpg.elements.gateway.GatewayXorJoin;
 import bpskel.bpg.elements.gateway.GatewayXorSplit;
 
@@ -33,21 +31,19 @@ public class BPGFactory {
 		return new BusinessProcessGraph();
 	}
 	
-	public static GatewaySplit createGatewayAndSplit(){
+	public static IGatewaySplit createGatewayAndSplit(){
 		return new GatewayAndSplit();
 	}
 	
-	public static GatewayJoin createGatewayAndJoin(){
+	public static IGatewayJoin createGatewayAndJoin(){
 		return new GatewayAndJoin();
 	}
 
-	public static GatewaySplit createGatewayXorSplit(ICondition cond){
+	public static IGatewaySplit createGatewayXorSplit(ICondition cond){
 		return new GatewayXorSplit(cond);
-	}
+	}	
 	
-	
-	
-	public static GatewayJoin createGatewayXorJoin(){
+	public static IGatewayJoin createGatewayXorJoin(){
 		return new GatewayXorJoin();
 	}
 
@@ -60,7 +56,7 @@ public class BPGFactory {
 	 * @param rhs the right hand side of the boolean expression
 	 * @return A XOR gateway evaluating the given expression when processed.
 	 */
-	public static GatewaySplit createGatewayXorSplit(String string,
+	public static IGatewaySplit createGatewayXorSplit(String string,
 			IDataContainer lhs, IDataContainer rhs) {
 		return createGatewayXorSplit(createCondition(lhs, string, rhs));
 	}
@@ -75,11 +71,5 @@ public class BPGFactory {
 	public static ICondition createCondition(IDataContainer lhs,
 			String string, IDataContainer rhs){
 		return new Condition(lhs, string, rhs);
-	}
-	
-	public static ITask createTask(ITask task){
-		return task;
-	}
-
-	
+	}	
 }

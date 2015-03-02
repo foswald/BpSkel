@@ -19,7 +19,9 @@ public class TestProcessFactory {
 		ITask t2 = new StaticPrintTask("SecondTask");	
 		
 		ITask t3 = new StaticPrintTask("ThirdOrTask");
-		ITask t4 = new StaticPrintTask("FourthOrTask");	
+		ITask t4 = new StaticPrintTask("FourthOrTask");
+		
+		ITask t5 = new StaticPrintTask("End");	
 		
 		ITask tr = new RandomizeTask();
 		
@@ -53,7 +55,8 @@ public class TestProcessFactory {
 		pro.connectToJoin(t3, t4, joinXor1);		
 		pro.connect(t1, t2);
 		pro.connectToJoin(t2, joinXor1, joinAnd1);		
-		pro.connect(joinAnd1, pro.getEnd());
+		pro.connect(joinAnd1, t5);
+		pro.connect(t5, pro.getEnd());
 		
 		return pro;
 	}

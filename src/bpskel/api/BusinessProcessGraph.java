@@ -12,14 +12,11 @@ import bpskel.bpg.elements.gateway.GatewaySplit;
 import bpskel.bpg.elements.gateway.IGateway;
 
 public class BusinessProcessGraph {
-	
-	private Set<IFlowObject> flowObjects;
-	
+
 	private IFlowObject start;
 	private IFlowObject end;
 	
 	public BusinessProcessGraph() {
-		flowObjects = new HashSet<IFlowObject>();
 		start = new StartElement();
 		end = new EndElement();
 	}
@@ -107,14 +104,6 @@ public class BusinessProcessGraph {
 	public void insertIntoWhileLoop(IFlowObject source, IFlowObject sink, ICondition cond, IFlowObject content){
 		insertIntoWhileLoop(source, sink, cond, content, content);
 	}
-	
-	public void addTask(ITask t){
-		this.flowObjects.add(t);
-	}
-	
-	public void addGateway(IGateway f){
-		this.flowObjects.add(f);
-	}
 		
 	public IFlowObject getStart(){
 		return start;
@@ -122,20 +111,6 @@ public class BusinessProcessGraph {
 
 	public IFlowObject getEnd() {
 		return end;
-	}
-	
-	private Set<IFlowObject> getFlowObjects(){
-		return this.flowObjects;
-	}
-	
-	public void clean(){
-		Iterator<IFlowObject> it=this.getFlowObjects().iterator(); 
-		while(it.hasNext()){
-			IFlowObject f = it.next();
-			if(f.isEmpty()){
-				it.remove();
-			}
-		}
 	}
 
 }

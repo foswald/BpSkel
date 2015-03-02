@@ -6,10 +6,10 @@ import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.api.ITask;
 import bpskel.bpg.impl.core.IDataMerge;
 import bpskel.bpg.impl.core.IDataSplit;
+import bpskel.bpg.impl.core.IDataSplitConditional;
 import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.bpg.impl.core.IForTask;
 import bpskel.bpg.impl.core.StartElement;
-import bpskel.bpg.impl.gateway.GatewayJoin;
 import bpskel.bpg.impl.gateway.GatewaySplit;
 import bpskel.bpg.impl.gateway.GatewayXorSplit;
 import bpskel.engine.skeleton.api.ISkeleton;
@@ -21,6 +21,7 @@ import cl.niclabs.skandium.muscles.Condition;
 import cl.niclabs.skandium.muscles.Execute;
 import cl.niclabs.skandium.muscles.Merge;
 import cl.niclabs.skandium.muscles.Split;
+import cl.niclabs.skandium.skeletons.DaC;
 import cl.niclabs.skandium.skeletons.For;
 import cl.niclabs.skandium.skeletons.Fork;
 import cl.niclabs.skandium.skeletons.If;
@@ -164,8 +165,16 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 	@Override
 	public ISkeleton createDCSkeleton(IFlowObject startingNode) {
-		// TODO Auto-generated method stub
-		throw new Error();
+		IDataSplitConditional split = (IDataSplitConditional) startingNode;
+		Split<IDataContainer,IDataContainer> splitMuscle = new SplitMuscle(split);
+		Condition<IDataContainer> cond = new CondMuscle(split);
+		
+		Skeleton<IDataContainer, IDataContainer> skel = this.getSkeletonFromProxy(startingNode.getSuccessor());
+		Merge<IDataContainer, IDataContainer> mergeMuscle = new MergeMuscle((IDataMerge) startingNode.getSuccessor().getSuccessor());
+		ISkeleton s = new SkeletonWrapper(new DaC<IDataContainer, IDataContainer>(
+				cond, splitMuscle, skel, mergeMuscle));
+		
+		return s;
 	}
 
 	@Override

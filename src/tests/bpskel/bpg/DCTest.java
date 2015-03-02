@@ -2,8 +2,8 @@ package tests.bpskel.bpg;
 
 import org.junit.Test;
 
-import tests.bpskel.bpg.map.MergeStringList;
-import tests.bpskel.bpg.map.SplitStringList;
+import tests.bpskel.bpg.dc.MergeStringListData;
+import tests.bpskel.bpg.dc.SplitStringListConditional;
 import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.GenerateStringList;
 import tests.bpskel.shared.tasks.StaticPrintTask;
@@ -15,7 +15,7 @@ import bpskel.bpg.impl.core.IDataSplit;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
 import bpskel.engine.skeleton.impl.executor.skandium.SkandiumConnector;
 
-public class MapTest {
+public class DCTest {
 
 	@Test
 	public void test() {
@@ -23,10 +23,9 @@ public class MapTest {
 		
 		BusinessProcessGraph pro = new BusinessProcessGraph();
 		
-		
-		ITask generateData = new GenerateStringList(100);
-		IDataSplit split = new SplitStringList();
-		IDataMerge merge = new MergeStringList();
+		ITask generateData = new GenerateStringList(400);
+		IDataSplit split = new SplitStringListConditional(10);
+		IDataMerge merge = new MergeStringListData();
 		ITask printData = new DataPrintTask();
 		ITask end = new StaticPrintTask("End");
 		

@@ -1,7 +1,8 @@
-package tests.bpskel.shared;
+package tests.bpskel.bpg.map;
 
 import java.util.ArrayList;
 
+import tests.bpskel.shared.DataContainer;
 import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.impl.core.AbstractFlowObject;
 import bpskel.bpg.impl.core.IDataSplit;

@@ -4,7 +4,7 @@ import bpskel.bpg.impl.core.IFlowObject;
 
 public class PatternMatcher {
 	
-	private static final int NUM_PATTERNS = 7;
+	private static final int NUM_PATTERNS = 8;
 	
 	private IPattern[] patterns;
 
@@ -13,10 +13,11 @@ public class PatternMatcher {
 		patterns[0] = new SeqPattern();
 		patterns[1] = new PipePattern();
 		patterns[2] = new IfPattern();
-		patterns[3] = new ForkPattern();
+		patterns[3] = new ForPattern();
 		patterns[4] = new WhilePattern();
-		patterns[5] = new ForPattern();
+		patterns[5] = new ForkPattern();
 		patterns[6] = new MapPattern();
+		patterns[7] = new DCPattern();
 		
 	}
 	

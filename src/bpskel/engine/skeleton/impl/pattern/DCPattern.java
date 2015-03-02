@@ -1,15 +1,14 @@
 package bpskel.engine.skeleton.impl.pattern;
 
 import bpskel.bpg.impl.core.IDataMerge;
-import bpskel.bpg.impl.core.IDataSplit;
 import bpskel.bpg.impl.core.IDataSplitConditional;
 import bpskel.bpg.impl.core.IFlowObject;
 
-public class MapPattern implements IPattern {
+public class DCPattern implements IPattern {
 
 	@Override
 	public boolean matchPattern(IFlowObject start) {
-		if(start instanceof IDataSplit && !(start instanceof IDataSplitConditional)){
+		if(start instanceof IDataSplitConditional){
 			if(start.getSuccessor() instanceof ProxyTask){
 				return (start.getSuccessor().getSuccessor() instanceof IDataMerge);
 			}
@@ -19,7 +18,7 @@ public class MapPattern implements IPattern {
 
 	@Override
 	public IFlowObject getEndElement(IFlowObject start) {
-		if(matchPattern(start)){
+		if(this.matchPattern(start)){
 			return start.getSuccessor().getSuccessor();
 		}
 		return null;
@@ -27,7 +26,7 @@ public class MapPattern implements IPattern {
 
 	@Override
 	public PatternType getPatternType() {
-		return PatternType.MAP;
+		return PatternType.DC;
 	}
 
 }

@@ -1,7 +1,7 @@
 package bpskel.engine.skeleton.api;
 
-import bpskel.bpg.impl.core.IFlowObject;
-import bpskel.engine.skeleton.impl.pattern.PatternType;
+import bpskel.bpg.conversion.pattern.PatternType;
+import bpskel.bpg.elements.core.IFlowObject;
 
 public interface ISkeletonAPI {
 	

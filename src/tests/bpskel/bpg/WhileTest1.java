@@ -2,19 +2,18 @@ package tests.bpskel.bpg;
 
 import org.junit.Test;
 
-import tests.bpskel.shared.TestProcessFactory;
 import tests.bpskel.shared.UniversalContainer;
 import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.RandomizeTask;
 import tests.bpskel.shared.tasks.StaticPrintTask;
 import tests.bpskel.shared.tasks.WhileTruePrintTask;
-import bpskel.bpg.api.BPGFactory;
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.bpg.api.ICondition;
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.api.ITask;
+import bpskel.api.BPGFactory;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.api.ICondition;
+import bpskel.api.IDataContainer;
+import bpskel.api.ITask;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
-import bpskel.engine.skeleton.impl.executor.skandium.SkandiumConnector;
+import bpskel.engine.skeleton.impl.skandium.SkandiumConnector;
 
 public class WhileTest1 {
 

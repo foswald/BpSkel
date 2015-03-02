@@ -1,8 +1,8 @@
 package tests.bpskel.skeleton;
 
-import bpskel.bpg.api.ICondition;
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.gateway.GatewayXorSplit;
+import bpskel.api.ICondition;
+import bpskel.api.IDataContainer;
+import bpskel.bpg.elements.gateway.GatewayXorSplit;
 import cl.niclabs.skandium.muscles.Condition;
 
 public class WhileCond extends GatewayXorSplit implements Condition<IDataContainer> {

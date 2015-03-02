@@ -7,13 +7,13 @@ import tests.bpskel.bpg.map.SplitStringList;
 import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.GenerateStringList;
 import tests.bpskel.shared.tasks.StaticPrintTask;
-import bpskel.bpg.api.BPGFactory;
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.bpg.api.ITask;
-import bpskel.bpg.impl.core.IDataMerge;
-import bpskel.bpg.impl.core.IDataSplit;
+import bpskel.api.BPGFactory;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.api.ITask;
+import bpskel.bpg.elements.splitmerge.IDataMerge;
+import bpskel.bpg.elements.splitmerge.IDataSplit;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
-import bpskel.engine.skeleton.impl.executor.skandium.SkandiumConnector;
+import bpskel.engine.skeleton.impl.skandium.SkandiumConnector;
 
 public class MapTest {
 

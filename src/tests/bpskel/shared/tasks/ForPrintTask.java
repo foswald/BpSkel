@@ -2,7 +2,7 @@ package tests.bpskel.shared.tasks;
 
 import java.util.concurrent.ExecutionException;
 
-import bpskel.bpg.impl.core.AbstractForTask;
+import bpskel.api.AbstractForTask;
 
 public class ForPrintTask extends AbstractForTask {
 	

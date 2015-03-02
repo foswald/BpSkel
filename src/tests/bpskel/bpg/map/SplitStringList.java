@@ -3,11 +3,10 @@ package tests.bpskel.bpg.map;
 import java.util.ArrayList;
 
 import tests.bpskel.shared.DataContainer;
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.core.AbstractFlowObject;
-import bpskel.bpg.impl.core.IDataSplit;
+import bpskel.api.AbstractDataSplit;
+import bpskel.api.IDataContainer;
 
-public class SplitStringList extends AbstractFlowObject implements IDataSplit{
+public class SplitStringList extends AbstractDataSplit{
 
 	@Override
 	public IDataContainer[] splitData(IDataContainer data) {

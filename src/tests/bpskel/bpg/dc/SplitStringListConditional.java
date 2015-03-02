@@ -3,11 +3,10 @@ package tests.bpskel.bpg.dc;
 import java.util.List;
 
 import tests.bpskel.shared.DataContainer;
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.core.AbstractFlowObject;
-import bpskel.bpg.impl.core.IDataSplitConditional;
+import bpskel.api.AbstractDataSplitConditional;
+import bpskel.api.IDataContainer;
 
-public class SplitStringListConditional extends AbstractFlowObject implements IDataSplitConditional{
+public class SplitStringListConditional extends AbstractDataSplitConditional{
 	
 	private int splitSize;
 	public SplitStringListConditional(int maxListSize){

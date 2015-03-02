@@ -4,13 +4,13 @@ import org.junit.Test;
 
 import tests.bpskel.shared.TestProcessFactory;
 import tests.bpskel.shared.tasks.StaticPrintTask;
-import bpskel.bpg.api.BPGFactory;
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.bpg.api.ITask;
-import bpskel.bpg.impl.gateway.GatewayJoin;
-import bpskel.bpg.impl.gateway.GatewaySplit;
+import bpskel.api.BPGFactory;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IGatewayJoin;
+import bpskel.api.IGatewaySplit;
+import bpskel.api.ITask;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
-import bpskel.engine.skeleton.impl.executor.skandium.SkandiumConnector;
+import bpskel.engine.skeleton.impl.skandium.SkandiumConnector;
 
 public class AndTest {
 
@@ -24,8 +24,8 @@ public class AndTest {
 		ITask t3 = new StaticPrintTask("EndTask");
 		
 		// Create And Gateway
-		GatewaySplit splitAnd1 = BPGFactory.createGatewayAndSplit();
-		GatewayJoin joinAnd1 = BPGFactory.createGatewayAndJoin();
+		IGatewaySplit splitAnd1 = BPGFactory.createGatewayAndSplit();
+		IGatewayJoin joinAnd1 = BPGFactory.createGatewayAndJoin();
 		
 		// Add connectors
 		pro2.connect(pro2.getStart(), splitAnd1);

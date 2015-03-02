@@ -1,6 +1,6 @@
 package tests.bpskel.shared.tasks;
 
-import bpskel.bpg.impl.core.AbstractSimpleTask;
+import bpskel.api.AbstractSimpleTask;
 
 public class WhileTruePrintTask extends AbstractSimpleTask {
 

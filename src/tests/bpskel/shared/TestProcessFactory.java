@@ -4,13 +4,13 @@ import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.RandomizeTask;
 import tests.bpskel.shared.tasks.StaticPrintTask;
 import tests.bpskel.shared.tasks.WhileTruePrintTask;
-import bpskel.bpg.api.BPGFactory;
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.bpg.api.ICondition;
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.api.ITask;
-import bpskel.bpg.impl.gateway.GatewayJoin;
-import bpskel.bpg.impl.gateway.GatewaySplit;
+import bpskel.api.BPGFactory;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.api.ICondition;
+import bpskel.api.IDataContainer;
+import bpskel.api.IGatewayJoin;
+import bpskel.api.IGatewaySplit;
+import bpskel.api.ITask;
 
 public class TestProcessFactory {
 
@@ -26,12 +26,12 @@ public class TestProcessFactory {
 		ITask tr = new RandomizeTask();
 		
 		// create XorGateway and split condition for gateway
-		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", tr.getResultData(), new UniversalContainer(5));
-		GatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
+		IGatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", tr.getResultData(), new UniversalContainer(5));
+		IGatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// Create And Gateway
-		GatewaySplit splitAnd1 = BPGFactory.createGatewayAndSplit();
-		GatewayJoin joinAnd1 = BPGFactory.createGatewayAndJoin();
+		IGatewaySplit splitAnd1 = BPGFactory.createGatewayAndSplit();
+		IGatewayJoin joinAnd1 = BPGFactory.createGatewayAndJoin();
 		
 		// create BuisnessProcess
 		BusinessProcessGraph pro = new BusinessProcessGraph();
@@ -67,8 +67,8 @@ public class TestProcessFactory {
 		ITask t3 = new StaticPrintTask("Task2.2-Xor");
 		ITask t4 = new StaticPrintTask("Task3-Pipe");
 		
-		GatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", t1.getResultData(), new UniversalContainer(5));
-		GatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
+		IGatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", t1.getResultData(), new UniversalContainer(5));
+		IGatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// create BuisnessProcess
 		BusinessProcessGraph pro = new BusinessProcessGraph();

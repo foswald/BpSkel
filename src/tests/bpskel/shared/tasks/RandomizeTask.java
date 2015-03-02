@@ -3,7 +3,7 @@ package tests.bpskel.shared.tasks;
 import java.util.Random;
 
 import tests.bpskel.shared.UniversalContainer;
-import bpskel.bpg.impl.core.AbstractSimpleTask;
+import bpskel.api.AbstractSimpleTask;
 
 public class RandomizeTask extends AbstractSimpleTask {
 

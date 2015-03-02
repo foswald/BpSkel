@@ -5,12 +5,12 @@ import org.junit.Test;
 import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.ForPrintTask;
 import tests.bpskel.shared.tasks.StaticPrintTask;
-import bpskel.bpg.api.BPGFactory;
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.bpg.api.ITask;
-import bpskel.bpg.impl.core.IForTask;
+import bpskel.api.BPGFactory;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IForTask;
+import bpskel.api.ITask;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
-import bpskel.engine.skeleton.impl.executor.skandium.SkandiumConnector;
+import bpskel.engine.skeleton.impl.skandium.SkandiumConnector;
 
 public class ForTest {
 

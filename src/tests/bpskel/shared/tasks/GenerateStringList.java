@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import tests.bpskel.shared.DataContainer;
-import bpskel.bpg.impl.core.AbstractSimpleTask;
+import bpskel.api.AbstractSimpleTask;
 
 public class GenerateStringList extends AbstractSimpleTask {
 

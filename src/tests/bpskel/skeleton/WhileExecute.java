@@ -1,7 +1,7 @@
 package tests.bpskel.skeleton;
 
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.core.AbstractSimpleTask;
+import bpskel.api.AbstractSimpleTask;
+import bpskel.api.IDataContainer;
 import cl.niclabs.skandium.muscles.Execute;
 
 public class WhileExecute<P extends IDataContainer, R extends IDataContainer> extends AbstractSimpleTask implements Execute<P, R> {

@@ -2,9 +2,9 @@ package xxx.bpskel.old;
 
 import java.util.List;
 
-import bpskel.bpg.impl.core.AbstractFlowObject;
-import bpskel.bpg.impl.core.IFlowObject;
-import bpskel.engine.skeleton.impl.pattern.IPattern;
+import bpskel.bpg.conversion.pattern.IPattern;
+import bpskel.bpg.elements.core.FlowObject;
+import bpskel.bpg.elements.core.IFlowObject;
 
 /** A component is a concrete representation of a Pattern whithin an BusinessProcess.
  * It contains the reference to aligned Nodes/Components as well as to the 
@@ -12,7 +12,7 @@ import bpskel.engine.skeleton.impl.pattern.IPattern;
  * @author foswald
  *
  */
-public class Component extends AbstractFlowObject{
+public class Component extends FlowObject{
 	
 	List<IFlowObject> content;
 	/** The pattern describing the content */

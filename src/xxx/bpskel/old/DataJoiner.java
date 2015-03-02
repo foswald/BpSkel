@@ -1,6 +1,6 @@
 package xxx.bpskel.old;
 
-import bpskel.bpg.api.IDataContainer;
+import bpskel.api.IDataContainer;
 
 public class DataJoiner implements IDataContainer {
 

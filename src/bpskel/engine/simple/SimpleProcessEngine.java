@@ -3,15 +3,15 @@ package bpskel.engine.simple;
 import java.util.Stack;
 import java.util.concurrent.ExecutionException;
 
-import bpskel.bpg.api.BusinessProcessGraph;
-import bpskel.bpg.api.IProcessEngine;
-import bpskel.bpg.api.ITask;
-import bpskel.bpg.impl.core.EndElement;
-import bpskel.bpg.impl.core.IFlowObject;
-import bpskel.bpg.impl.gateway.GatewayAndJoin;
-import bpskel.bpg.impl.gateway.GatewayAndSplit;
-import bpskel.bpg.impl.gateway.GatewayXorSplit;
-import bpskel.bpg.impl.gateway.IGateway;
+import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IProcessEngine;
+import bpskel.api.ITask;
+import bpskel.bpg.elements.core.EndElement;
+import bpskel.bpg.elements.core.IFlowObject;
+import bpskel.bpg.elements.gateway.GatewayAndJoin;
+import bpskel.bpg.elements.gateway.GatewayAndSplit;
+import bpskel.bpg.elements.gateway.GatewayXorSplit;
+import bpskel.bpg.elements.gateway.IGateway;
 
 public class SimpleProcessEngine implements IProcessEngine{
 	
@@ -72,9 +72,4 @@ public class SimpleProcessEngine implements IProcessEngine{
 		}while(!(f instanceof EndElement));
 	}
 
-	@Override
-	public boolean initialize() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

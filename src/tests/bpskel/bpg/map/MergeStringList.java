@@ -3,11 +3,10 @@ package tests.bpskel.bpg.map;
 import java.util.ArrayList;
 
 import tests.bpskel.shared.DataContainer;
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.core.AbstractFlowObject;
-import bpskel.bpg.impl.core.IDataMerge;
+import bpskel.api.AbstractDataMerge;
+import bpskel.api.IDataContainer;
 
-public class MergeStringList extends AbstractFlowObject implements IDataMerge {
+public class MergeStringList extends AbstractDataMerge {
 
 	@Override
 	public IDataContainer mergeData(IDataContainer[] data) {

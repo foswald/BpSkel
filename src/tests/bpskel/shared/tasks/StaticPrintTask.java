@@ -1,8 +1,8 @@
 package tests.bpskel.shared.tasks;
 
 import tests.bpskel.shared.UniversalContainer;
-import bpskel.bpg.api.IDataContainer;
-import bpskel.bpg.impl.core.AbstractSimpleTask;
+import bpskel.api.AbstractSimpleTask;
+import bpskel.api.IDataContainer;
 
 public class StaticPrintTask extends AbstractSimpleTask {
 

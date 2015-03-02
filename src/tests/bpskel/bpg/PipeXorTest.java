@@ -2,17 +2,16 @@ package tests.bpskel.bpg;
 
 import org.junit.Test;
 
+import tests.bpskel.shared.TestProcessFactory;
 import bpskel.api.BPGFactory;
 import bpskel.api.BusinessProcessGraph;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
-import bpskel.engine.skeleton.impl.skandium.SkandiumConnector;
-import tests.bpskel.shared.TestProcessFactory;
 
 public class PipeXorTest {
 
 	@Test
 	public void testBusinessProcess() {
-		BPGFactory.initialize(new SkeletonProcessEngine(SkandiumConnector.class));
+		BPGFactory.initialize(new SkeletonProcessEngine());
 		
 		BusinessProcessGraph pro = TestProcessFactory.generatePipeXorPipeBPG();
 		BPGFactory.executeProcess(pro);

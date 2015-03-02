@@ -13,13 +13,12 @@ import bpskel.api.ITask;
 import bpskel.bpg.elements.splitmerge.IDataMerge;
 import bpskel.bpg.elements.splitmerge.IDataSplit;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
-import bpskel.engine.skeleton.impl.skandium.SkandiumConnector;
 
 public class DCTest {
 
 	@Test
 	public void test() {
-		BPGFactory.initialize(new SkeletonProcessEngine(SkandiumConnector.class));
+		BPGFactory.initialize(new SkeletonProcessEngine());
 		
 		BusinessProcessGraph pro = new BusinessProcessGraph();
 		

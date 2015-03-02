@@ -10,13 +10,12 @@ import bpskel.api.IGatewayJoin;
 import bpskel.api.IGatewaySplit;
 import bpskel.api.ITask;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
-import bpskel.engine.skeleton.impl.skandium.SkandiumConnector;
 
 public class AndTest {
 
 	@Test
 	public void test() {
-		BPGFactory.initialize(new SkeletonProcessEngine(SkandiumConnector.class));
+		BPGFactory.initialize(new SkeletonProcessEngine());
 		
 		BusinessProcessGraph pro2 = new BusinessProcessGraph();
 		ITask t1 = new StaticPrintTask("FirstAndTask");

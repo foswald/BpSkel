@@ -1,6 +1,6 @@
 package bpskel.bpg.conversion;
 
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.api.IGatewayJoin;
 import bpskel.api.IGatewaySplit;
 import bpskel.bpg.conversion.pattern.IPattern;
@@ -26,7 +26,7 @@ public class BlockstructureConverter {
 		this.patternMatcher = new PatternMatcher();
 	}
 	
-	public ProxyTask convert(BusinessProcessGraph pro) {
+	public ProxyTask convert(IBPG pro) {
 
 		// do until whole bpg has been transformed
 		while(!isReduced(pro) || !(pro.getStart().getSuccessor() instanceof ProxyTask)){
@@ -40,7 +40,7 @@ public class BlockstructureConverter {
 		return root;
 	}
 	
-	private void createSkeletonStructure(BusinessProcessGraph bpg, IFlowObject currentNode, boolean isBranch) {
+	private void createSkeletonStructure(IBPG bpg, IFlowObject currentNode, boolean isBranch) {
 		
 		// run until end of bpg has been reached
 		do {			
@@ -172,7 +172,7 @@ public class BlockstructureConverter {
 	}
 		
 	
-	private boolean isReduced(BusinessProcessGraph pro){
+	private boolean isReduced(IBPG pro){
 		return pro.getStart().getSuccessor().getSuccessor().equals(pro.getEnd());
 	}
 	

@@ -1,7 +1,5 @@
 package bpskel.api;
 
-import bpskel.bpg.elements.core.EndElement;
-import bpskel.bpg.elements.core.StartElement;
 import bpskel.bpg.elements.gateway.Condition;
 import bpskel.bpg.elements.gateway.GatewayAndJoin;
 import bpskel.bpg.elements.gateway.GatewayAndSplit;
@@ -15,15 +13,9 @@ public class BPGFactory {
 
 	static private BPGFactory instance;
 	
-	// only one start/end element
-	private static StartElement start;
-	private static EndElement end;
-	
 	private static IProcessEngine engine;
 
 	private BPGFactory(IProcessEngine pe){
-		start = new StartElement();
-		end = new EndElement();
 		engine = pe;
 	}
 	
@@ -33,16 +25,12 @@ public class BPGFactory {
 		}
 	}
 	
-	public static void executeProcess(BusinessProcessGraph pro){
+	public static void executeProcess(IBPG pro){
 		engine.execute(pro);
 	}
 	
-	public static StartElement getStartElement(){
-		return start;
-	}
-	
-	public static EndElement getEndElement(){
-		return end;
+	public static IBPG createBPG(){
+		return new BusinessProcessGraph();
 	}
 	
 	public static GatewaySplit createGatewayAndSplit(){

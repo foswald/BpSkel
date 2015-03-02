@@ -5,7 +5,7 @@ import org.junit.Test;
 import tests.bpskel.shared.TestProcessFactory;
 import tests.bpskel.shared.tasks.StaticPrintTask;
 import bpskel.api.BPGFactory;
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.api.IGatewayJoin;
 import bpskel.api.IGatewaySplit;
 import bpskel.api.ITask;
@@ -17,7 +17,7 @@ public class AndTest {
 	public void test() {
 		BPGFactory.initialize(new SkeletonProcessEngine());
 		
-		BusinessProcessGraph pro2 = new BusinessProcessGraph();
+		IBPG pro2 = BPGFactory.createBPG();
 		ITask t1 = new StaticPrintTask("FirstAndTask");
 		ITask t2 = new StaticPrintTask("SecondTask");
 		ITask t3 = new StaticPrintTask("EndTask");
@@ -36,7 +36,7 @@ public class AndTest {
 		BPGFactory.executeProcess(pro2);
 		
 
-		BusinessProcessGraph pro = TestProcessFactory.generateProcess1();
+		IBPG pro = TestProcessFactory.generateProcess1();
 		BPGFactory.executeProcess(pro);
 	}
 

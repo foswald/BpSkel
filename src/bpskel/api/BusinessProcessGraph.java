@@ -13,7 +13,7 @@ import bpskel.bpg.elements.gateway.GatewaySplit;
  * @author foswald
  *
  */
-public class BusinessProcessGraph {
+public class BusinessProcessGraph implements IBPG {
 
 	private IFlowObject start;
 	private IFlowObject end;
@@ -21,27 +21,24 @@ public class BusinessProcessGraph {
 	/**
 	 * Creates a new BPG with unique Start and Endelement.
 	 */
-	public BusinessProcessGraph() {
+	BusinessProcessGraph() {
 		start = new StartElement();
 		end = new EndElement();
 	}
 	
-	/**
-	 * Connects two BPMN elements. It might override existing previous connections.
-	 * @param e1 Gateway or Task
-	 * @param e2 Gateway or Task
+	/* (non-Javadoc)
+	 * @see bpskel.api.IBPG#connect(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
 	 */
+	@Override
 	public void connect(IFlowObject source, IFlowObject sink){
 		source.setSuccessor(sink);
 		sink.setPredecessor(source);
 	}
 
-	/** Reconnects an element to a new destination.
-	 * @note this works in both directions!
-	 * @param sourceElement
-	 * @param oldElement
-	 * @param newElement
+	/* (non-Javadoc)
+	 * @see bpskel.api.IBPG#reconnect(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
 	 */
+	@Override
 	public void reconnect(IFlowObject sourceElement, IFlowObject oldElement, IFlowObject newElement){
 		// no gateway means simply replace oldElement with newElement
 		if(sourceElement.getPredecessor()!=null && sourceElement.getPredecessor().equals(oldElement)){
@@ -66,12 +63,10 @@ public class BusinessProcessGraph {
 		
 	}
 	
-	/**
-	 * Connect two sources to a GatewayJoin
-	 * @param source1
-	 * @param source2
-	 * @param join
+	/* (non-Javadoc)
+	 * @see bpskel.api.IBPG#connectToJoin(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, bpskel.api.IGatewayJoin)
 	 */
+	@Override
 	public void connectToJoin(IFlowObject source1, IFlowObject source2, IGatewayJoin join){
 		source1.setSuccessor(join);
 		source2.setSuccessor(join);
@@ -79,12 +74,10 @@ public class BusinessProcessGraph {
 		join.setPredecessor2(source2);
 	}
 	
-	/**
-	 * Connect two FlowObjects from a GatewaySplit
-	 * @param source
-	 * @param branch1
-	 * @param branch2
+	/* (non-Javadoc)
+	 * @see bpskel.api.IBPG#connectFromSplit(bpskel.api.IGatewaySplit, bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
 	 */
+	@Override
 	public void connectFromSplit(IGatewaySplit source, IFlowObject branch1, IFlowObject branch2){
 		source.setSuccessor(branch1);
 		source.setSuccessor2(branch2);
@@ -92,13 +85,10 @@ public class BusinessProcessGraph {
 		branch2.setPredecessor(source);
 	}
 	
-	/**
-	 * Creates a while lopp inside the BPG.
-	 * @param source The source object leading to the loop.
-	 * @param sink The object after the while loop
-	 * @param cond The condition for the while loop
-	 * @param firstItem The first item inside the while loop
+	/* (non-Javadoc)
+	 * @see bpskel.api.IBPG#insertIntoWhileLoop(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, bpskel.api.ICondition, bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
 	 */
+	@Override
 	public void insertIntoWhileLoop(IFlowObject source, IFlowObject sink, ICondition cond, IFlowObject firstItem, IFlowObject lastItem){
 		IGatewaySplit split = BPGFactory.createGatewayXorSplit(cond);
 		IGatewayJoin join = BPGFactory.createGatewayXorJoin();
@@ -111,27 +101,26 @@ public class BusinessProcessGraph {
 		
 	}
 	
-	/**
-	 * Creates a while lopp inside the BPG.
-	 * @param source The source object leading to the loop.
-	 * @param sink The object after the while loop
-	 * @param cond The condition for the while loop
-	 * @param content The first item inside the while loop
+	/* (non-Javadoc)
+	 * @see bpskel.api.IBPG#insertIntoWhileLoop(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, bpskel.api.ICondition, bpskel.bpg.elements.core.IFlowObject)
 	 */
+	@Override
 	public void insertIntoWhileLoop(IFlowObject source, IFlowObject sink, ICondition cond, IFlowObject content){
 		insertIntoWhileLoop(source, sink, cond, content, content);
 	}
 	
-	/**
-	 * The start event of this BPG
+	/* (non-Javadoc)
+	 * @see bpskel.api.IBPG#getStart()
 	 */
+	@Override
 	public IFlowObject getStart(){
 		return start;
 	}
 
-	/**
-	 * The Endevent of this BPG
+	/* (non-Javadoc)
+	 * @see bpskel.api.IBPG#getEnd()
 	 */
+	@Override
 	public IFlowObject getEnd() {
 		return end;
 	}

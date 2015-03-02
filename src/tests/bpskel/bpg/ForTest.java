@@ -6,7 +6,7 @@ import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.ForPrintTask;
 import tests.bpskel.shared.tasks.StaticPrintTask;
 import bpskel.api.BPGFactory;
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.api.IForTask;
 import bpskel.api.ITask;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
@@ -17,7 +17,7 @@ public class ForTest {
 	public void test() {
 		BPGFactory.initialize(new SkeletonProcessEngine());
 		
-		BusinessProcessGraph pro = new BusinessProcessGraph();
+		IBPG pro = BPGFactory.createBPG();
 		
 		IForTask forTask = new ForPrintTask(12300);
 		ITask t1 = new StaticPrintTask("Finished!");

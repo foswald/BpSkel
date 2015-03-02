@@ -8,7 +8,7 @@ import tests.bpskel.shared.tasks.DataPrintTask;
 import tests.bpskel.shared.tasks.GenerateStringList;
 import tests.bpskel.shared.tasks.StaticPrintTask;
 import bpskel.api.BPGFactory;
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.api.ITask;
 import bpskel.bpg.elements.splitmerge.IDataMerge;
 import bpskel.bpg.elements.splitmerge.IDataSplit;
@@ -20,7 +20,7 @@ public class DCTest {
 	public void test() {
 		BPGFactory.initialize(new SkeletonProcessEngine());
 		
-		BusinessProcessGraph pro = new BusinessProcessGraph();
+		IBPG pro = BPGFactory.createBPG();
 		
 		ITask generateData = new GenerateStringList(400);
 		IDataSplit split = new SplitStringListConditional(10);

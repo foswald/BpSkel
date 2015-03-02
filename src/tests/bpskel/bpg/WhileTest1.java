@@ -8,7 +8,7 @@ import tests.bpskel.shared.tasks.RandomizeTask;
 import tests.bpskel.shared.tasks.StaticPrintTask;
 import tests.bpskel.shared.tasks.WhileTruePrintTask;
 import bpskel.api.BPGFactory;
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.api.ICondition;
 import bpskel.api.IDataContainer;
 import bpskel.api.ITask;
@@ -39,7 +39,7 @@ public class WhileTest1 {
 		ICondition cond = BPGFactory.createCondition(whileTask.getResultData(), " < ", randomizeOutputData.getResultData());
 		
 		// create BuisnessProcess
-		BusinessProcessGraph pro = new BusinessProcessGraph();
+		IBPG pro = BPGFactory.createBPG();
 		
 		// Add connectors
 		pro.connect(pro.getStart(), randomizeOutputData);

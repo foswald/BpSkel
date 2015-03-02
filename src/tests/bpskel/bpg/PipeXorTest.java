@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import tests.bpskel.shared.TestProcessFactory;
 import bpskel.api.BPGFactory;
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
 
 public class PipeXorTest {
@@ -13,7 +13,7 @@ public class PipeXorTest {
 	public void testBusinessProcess() {
 		BPGFactory.initialize(new SkeletonProcessEngine());
 		
-		BusinessProcessGraph pro = TestProcessFactory.generatePipeXorPipeBPG();
+		IBPG pro = TestProcessFactory.generatePipeXorPipeBPG();
 		BPGFactory.executeProcess(pro);
 	}
 

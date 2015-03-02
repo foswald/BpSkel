@@ -1,6 +1,6 @@
 package bpskel.engine.skeleton.api;
 
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.api.IProcessEngine;
 import bpskel.bpg.conversion.BlockstructureConverter;
 import bpskel.bpg.conversion.pattern.ProxyTask;
@@ -36,7 +36,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	}
 	
 	@Override
-	public void execute(BusinessProcessGraph pro) {
+	public void execute(IBPG pro) {
 
 		ProxyTask root = this.conv.convert(pro);
 		System.out.println("Conversion finished.");

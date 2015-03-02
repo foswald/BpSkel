@@ -3,7 +3,7 @@ package bpskel.engine.simple;
 import java.util.Stack;
 import java.util.concurrent.ExecutionException;
 
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.api.IProcessEngine;
 import bpskel.api.ITask;
 import bpskel.bpg.elements.core.EndElement;
@@ -18,7 +18,7 @@ public class SimpleProcessEngine implements IProcessEngine{
 	private static Stack<GatewayAndSplit> visitedAndSplits;
 
 	@Override
-	public void execute(BusinessProcessGraph pro) {
+	public void execute(IBPG pro) {
 		visitedAndSplits = new Stack<>();
 		// first find element after start
 		IFlowObject f = pro.getStart().getSuccessor();

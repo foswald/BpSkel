@@ -5,7 +5,7 @@ import tests.bpskel.shared.tasks.RandomizeTask;
 import tests.bpskel.shared.tasks.StaticPrintTask;
 import tests.bpskel.shared.tasks.WhileTruePrintTask;
 import bpskel.api.BPGFactory;
-import bpskel.api.BusinessProcessGraph;
+import bpskel.api.IBPG;
 import bpskel.api.ICondition;
 import bpskel.api.IDataContainer;
 import bpskel.api.IGatewayJoin;
@@ -14,7 +14,7 @@ import bpskel.api.ITask;
 
 public class TestProcessFactory {
 
-	public static BusinessProcessGraph generateProcess1(){
+	public static IBPG generateProcess1(){
 		ITask t1 = new StaticPrintTask("FirstAndTask");
 		ITask t2 = new StaticPrintTask("SecondTask");	
 		
@@ -34,7 +34,7 @@ public class TestProcessFactory {
 		IGatewayJoin joinAnd1 = BPGFactory.createGatewayAndJoin();
 		
 		// create BuisnessProcess
-		BusinessProcessGraph pro = new BusinessProcessGraph();
+		IBPG pro = BPGFactory.createBPG();
 		
 		// Add connectors
 		pro.connect(pro.getStart(), tr);
@@ -50,7 +50,7 @@ public class TestProcessFactory {
 		return pro;
 	}
 	
-	public static BusinessProcessGraph generatePipeXorPipeBPG(){
+	public static IBPG generatePipeXorPipeBPG(){
 		ITask t1 = new RandomizeTask();
 		ITask t2 = new StaticPrintTask("Task2.1-Xor");			
 		ITask t3 = new StaticPrintTask("Task2.2-Xor");
@@ -60,7 +60,7 @@ public class TestProcessFactory {
 		IGatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// create BuisnessProcess
-		BusinessProcessGraph pro = new BusinessProcessGraph();
+		IBPG pro = BPGFactory.createBPG();
 		
 		// Add connectors
 		pro.connect(pro.getStart(), t1);
@@ -74,7 +74,7 @@ public class TestProcessFactory {
 	
 	}
 	
-	public static BusinessProcessGraph generatePipeWhilePipeBPG(){
+	public static IBPG generatePipeWhilePipeBPG(){
 		ITask tr = new RandomizeTask(10000);
 		
 		ITask whileTask = new WhileTruePrintTask();
@@ -94,7 +94,7 @@ public class TestProcessFactory {
 		ICondition cond = BPGFactory.createCondition(whileTask.getResultData(), " < ", tr.getResultData());
 		
 		// create BuisnessProcess
-		BusinessProcessGraph pro = new BusinessProcessGraph();
+		IBPG pro = BPGFactory.createBPG();
 		
 		// Add connectors
 		pro.connect(pro.getStart(), tr);

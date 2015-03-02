@@ -8,6 +8,8 @@ import bpskel.bpg.impl.core.IDataMerge;
 import bpskel.bpg.impl.core.IDataSplit;
 import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.bpg.impl.core.IForTask;
+import bpskel.bpg.impl.core.StartElement;
+import bpskel.bpg.impl.gateway.GatewayJoin;
 import bpskel.bpg.impl.gateway.GatewaySplit;
 import bpskel.bpg.impl.gateway.GatewayXorSplit;
 import bpskel.engine.skeleton.api.ISkeleton;
@@ -65,7 +67,22 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 	@Override
 	public ISkeleton createSeqSkeleton(IFlowObject startingNode) {
-		Execute<IDataContainer, IDataContainer> ex = new ExecMuscleTask((ITask)startingNode);
+		ExecMuscleTask ex = new ExecMuscleTask((ITask)startingNode);
+		
+		
+		// TODO: Move to other location? This is more of a hack
+		// If seq node is in split chain, we have to wire the data, so check for IDataSplit
+		IFlowObject pred = startingNode.getPredecessor();
+		while(!(pred instanceof StartElement || pred instanceof GatewaySplit)){
+			if(pred instanceof IDataSplit){
+				System.out.println("Found Datasplit, enable skandium data wiring");
+				ex.enableWireData();
+				break;
+			}
+			pred = pred.getPredecessor();
+		}		
+		
+		
 		Seq<IDataContainer, IDataContainer> seq = new Seq<IDataContainer, IDataContainer>(ex);
 		ISkeleton s = new SkeletonWrapper(seq);
 		return s;
@@ -163,7 +180,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 		IDataContainer out;
 		try {
 			out = future.get();
-			System.out.println((System.currentTimeMillis() - init)+"[ms]: "+(Integer)out.getData());
+			System.out.println((System.currentTimeMillis() - init)+"[ms].");
 
 			skandium.shutdown();
 		} catch (Exception e) {

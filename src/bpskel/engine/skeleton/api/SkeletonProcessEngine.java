@@ -5,6 +5,8 @@ import bpskel.bpg.api.IGatewayJoin;
 import bpskel.bpg.api.IGatewaySplit;
 import bpskel.bpg.api.IProcessEngine;
 import bpskel.bpg.impl.core.EndElement;
+import bpskel.bpg.impl.core.IDataMerge;
+import bpskel.bpg.impl.core.IDataSplit;
 import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.bpg.impl.gateway.GatewayJoin;
 import bpskel.bpg.impl.gateway.GatewaySplit;
@@ -102,6 +104,9 @@ public class SkeletonProcessEngine implements IProcessEngine{
 			// end branching
 			else if(isBranch && currentNode instanceof GatewayJoin){
 				break;
+			}
+			else if(currentNode instanceof IDataSplit || currentNode instanceof IDataMerge){
+				currentNode = currentNode.getSuccessor();
 			}
 			// ProxyTask but next is no proxy, proceed
 			else if(currentNode instanceof ProxyTask){

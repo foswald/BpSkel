@@ -107,7 +107,7 @@ public class TestProcessFactory {
 		
 		
 
-		ICondition cond = BPGFactory.createCondition(" < ", whileTask.getResultData(), tr.getResultData());
+		ICondition cond = BPGFactory.createCondition(whileTask.getResultData(), " < ", tr.getResultData());
 		
 		// create BuisnessProcess
 		BusinessProcessGraph pro = new BusinessProcessGraph();

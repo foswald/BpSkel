@@ -74,18 +74,18 @@ public class BPGFactory {
 	 */
 	public static GatewaySplit createGatewayXorSplit(String string,
 			IDataContainer lhs, IDataContainer rhs) {
-		return createGatewayXorSplit(createCondition(string, lhs, rhs));
+		return createGatewayXorSplit(createCondition(lhs, string, rhs));
 	}
 	
 	/**
 	 * Creates a expression which will evaluate at some point.
-	 * @param string A boolean expression EXPR which will look like <code>lhs EXPR rhs</code> (e.g. 4 < 5, where "<" is EXPR)
 	 * @param lhs the left hand side of the boolean expression
+	 * @param string A boolean expression EXPR which will look like <code>lhs EXPR rhs</code> (e.g. 4 < 5, where "<" is EXPR)
 	 * @param rhs the right hand side of the boolean expression
 	 * @return a condition
 	 */
-	public static ICondition createCondition(String string,
-			IDataContainer lhs, IDataContainer rhs){
+	public static ICondition createCondition(IDataContainer lhs,
+			String string, IDataContainer rhs){
 		return new Condition(string, lhs, rhs);
 	}
 	

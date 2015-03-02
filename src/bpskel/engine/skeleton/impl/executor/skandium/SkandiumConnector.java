@@ -4,6 +4,8 @@ import java.util.concurrent.Future;
 
 import bpskel.bpg.api.IDataContainer;
 import bpskel.bpg.api.ITask;
+import bpskel.bpg.impl.core.IDataMerge;
+import bpskel.bpg.impl.core.IDataSplit;
 import bpskel.bpg.impl.core.IFlowObject;
 import bpskel.bpg.impl.core.IForTask;
 import bpskel.bpg.impl.gateway.GatewaySplit;
@@ -20,6 +22,7 @@ import cl.niclabs.skandium.muscles.Split;
 import cl.niclabs.skandium.skeletons.For;
 import cl.niclabs.skandium.skeletons.Fork;
 import cl.niclabs.skandium.skeletons.If;
+import cl.niclabs.skandium.skeletons.Map;
 import cl.niclabs.skandium.skeletons.Pipe;
 import cl.niclabs.skandium.skeletons.Seq;
 import cl.niclabs.skandium.skeletons.Skeleton;
@@ -111,16 +114,17 @@ public class SkandiumConnector implements ISkeletonAPI {
 
 	@Override
 	public ISkeleton createMapSkeleton(IFlowObject startingNode) {
-		// TODO Auto-generated method stub
-		throw new Error();
+		Split<IDataContainer,IDataContainer> splitMuscle = new SplitMuscle((IDataSplit) startingNode);
+		Skeleton<IDataContainer, IDataContainer> skel = this.getSkeletonFromProxy(startingNode.getSuccessor());
+		Merge<IDataContainer, IDataContainer> mergeMuscle = new MergeMuscle((IDataMerge) startingNode.getSuccessor().getSuccessor());
+		ISkeleton s = new SkeletonWrapper(new Map<IDataContainer, IDataContainer>(splitMuscle, skel, mergeMuscle));
+		return s;
 	}
 
 
 	@Override
 	public ISkeleton createForkSkeleton(IFlowObject startingNode) {
 		GatewaySplit split = (GatewaySplit) startingNode;
-		ProxyTask task1 = ((ProxyTask) split.getSuccessor());
-		ProxyTask task2 = (ProxyTask) split.getSuccessor2();
 		
 		IDataContainer data1 = new ProxyDataContainer();
 		IDataContainer data2 = new ProxyDataContainer();		

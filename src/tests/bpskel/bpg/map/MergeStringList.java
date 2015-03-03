@@ -2,8 +2,8 @@ package tests.bpskel.bpg.map;
 
 import java.util.ArrayList;
 
-import tests.bpskel.shared.DataContainer;
 import bpskel.api.AbstractDataMerge;
+import bpskel.api.DataContainer;
 import bpskel.api.IDataContainer;
 
 public class MergeStringList extends AbstractDataMerge {
@@ -17,7 +17,7 @@ public class MergeStringList extends AbstractDataMerge {
 			list.add((String) d.getData());
 		}
 		
-		return new DataContainer<ArrayList<String>>(list);
+		return new DataContainer(list);
 		
 	}
 

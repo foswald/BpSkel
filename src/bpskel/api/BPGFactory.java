@@ -5,6 +5,7 @@ import bpskel.bpg.elements.gateway.GatewayAndJoin;
 import bpskel.bpg.elements.gateway.GatewayAndSplit;
 import bpskel.bpg.elements.gateway.GatewayXorJoin;
 import bpskel.bpg.elements.gateway.GatewayXorSplit;
+import bpskel.engine.skeleton.api.SkeletonProcessEngine;
 
 
 public class BPGFactory {
@@ -71,5 +72,10 @@ public class BPGFactory {
 	public static ICondition createCondition(IDataContainer lhs,
 			String string, IDataContainer rhs){
 		return new Condition(lhs, string, rhs);
+	}
+
+	public static IProcessEngine getDefaultProcessEngine() {
+		return new SkeletonProcessEngine();
+				
 	}	
 }

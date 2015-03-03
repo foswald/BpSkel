@@ -2,8 +2,8 @@ package tests.bpskel.bpg.dc;
 
 import java.util.List;
 
-import tests.bpskel.shared.DataContainer;
 import bpskel.api.AbstractDataSplitConditional;
+import bpskel.api.DataContainer;
 import bpskel.api.IDataContainer;
 
 public class SplitStringListConditional extends AbstractDataSplitConditional{
@@ -20,8 +20,8 @@ public class SplitStringListConditional extends AbstractDataSplitConditional{
 		
 		
 		IDataContainer[] splitData = new IDataContainer[2];
-		splitData[0] = new DataContainer<List<String>>(list.subList(0, list.size()/2));
-		splitData[1] = new DataContainer<List<String>>(list.subList(list.size()/2, list.size()));
+		splitData[0] = new DataContainer(list.subList(0, list.size()/2));
+		splitData[1] = new DataContainer(list.subList(list.size()/2, list.size()));
 		
 		return splitData;
 	}

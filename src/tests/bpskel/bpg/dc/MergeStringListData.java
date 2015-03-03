@@ -3,8 +3,8 @@ package tests.bpskel.bpg.dc;
 import java.util.ArrayList;
 import java.util.List;
 
-import tests.bpskel.shared.DataContainer;
 import bpskel.api.AbstractDataMerge;
+import bpskel.api.DataContainer;
 import bpskel.api.IDataContainer;
 
 public class MergeStringListData extends AbstractDataMerge {
@@ -19,7 +19,7 @@ public class MergeStringListData extends AbstractDataMerge {
 			list.addAll(l);
 		}
 		
-		return new DataContainer<ArrayList<String>>(list);
+		return new DataContainer(list);
 		
 	}
 

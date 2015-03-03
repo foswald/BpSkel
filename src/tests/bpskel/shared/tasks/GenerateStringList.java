@@ -3,8 +3,8 @@ package tests.bpskel.shared.tasks;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import tests.bpskel.shared.DataContainer;
 import bpskel.api.AbstractSimpleTask;
+import bpskel.api.DataContainer;
 
 public class GenerateStringList extends AbstractSimpleTask {
 
@@ -23,7 +23,7 @@ public class GenerateStringList extends AbstractSimpleTask {
 			list.add("String entry: " + i);
 		}
 		
-		this.data = new DataContainer<ArrayList<String>>(list);
+		this.data = new DataContainer(list);
 	}
 
 }

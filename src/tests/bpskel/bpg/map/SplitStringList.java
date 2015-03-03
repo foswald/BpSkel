@@ -2,8 +2,8 @@ package tests.bpskel.bpg.map;
 
 import java.util.ArrayList;
 
-import tests.bpskel.shared.DataContainer;
 import bpskel.api.AbstractDataSplit;
+import bpskel.api.DataContainer;
 import bpskel.api.IDataContainer;
 
 public class SplitStringList extends AbstractDataSplit{
@@ -14,7 +14,7 @@ public class SplitStringList extends AbstractDataSplit{
 		
 		IDataContainer[] splitData = new IDataContainer[list.size()];
 		for(int i=0; i < list.size(); i++){
-			splitData[i] = new DataContainer<String>(list.get(i));
+			splitData[i] = new DataContainer(list.get(i));
 		}
 		
 		return splitData;

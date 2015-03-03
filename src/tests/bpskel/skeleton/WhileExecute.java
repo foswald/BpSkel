@@ -18,12 +18,12 @@ public class WhileExecute<P extends IDataContainer, R extends IDataContainer> ex
 		Integer intP = (Integer) p.getData();
 		intP++;
 		System.out.println(intP);
-		p.setData(intP);
+		p.setData(intP, Integer.class);
 		return ((R)p);
 	}
 
 	@Override
-	public void setInputData(IDataContainer in) {
+	public void setDataHandle(IDataContainer in) {
 		this.integerData = in;
 		
 	}
@@ -41,7 +41,7 @@ public class WhileExecute<P extends IDataContainer, R extends IDataContainer> ex
 	}
 
 	@Override
-	public IDataContainer getResultData() {
+	public IDataContainer getDataHandle() {
 		// TODO Auto-generated method stub
 		return integerData;
 	}

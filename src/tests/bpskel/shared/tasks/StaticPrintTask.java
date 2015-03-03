@@ -16,12 +16,12 @@ public class StaticPrintTask extends AbstractSimpleTask {
 	}
 	
 	@Override
-	public void setInputData(IDataContainer in) {
+	public void setDataHandle(IDataContainer in) {
 		thisData = in;
 	}
 
 	@Override
-	public IDataContainer getResultData() {
+	public IDataContainer getDataHandle() {
 		return new UniversalContainer(thisString.length());
 	}
 

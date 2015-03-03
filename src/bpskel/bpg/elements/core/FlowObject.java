@@ -46,11 +46,17 @@ public abstract class FlowObject implements IFlowObject {
 	
 	@Override
 	public IFlowObject getPredecessor() {
+		if(pred == null){
+			throw new NullPointerException("Queried predecessor is not set");
+		}
 		return pred;
 	}
 
 	@Override
 	public IFlowObject getSuccessor() {
+		if(succ == null){
+			throw new NullPointerException("Queried successor is not set");
+		}
 		return succ;
 	}
 	

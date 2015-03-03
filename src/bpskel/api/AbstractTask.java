@@ -10,20 +10,19 @@ import bpskel.bpg.elements.core.FlowObject;
 abstract class AbstractTask extends FlowObject implements ITask{
 
 	protected IDataContainer data;
+	
+	public AbstractTask(){
+		this.data = new DataContainer(null);
+		this.setDescription("Task");
+	}
 		
 	@Override
-	public void setInputData(IDataContainer in) {
-		this.data = in;
+	public IDataContainer getDataHandle() {
+		return this.data;
 	}
 	
 	@Override
-	public IDataContainer getInputData() {
-		return this.data;
+	public void setDataHandle(IDataContainer dataHandle) {
+		this.data = dataHandle;
 	}
-
-	@Override
-	public IDataContainer getResultData() {
-		return this.data;
-	}
-
 }

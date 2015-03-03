@@ -1,4 +1,4 @@
-package impl.tasks;
+package bpgelements;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +26,7 @@ public class WaitTask extends AbstractSimpleTask {
 			}
 		}
 		
-		super.setInputData(new DataContainer(null));
+		super.setDataHandle(new DataContainer(null));
 	}
 
 }

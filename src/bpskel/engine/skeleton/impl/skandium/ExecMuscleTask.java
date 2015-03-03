@@ -27,9 +27,9 @@ public class ExecMuscleTask implements Execute<IDataContainer, IDataContainer> {
 	@Override
 	public IDataContainer execute(IDataContainer param) throws Exception {
 		if(this.wireData){
-			task.setInputData(param);
+			task.setDataHandle(param);
 		}
 		task.execute();
-		return task.getResultData();
+		return task.getDataHandle();
 	}
 }

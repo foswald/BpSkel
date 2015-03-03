@@ -22,7 +22,7 @@ public class WhileSkelTest {
 
 		WhileExecute<IDataContainer,IDataContainer> exec= new WhileExecute<>(new UniversalContainer(1));
 		
-		Condition<IDataContainer> cond = new WhileCond(BPGFactory.createCondition(exec.getResultData(), "<", new UniversalContainer(20)));
+		Condition<IDataContainer> cond = new WhileCond(BPGFactory.createCondition(exec.getDataHandle(), "<", new UniversalContainer(20)));
 		
 		Skeleton<IDataContainer, IDataContainer> f = new While<IDataContainer>(exec, cond);
 
@@ -32,7 +32,7 @@ public class WhileSkelTest {
 		Skandium skandium = new Skandium(8);
 
 		long init = System.currentTimeMillis();
-		Future<IDataContainer> future = f.input(exec.getResultData());
+		Future<IDataContainer> future = f.input(exec.getDataHandle());
 		IDataContainer out;
 		try {
 			out = future.get();

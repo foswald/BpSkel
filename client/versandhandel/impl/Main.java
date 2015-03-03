@@ -1,17 +1,20 @@
 package impl;
 
-import impl.tasks.MockupTask;
-import impl.tasks.ReadCSVTask;
-import impl.tasks.WaitTask;
-
 import java.io.File;
 import java.util.ArrayList;
 
+import bpgelements.ConvertAgencyData;
+import bpgelements.MockupTask;
+import bpgelements.ReadAgencyData;
+import bpgelements.SplitAgencyData;
+import bpgelements.WaitTask;
 import bpskel.api.BPGFactory;
 import bpskel.api.IBPG;
 import bpskel.api.IGatewayJoin;
 import bpskel.api.IGatewaySplit;
 import bpskel.api.ITask;
+import bpskel.bpg.elements.splitmerge.IDataMerge;
+import bpskel.bpg.elements.splitmerge.IDataSplit;
 
 public class Main {
 
@@ -29,15 +32,33 @@ public class Main {
 		BPGFactory.initialize(BPGFactory.getDefaultProcessEngine());
 		
 		ITask zielGruppe = new MockupTask("Zielgruppe definieren");
-		ITask haushalteErmitteln = new ReadCSVTask(csvFiles.toArray(new String[csvFiles.size()]));
+		
+		IGatewaySplit split1 = BPGFactory.createGatewayAndSplit();
+		ITask haushalteErmitteln = new ReadAgencyData(csvFiles);
 		ITask prospekteAnfertigen = new MockupTask("Prospekte anfertigen");
+		IGatewayJoin join1 = BPGFactory.createGatewayAndJoin();
+		
 		ITask prospekteVerschicken = new MockupTask("Prospekte verschicken");
 		ITask adressdaten‹bermitteln = new MockupTask("Adressdaten ¸bermitteln");
 		ITask warten = new WaitTask(3);
 		
-		IGatewaySplit split1 = BPGFactory.createGatewayAndSplit();
-		IGatewayJoin join1 = BPGFactory.createGatewayAndJoin();
+		IGatewaySplit split2 = BPGFactory.createGatewayAndSplit();
+		ITask kundenAdressen = new ReadClientData(csvFiles);
 		
+		
+		IDataSplit datasplit = new SplitAgencyData();
+		ITask adressDatenKonvertieren = new ConvertAgencyData();
+		IDataMerge datamerge = new MergeConvertedData();
+		
+		IGatewayJoin join2 = BPGFactory.createGatewayAndJoin();
+		ITask printData = new PrintDataTask();
+		
+		
+		// wire data
+		adressdaten‹bermitteln.setDataHandle(haushalteErmitteln.getDataHandle());
+		
+		
+		// setup BPG and connect tasks
 		IBPG bpg = BPGFactory.createBPG();
 		
 		bpg.connect(bpg.getStart(), zielGruppe);
@@ -48,10 +69,18 @@ public class Main {
 		bpg.connect(prospekteVerschicken, adressdaten‹bermitteln);
 		bpg.connect(adressdaten‹bermitteln, warten);
 		
-		bpg.connect(warten, bpg.getEnd());
+		bpg.connect(warten, split2);
 		
-		BPGFactory.executeProcess(bpg);
+		bpg.connectFromSplit(split2, kundenAdressen, datasplit);		
+		bpg.connect(datasplit, adressDatenKonvertieren);
+		bpg.connect(adressDatenKonvertieren, datamerge);	
+		bpg.connectToJoin(kundenAdressen, datamerge, join2);	
 		
+		bpg.connect(join2, printData);
+		
+		bpg.connect(printData, bpg.getEnd());
+		
+		BPGFactory.executeProcess(bpg);		
 	}
 
 }

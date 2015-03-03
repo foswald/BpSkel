@@ -1,4 +1,4 @@
-package impl.tasks;
+package bpgelements;
 
 import java.util.concurrent.ExecutionException;
 
@@ -9,6 +9,7 @@ public class MockupTask extends AbstractSimpleTask {
 	private String string;
 	
 	public MockupTask(String description){
+		this.setDescription(description);
 		this.string = description;
 	}
 	

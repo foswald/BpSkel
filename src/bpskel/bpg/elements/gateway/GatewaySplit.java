@@ -19,6 +19,9 @@ public abstract class GatewaySplit extends FlowObject implements IGatewaySplit{
 	 */
 	@Override
 	public IFlowObject getSuccessor2() {
+		if(succ2 == null){
+			throw new NullPointerException("Queried successor is not set");
+		}
 		return succ2;
 	}
 

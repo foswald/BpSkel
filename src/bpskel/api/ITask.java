@@ -6,17 +6,17 @@ import bpskel.bpg.elements.core.IFlowObject;
 
 public interface ITask extends IFlowObject{
 
-	/**@note the data might be invalid if altered by execute
-	 * @return the data set before execution
-	 */
-	IDataContainer getInputData();
-	
-	/**
+	/**Returns a data container describing any type of result data from previous tasks or Gateways (i.e. FlowObjects)
+	 * These will be evaluated by IConditional Objects such as SplitGateways.
+	 * Any FlowObject has either ResultData of preceding FlowObjects (such as Gateways) or produces them (such as Tasks)
 	 * 
-	 * @param the data which will be processed in execute
+	 * @note the data might be invalid if altered by execute
+	 * @return the current data handle of the task
 	 */
-	void setInputData(IDataContainer in);
+	IDataContainer getDataHandle();
 	
+	void setDataHandle(IDataContainer dataHandle);
+		
 	
 	/** Executes any task possibly working on inputData
 	 * 
@@ -24,11 +24,4 @@ public interface ITask extends IFlowObject{
 	 */
 	void execute() throws ExecutionException;
 	
-	/**
-	 * Returns a data container describing any type of result data from previous tasks or Gateways (i.e. FlowObjects)
-	 * These will be evaluated by IConditional Objects such as SplitGateways.
-	 * Any FlowObject has either ResultData of preceding FlowObjects (such as Gateways) or produces them (such as Tasks)
-	 * @return
-	 */
-	IDataContainer getResultData();
 }

@@ -4,5 +4,9 @@ public interface IDataContainer {
 	
 	Object getData() throws NullPointerException;
 	
-	void setData(Object param);
+	<T>T getData(Class<T> typeT);
+	
+	void setData(Object param, Class<?> typeT);
+	
+	Class<?> getDataType();
 }

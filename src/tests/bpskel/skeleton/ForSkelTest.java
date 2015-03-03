@@ -28,7 +28,7 @@ public class ForSkelTest {
 		Skandium skandium = new Skandium(8);
 
 		long init = System.currentTimeMillis();
-		Future<IDataContainer> future = f.input(exec.getResultData());
+		Future<IDataContainer> future = f.input(exec.getDataHandle());
 		IDataContainer out;
 		try {
 			out = future.get();

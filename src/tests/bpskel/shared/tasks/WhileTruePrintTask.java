@@ -14,9 +14,9 @@ public class WhileTruePrintTask extends AbstractSimpleTask {
 	@Override
 	public void execute() {
 		try{
-			int rep = (int)this.getResultData().getData();
+			int rep = (int)this.getDataHandle().getData();
 			System.out.println(thisString + rep);
-			this.getResultData().setData(++rep);
+			this.getDataHandle().setData(++rep, Integer.class);
 		}catch(NullPointerException e){
 			e.printStackTrace();
 		}

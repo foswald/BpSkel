@@ -26,7 +26,7 @@ public class TestProcessFactory {
 		ITask tr = new RandomizeTask();
 		
 		// create XorGateway and split condition for gateway
-		IGatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", tr.getResultData(), new UniversalContainer(5));
+		IGatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", tr.getDataHandle(), new UniversalContainer(5));
 		IGatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// Create And Gateway
@@ -56,7 +56,7 @@ public class TestProcessFactory {
 		ITask t3 = new StaticPrintTask("Task2.2-Xor");
 		ITask t4 = new StaticPrintTask("Task3-Pipe");
 		
-		IGatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", t1.getResultData(), new UniversalContainer(5));
+		IGatewaySplit splitXor1 = BPGFactory.createGatewayXorSplit(" < ", t1.getDataHandle(), new UniversalContainer(5));
 		IGatewayJoin joinXor1 = BPGFactory.createGatewayXorJoin();
 		
 		// create BuisnessProcess
@@ -79,19 +79,19 @@ public class TestProcessFactory {
 		
 		ITask whileTask = new WhileTruePrintTask();
 		IDataContainer start = new UniversalContainer(10);
-		whileTask.setInputData(start);
+		whileTask.setDataHandle(start);
 		
 		ITask inLoop1 = new StaticPrintTask("Repetition: ");
 		ITask inLoop2 = new DataPrintTask();
 		
 		// inLoop2 recieves data from t2
-		inLoop2.setInputData(whileTask.getResultData());
+		inLoop2.setDataHandle(whileTask.getDataHandle());
 		
 		ITask t3 = new StaticPrintTask("EndTask");
 		
 		
 
-		ICondition cond = BPGFactory.createCondition(whileTask.getResultData(), " < ", tr.getResultData());
+		ICondition cond = BPGFactory.createCondition(whileTask.getDataHandle(), " < ", tr.getDataHandle());
 		
 		// create BuisnessProcess
 		IBPG pro = BPGFactory.createBPG();

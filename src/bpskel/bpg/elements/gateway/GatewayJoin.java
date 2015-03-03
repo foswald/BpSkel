@@ -21,6 +21,9 @@ public abstract class GatewayJoin extends FlowObject implements IGatewayJoin{
 	 */
 	@Override
 	public void setPredecessor2(IFlowObject pred2) {
+		if(pred2 == null){
+			throw new NullPointerException("Queried predecessor is not set");
+		}
 		this.pred2 = pred2;
 	}
 	

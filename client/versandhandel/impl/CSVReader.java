@@ -13,19 +13,23 @@ public class CSVReader {
 	 * @param csvFile the path to the csv file
 	 * @return the ArrayList containing rows as entries
 	 */
-	public static ArrayList<String[]> readCSV(String csvFile, String seperator){
+	public static ArrayList<String[]> readCSV(String csvFile, String seperator, boolean skipFirstLine){
 		ArrayList<String[]> retList = new ArrayList<>();
 		BufferedReader br = null;
 	 
 		try {
 
 			br = new BufferedReader(new FileReader(csvFile));
-			String line = ""; //first line = header
-			
+
+			String line = ""; 
+			if(skipFirstLine){//first line = header
+				br.readLine();
+				
+			}			
 			
 			while ((line = br.readLine()) != null) {	 
 			        // use comma as separator
-				retList.add(line.split(seperator));
+				retList.add(line.split(seperator));			
 			}
 	 
 		} catch (FileNotFoundException e) {

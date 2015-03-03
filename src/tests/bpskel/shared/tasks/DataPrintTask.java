@@ -8,7 +8,7 @@ public class DataPrintTask extends AbstractSimpleTask {
 
 	@Override
 	public void execute() throws ExecutionException {
-		System.out.println(this.getResultData().getData());
+		System.out.println(this.getDataHandle().getData());
 	}
 
 }

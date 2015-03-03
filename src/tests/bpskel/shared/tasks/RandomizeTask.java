@@ -27,7 +27,7 @@ public class RandomizeTask extends AbstractSimpleTask {
 		
 		int rand = r.nextInt(max);
 		super.setDescription("Randomize!(" + (rand) + ")");
-		super.data.setData(rand);
+		super.data.setData(rand, Integer.class);
 	}
 
 }

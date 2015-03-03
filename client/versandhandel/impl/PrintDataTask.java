@@ -10,7 +10,7 @@ public class PrintDataTask extends AbstractSimpleTask {
 	@Override
 	public void execute() throws ExecutionException {
 		@SuppressWarnings("unchecked")
-		ArrayList<ClientData> list = this.data.getData(ArrayList.class);
+		ArrayList<ClientData> list = this.getDataHandle().getData(ArrayList.class);
 		
 		for(ClientData c:list){
 			System.out.println(c.toString());

@@ -8,6 +8,9 @@ public class DataContainer implements IDataContainer{
 	
 	public DataContainer(Object data){
 		this.data = data;
+		if(data!=null){
+			this.typeT = data.getClass();
+		}
 	}
 
 	@Override

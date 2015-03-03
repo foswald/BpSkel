@@ -14,7 +14,7 @@ public class ConvertAgencyData extends AbstractSimpleTask {
 		
 		String[] list = this.getDataHandle().getData(String[].class);
 		
-		this.data = new DataContainer(new ClientData(list));
+		this.setDataHandle(new DataContainer(new ClientData(list)));
 	}
 
 }

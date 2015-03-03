@@ -10,13 +10,13 @@ public class RandomizeTask extends AbstractSimpleTask {
 
 	private int max;
 	public RandomizeTask(int max){
-		super.data = new UniversalContainer(1);
+		super.setDataHandle(new UniversalContainer(1));
 		super.setDescription("Randomize!");
 		this.max = max;
 	}
 	
 	public RandomizeTask(){
-		super.data = new UniversalContainer(1);
+		super.setDataHandle(new UniversalContainer(1));
 		super.setDescription("Randomize!");
 		this.max = 10;
 	}
@@ -27,7 +27,7 @@ public class RandomizeTask extends AbstractSimpleTask {
 		
 		int rand = r.nextInt(max);
 		super.setDescription("Randomize!(" + (rand) + ")");
-		super.data.setData(rand, Integer.class);
+		super.getDataHandle().setData(rand, Integer.class);
 	}
 
 }

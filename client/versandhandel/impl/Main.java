@@ -56,6 +56,7 @@ public class Main {
 		
 		// wire data
 		adressdatenÜbermitteln.setDataHandle(haushalteErmitteln.getDataHandle());
+		datasplit.setDataHandle(adressdatenÜbermitteln.getDataHandle());
 		
 		
 		// setup BPG and connect tasks

@@ -9,7 +9,7 @@ import bpskel.api.IDataContainer;
 public class SplitAgencyData extends AbstractDataSplit {
 	
 	public SplitAgencyData(){
-	
+		this.setDescription("SplitAgencyData");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -17,7 +17,7 @@ public class SplitAgencyData extends AbstractDataSplit {
 	public IDataContainer[] splitData(IDataContainer d) {
 		// The data is an ArrayList containing String[] as entries
 		ArrayList<String[]> list = new ArrayList<String[]>();
-		list = d.getData(list.getClass());		
+		list = this.getDataHandle().getData(list.getClass());		
 		
 		// split into numSplit packages
 		IDataContainer[] dc = new DataContainer[list.size()];

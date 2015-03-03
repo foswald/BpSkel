@@ -23,7 +23,7 @@ public class GenerateStringList extends AbstractSimpleTask {
 			list.add("String entry: " + i);
 		}
 		
-		this.data = new DataContainer(list);
+		this.setDataHandle(new DataContainer(list));
 	}
 
 }

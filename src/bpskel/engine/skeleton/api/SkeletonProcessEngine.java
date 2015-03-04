@@ -36,14 +36,19 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	}
 	
 	@Override
-	public void execute(IBPG pro) {
+	public int execute(IBPG pro) {
 
 		ProxyTask root = this.conv.convert(pro);
 		System.out.println("Conversion finished.");
 		
 		// now start the skeleton application
-		this.skeletonApi.execute(root.getSkeletonReference());
+		return this.skeletonApi.execute(root.getSkeletonReference());
 			
+	}
+
+	@Override
+	public void setNumThreads(int numThreads) {
+		this.skeletonApi.setNumThreads(numThreads);		
 	}
 
 }

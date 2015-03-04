@@ -2,5 +2,7 @@ package bpskel.api;
 
 
 public interface IProcessEngine {
-	void execute(IBPG pro);
+	int execute(IBPG pro);
+	
+	void setNumThreads(int numThreads);
 }

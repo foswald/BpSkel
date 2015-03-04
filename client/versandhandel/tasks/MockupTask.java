@@ -1,4 +1,4 @@
-package bpgelements;
+package tasks;
 
 import java.util.concurrent.ExecutionException;
 

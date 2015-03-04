@@ -20,15 +20,22 @@ public class DataContainer implements IDataContainer{
 	
 	@Override
 	public <T> T getData(Class<T> typeT) {
-		if(typeT != this.typeT){
+//		if(typeT != this.typeT){
+//			String t1 = typeT== null ? "null" : typeT.getName();
+//			String t2 = this.typeT== null ? "null" : this.typeT.getName();
+//			
+//			String msg = String.format("Types do not match! (requested: %s, contained: %s) - Object: %s", t1, t2, this.toString());
+//			throw new Error(msg);
+//
+//		}
+		try{
+			return typeT.cast(data);
+		}catch(ClassCastException e){
 			String t1 = typeT== null ? "null" : typeT.getName();
 			String t2 = this.typeT== null ? "null" : this.typeT.getName();
-			
 			String msg = String.format("Types do not match! (requested: %s, contained: %s) - Object: %s", t1, t2, this.toString());
 			throw new Error(msg);
-
 		}
-		return typeT.cast(data);
 	}
 
 	@Override

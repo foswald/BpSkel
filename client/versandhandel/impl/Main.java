@@ -3,11 +3,17 @@ package impl;
 import java.io.File;
 import java.util.ArrayList;
 
-import bpgelements.ConvertAgencyData;
-import bpgelements.MockupTask;
-import bpgelements.ReadAgencyData;
+import tasks.CompareData;
+import tasks.ConvertAgencyData;
+import tasks.MockupTask;
+import tasks.PrintDataTask;
+import tasks.ReadAgencyData;
+import tasks.ReadClientData;
+import tasks.WaitTask;
+import bpgelements.MergeCompareData;
+import bpgelements.MergeConvertedData;
 import bpgelements.SplitAgencyData;
-import bpgelements.WaitTask;
+import bpgelements.SplitCompareData;
 import bpskel.api.BPGFactory;
 import bpskel.api.IBPG;
 import bpskel.api.IGatewayJoin;
@@ -15,6 +21,7 @@ import bpskel.api.IGatewaySplit;
 import bpskel.api.ITask;
 import bpskel.bpg.elements.splitmerge.IDataMerge;
 import bpskel.bpg.elements.splitmerge.IDataSplit;
+import bpskel.bpg.elements.splitmerge.IDataSplitConditional;
 
 public class Main {
 
@@ -40,7 +47,7 @@ public class Main {
 		
 		ITask prospekteVerschicken = new MockupTask("Prospekte verschicken");
 		ITask adressdaten‹bermitteln = new MockupTask("Adressdaten ¸bermitteln");
-		ITask warten = new WaitTask(3);
+		ITask warten = new WaitTask(0);
 		
 		IGatewaySplit split2 = BPGFactory.createGatewayAndSplit();
 		ITask kundenAdressen = new ReadClientData(csvFiles);		
@@ -51,12 +58,20 @@ public class Main {
 		
 		
 		IGatewayJoin join2 = BPGFactory.createGatewayAndJoin();
+		
+		
+		// Create DC
+		IDataSplit datasplit2 = new SplitCompareData();
+		ITask compareData = new CompareData();
+		IDataMerge datamerge2 = new MergeCompareData();
+		
+		
 		ITask printData = new PrintDataTask();		
 		
 		// wire data
 		adressdaten‹bermitteln.overwriteDatahandle(haushalteErmitteln.getDataHandle());
 		datasplit.overwriteDatahandle(adressdaten‹bermitteln.getDataHandle());
-		printData.overwriteDatahandle(datamerge.getDataHandle());
+		printData.overwriteDatahandle(datamerge2.getDataHandle());
 		
 		// setup BPG and connect tasks
 		IBPG bpg = BPGFactory.createBPG();
@@ -74,13 +89,30 @@ public class Main {
 		bpg.connectFromSplit(split2, kundenAdressen, datasplit);		
 		bpg.connect(datasplit, adressDatenKonvertieren);
 		bpg.connect(adressDatenKonvertieren, datamerge);	
-		bpg.connectToJoin(kundenAdressen, datamerge, join2);	
+		bpg.connectToJoin(kundenAdressen, datamerge, join2);
 		
-		bpg.connect(join2, printData);
+		bpg.connect(join2, datasplit2);
+		
+		bpg.connect(datasplit2, compareData);
+		bpg.connect(compareData, datamerge2);
+		bpg.connect(datamerge2, printData);
 		
 		bpg.connect(printData, bpg.getEnd());
 		
-		BPGFactory.executeProcess(bpg);		
+		// dry run
+		BPGFactory.getDefaultProcessEngine().setNumThreads(1);
+		BPGFactory.executeProcess(bpg);	
+		int numThreads = 8;
+		int[] times = new int[8];
+		for(int i =0; i < numThreads; i++){
+			BPGFactory.getDefaultProcessEngine().setNumThreads(1+i);
+			times[i] = BPGFactory.executeProcess(bpg);	
+		}
+		for(int i =0; i < numThreads; i++){
+			System.out.println(String.format("Threads: %s / Time: %s [ms]", 1+i,times[i]));
+		}
+			
+		System.exit(0);
 	}
 
 }

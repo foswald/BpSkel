@@ -1,9 +1,10 @@
-package impl;
+package bpgelements;
+
+import impl.ClientData;
 
 import java.util.ArrayList;
 
 import bpskel.api.AbstractDataMerge;
-import bpskel.api.DataContainer;
 import bpskel.api.IDataContainer;
 
 public class MergeConvertedData extends AbstractDataMerge {
@@ -18,7 +19,7 @@ public class MergeConvertedData extends AbstractDataMerge {
 		
 		// save
 		this.getDataHandle().setData(list);
-		return new DataContainer(list);
+		return this.getDataHandle();
 	}
 
 }

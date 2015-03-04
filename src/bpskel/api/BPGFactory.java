@@ -24,8 +24,8 @@ public class BPGFactory {
 		}
 	}
 	
-	public static void executeProcess(IBPG pro){
-		engine.execute(pro);
+	public static int executeProcess(IBPG pro){
+		return engine.execute(pro);
 	}
 	
 	public static IBPG createBPG(){
@@ -75,7 +75,10 @@ public class BPGFactory {
 	}
 
 	public static IProcessEngine getDefaultProcessEngine() {
-		return new SkeletonProcessEngine();
+		if(engine == null){
+			engine = new SkeletonProcessEngine();
+		}
+		return engine;
 				
 	}	
 }

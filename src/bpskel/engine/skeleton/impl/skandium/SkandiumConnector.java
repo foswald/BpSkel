@@ -31,6 +31,12 @@ import cl.niclabs.skandium.skeletons.Skeleton;
 import cl.niclabs.skandium.skeletons.While;
 
 public class SkandiumConnector implements ISkeletonAPI {
+	
+	private int numThreads;
+	
+	public SkandiumConnector(){
+		this.numThreads = 1;
+	}
 
 	@Override
 	public ISkeleton createSkeleton(PatternType skeletonType, IFlowObject startingNode) {
@@ -163,10 +169,10 @@ public class SkandiumConnector implements ISkeletonAPI {
 	}
 
 	@Override
-	public void execute(ISkeleton skeleton) {
+	public int execute(ISkeleton skeleton) {
 		Skeleton<IDataContainer, IDataContainer> skel = skeleton.getSkeletonRef();
 
-		Skandium skandium = new Skandium(8);
+		Skandium skandium = new Skandium(this.numThreads);
 
 		long init = System.currentTimeMillis();
 		Future<IDataContainer> future = skel.input(new ProxyDataContainer());
@@ -174,12 +180,20 @@ public class SkandiumConnector implements ISkeletonAPI {
 		IDataContainer out;
 		try {
 			out = future.get();
-			System.out.println((System.currentTimeMillis() - init)+"[ms].");
+			//System.out.println((System.currentTimeMillis() - init)+"[ms].");
 
 			skandium.shutdown();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return (int)System.currentTimeMillis() - (int)init;
+	}
+
+	@Override
+	public void setNumThreads(int numThreads) {
+		this.numThreads = numThreads;
+		
 	}
 
 

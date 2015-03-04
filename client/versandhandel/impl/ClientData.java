@@ -110,13 +110,13 @@ public class ClientData {
 	}
 
 	public boolean equals(ClientData other){
-		if(other.name == this.name &&
-				other.surname == this.surname &&
-				other.country == this.country &&
-				other.city == this.city &&
-				other.street == this.street &&
-				other.zipcode == this.zipcode &&
-				other.email == this.email ){
+		if(other.name.equals(this.name) &&
+				other.surname.equals(this.surname) &&
+				other.country.equals(this.country) &&
+				other.city.equals(this.city) &&
+				other.street.equals(this.street) &&
+				other.zipcode.equals(this.zipcode) &&
+				other.email.equals(this.email) ){
 			return true;
 		}
 		return false;

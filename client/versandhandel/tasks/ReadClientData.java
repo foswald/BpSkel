@@ -1,4 +1,7 @@
-package impl;
+package tasks;
+
+import impl.CSVReader;
+import impl.ClientData;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;

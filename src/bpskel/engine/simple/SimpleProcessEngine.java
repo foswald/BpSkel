@@ -18,12 +18,13 @@ public class SimpleProcessEngine implements IProcessEngine{
 	private static Stack<GatewayAndSplit> visitedAndSplits;
 
 	@Override
-	public void execute(IBPG pro) {
+	public int execute(IBPG pro) {
+		long init = System.currentTimeMillis();
 		visitedAndSplits = new Stack<>();
 		// first find element after start
 		IFlowObject f = pro.getStart().getSuccessor();
 		run(f);
-
+		return (int)System.currentTimeMillis() - (int)init;
 	}
 	
 	private static void run(IFlowObject f){
@@ -70,6 +71,12 @@ public class SimpleProcessEngine implements IProcessEngine{
 			}
 			f = next;
 		}while(!(f instanceof EndElement));
+	}
+
+	@Override
+	public void setNumThreads(int numThreads) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

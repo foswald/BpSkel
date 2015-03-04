@@ -1,20 +1,20 @@
-package bpgelements;
+package tasks;
+
+import java.util.Random;
 
 import impl.ClientData;
-import bpskel.api.AbstractTask;
+import impl.Utils;
+import bpskel.api.AbstractInlineTask;
 import bpskel.api.DataContainer;
 import bpskel.api.IDataContainer;
 
-public class ConvertAgencyData extends AbstractTask {
+public class ConvertAgencyData extends AbstractInlineTask {
 	
-	public ConvertAgencyData(){
-		super(true);
-	}
-
 	@Override
 	public IDataContainer executeInline(IDataContainer param){
 		String[] list = param.getData(String[].class);
 		
+		new Utils().doStuff();
 		return new DataContainer(new ClientData(list));
 	}
 

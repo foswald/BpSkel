@@ -16,5 +16,7 @@ public interface ISkeletonAPI {
 	ISkeleton createForkSkeleton(IFlowObject startingNode);
 	ISkeleton createDCSkeleton(IFlowObject startingNode);
 
-	void execute(ISkeleton skeletonReference);
+	int execute(ISkeleton skeletonReference);
+	
+	void setNumThreads(int numThreads);
 }

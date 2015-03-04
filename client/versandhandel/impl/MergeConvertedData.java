@@ -15,7 +15,9 @@ public class MergeConvertedData extends AbstractDataMerge {
 		for(IDataContainer dc:data){
 			list.add(dc.getData(ClientData.class));
 		}
-		 
+		
+		// save
+		this.getDataHandle().setData(list);
 		return new DataContainer(list);
 	}
 

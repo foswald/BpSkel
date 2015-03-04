@@ -17,8 +17,8 @@ public class SplitAgencyData extends AbstractDataSplit {
 	public IDataContainer[] splitData(IDataContainer d) {
 		// The data is an ArrayList containing String[] as entries
 		ArrayList<String[]> list = new ArrayList<String[]>();
-		list = this.getDataHandle().getData(list.getClass());		
-		
+		list = this.getDataHandle().getData(list.getClass());
+		System.out.println(list.size());
 		// split into numSplit packages
 		IDataContainer[] dc = new DataContainer[list.size()];
 		
@@ -26,6 +26,7 @@ public class SplitAgencyData extends AbstractDataSplit {
 			dc[i] = new DataContainer(list.remove(i));
 		}
 		
+		System.out.println(dc.length);
 		return dc;
 	}
 

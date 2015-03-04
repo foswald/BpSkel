@@ -5,9 +5,10 @@ import impl.CSVReader;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import bpskel.api.AbstractSimpleTask;
+import bpskel.api.AbstractTask;
+import bpskel.api.DataContainer;
 
-public class ReadAgencyData extends AbstractSimpleTask {
+public class ReadAgencyData extends AbstractTask {
 
 	private ArrayList<String> files;
 	
@@ -30,6 +31,7 @@ public class ReadAgencyData extends AbstractSimpleTask {
 		}
 		
 		this.getDataHandle().setData(csvData, csvData.getClass());
+		System.out.println("Agency data read");
 	}
 
 }

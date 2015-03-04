@@ -22,7 +22,7 @@ public class ForTest {
 		IForTask forTask = new ForPrintTask(12300);
 		ITask t1 = new StaticPrintTask("Finished!");
 		ITask t2 = new DataPrintTask();
-		t2.setDataHandle(forTask.getDataHandle());
+		t2.overwriteDatahandle(forTask.getDataHandle());
 		
 		pro.connect(pro.getStart(), forTask);
 		pro.connect(forTask, t1);

@@ -1,20 +1,21 @@
 package bpgelements;
 
 import impl.ClientData;
-
-import java.util.concurrent.ExecutionException;
-
-import bpskel.api.AbstractSimpleTask;
+import bpskel.api.AbstractTask;
 import bpskel.api.DataContainer;
+import bpskel.api.IDataContainer;
 
-public class ConvertAgencyData extends AbstractSimpleTask {
+public class ConvertAgencyData extends AbstractTask {
+	
+	public ConvertAgencyData(){
+		super(true);
+	}
 
 	@Override
-	public void execute() throws ExecutionException {
+	public IDataContainer executeInline(IDataContainer param){
+		String[] list = param.getData(String[].class);
 		
-		String[] list = this.getDataHandle().getData(String[].class);
-		
-		this.setDataHandle(new DataContainer(new ClientData(list)));
+		return new DataContainer(new ClientData(list));
 	}
 
 }

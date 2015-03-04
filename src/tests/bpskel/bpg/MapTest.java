@@ -26,8 +26,10 @@ public class MapTest {
 		ITask generateData = new GenerateStringList(100);
 		IDataSplit split = new SplitStringList();
 		IDataMerge merge = new MergeStringList();
-		ITask printData = new DataPrintTask();
+		ITask printData = new DataPrintTask(true);
 		ITask end = new StaticPrintTask("End");
+		
+		split.overwriteDatahandle(generateData.getDataHandle());
 		
 		pro.connect(pro.getStart(), generateData);
 		pro.connect(generateData, split);

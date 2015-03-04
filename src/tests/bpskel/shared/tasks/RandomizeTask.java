@@ -3,20 +3,20 @@ package tests.bpskel.shared.tasks;
 import java.util.Random;
 
 import tests.bpskel.shared.UniversalContainer;
-import bpskel.api.AbstractSimpleTask;
+import bpskel.api.AbstractTask;
 
-public class RandomizeTask extends AbstractSimpleTask {
+public class RandomizeTask extends AbstractTask {
 
 
 	private int max;
 	public RandomizeTask(int max){
-		super.setDataHandle(new UniversalContainer(1));
+		super.getDataHandle().setData(new UniversalContainer(1));
 		super.setDescription("Randomize!");
 		this.max = max;
 	}
 	
 	public RandomizeTask(){
-		super.setDataHandle(new UniversalContainer(1));
+		super.getDataHandle().setData(new UniversalContainer(1));
 		super.setDescription("Randomize!");
 		this.max = 10;
 	}

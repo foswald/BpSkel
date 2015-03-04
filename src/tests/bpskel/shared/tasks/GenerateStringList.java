@@ -3,10 +3,10 @@ package tests.bpskel.shared.tasks;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import bpskel.api.AbstractSimpleTask;
+import bpskel.api.AbstractTask;
 import bpskel.api.DataContainer;
 
-public class GenerateStringList extends AbstractSimpleTask {
+public class GenerateStringList extends AbstractTask {
 
 	private int length;
 	public GenerateStringList(int listLength){
@@ -23,7 +23,7 @@ public class GenerateStringList extends AbstractSimpleTask {
 			list.add("String entry: " + i);
 		}
 		
-		this.setDataHandle(new DataContainer(list));
+		this.getDataHandle().setData(list);
 	}
 
 }

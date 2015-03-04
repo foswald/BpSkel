@@ -1,28 +1,39 @@
 package bpskel.api;
 
-import bpskel.bpg.elements.core.FlowObject;
+import java.util.concurrent.ExecutionException;
 
-/**
- * This class has package visibility and should not be directly implemented outside this scope
- * @author foswald
- *
- */
-abstract class AbstractTask extends FlowObject implements ITask{
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-	private IDataContainer dataHandle;
+
+public abstract class AbstractTask extends AbstractDataHandle implements ITask{
+
+	private boolean executeInline;
 	
 	public AbstractTask(){
-		this.dataHandle = new DataContainer(null);
-		this.setDescription("Task");
+		this.executeInline = false;
 	}
-		
-	@Override
-	public IDataContainer getDataHandle() {
-		return this.dataHandle;
+	
+	public AbstractTask(boolean executeInline){
+		this.executeInline = executeInline;
 	}
 	
 	@Override
-	public void setDataHandle(IDataContainer dataHandle) {
-		this.dataHandle = dataHandle;
+	public void execute() throws ExecutionException {
+		throw new NotImplementedException();
+	}
+	
+	@Override
+	public  IDataContainer executeInline(IDataContainer param) throws ExecutionException {
+		throw new NotImplementedException();
+	}
+	
+	@Override
+	public boolean doExecuteInline(){
+		return this.executeInline;
+	}
+	
+	@Override
+	public void setExecuteInle(boolean executeInline){
+		this.executeInline = executeInline;
 	}
 }

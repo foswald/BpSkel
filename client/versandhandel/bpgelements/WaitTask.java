@@ -3,10 +3,9 @@ package bpgelements;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import bpskel.api.AbstractSimpleTask;
-import bpskel.api.DataContainer;
+import bpskel.api.AbstractTask;
 
-public class WaitTask extends AbstractSimpleTask {
+public class WaitTask extends AbstractTask {
 	
 	private int dur;
 	public WaitTask(int dur){
@@ -25,8 +24,6 @@ public class WaitTask extends AbstractSimpleTask {
 				e.printStackTrace();
 			}
 		}
-		
-		super.setDataHandle(new DataContainer(null));
 	}
 
 }

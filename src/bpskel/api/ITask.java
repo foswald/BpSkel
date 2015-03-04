@@ -11,5 +11,11 @@ public interface ITask extends IFlowObject, IDataHandle{
 	 * 
 	 * @throws ExecutionException
 	 */
-	void execute() throws ExecutionException;	
+	void execute() throws ExecutionException;
+	
+	IDataContainer executeInline(IDataContainer param) throws ExecutionException;
+	
+	boolean doExecuteInline();
+	
+	void setExecuteInle(boolean b);
 }

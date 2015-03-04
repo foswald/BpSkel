@@ -1,13 +1,14 @@
 package bpskel.bpg.conversion.pattern;
 
-import bpskel.api.AbstractSimpleTask;
+import bpskel.api.AbstractForTask;
+import bpskel.api.AbstractTask;
 import bpskel.bpg.elements.core.IFlowObject;
 
 public class SeqPattern implements IPattern{
 
 	@Override
 	public boolean matchPattern(IFlowObject start) {
-		if(start instanceof AbstractSimpleTask) {
+		if((start instanceof AbstractTask) && !(start instanceof AbstractForTask) ){
 			return true;
 		}
 		return false;

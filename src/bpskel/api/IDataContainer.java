@@ -8,5 +8,7 @@ public interface IDataContainer {
 	
 	void setData(Object param, Class<?> typeT);
 	
+	void setData(Object param);
+	
 	Class<?> getDataType();
 }

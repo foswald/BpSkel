@@ -24,13 +24,13 @@ public class WhileTest1 {
 		
 		ITask whileTask = new WhileTruePrintTask();
 		IDataContainer start = new UniversalContainer(10);
-		whileTask.setDataHandle(start);
+		whileTask.overwriteDatahandle(start);
 		
 		ITask inLoop1 = new StaticPrintTask("Repetition: ");
 		ITask inLoop2 = new DataPrintTask();
 		
 		// inLoop2 recieves data from t2
-		inLoop2.setDataHandle(whileTask.getDataHandle());
+		inLoop2.overwriteDatahandle(whileTask.getDataHandle());
 		
 		ITask t3 = new StaticPrintTask("EndTask");
 		

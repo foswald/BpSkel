@@ -17,4 +17,10 @@ public interface IDataHandle {
 	 * @return the current data handle of the task
 	 */
 	IDataContainer getDataHandle();
+
+	boolean isDataHandleMutable();
+	
+	void makeDataHandleMutable(boolean b);
+
+	void overwriteDatahandle(IDataContainer dataHandle);
 }

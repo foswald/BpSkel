@@ -3,9 +3,9 @@ package impl;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import bpskel.api.AbstractSimpleTask;
+import bpskel.api.AbstractTask;
 
-public class PrintDataTask extends AbstractSimpleTask {
+public class PrintDataTask extends AbstractTask {
 
 	@Override
 	public void execute() throws ExecutionException {
@@ -15,6 +15,7 @@ public class PrintDataTask extends AbstractSimpleTask {
 		for(ClientData c:list){
 			System.out.println(c.toString());
 		}
+		System.out.println("Finished!");
 	}
 
 }

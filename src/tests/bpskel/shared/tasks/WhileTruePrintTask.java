@@ -1,8 +1,8 @@
 package tests.bpskel.shared.tasks;
 
-import bpskel.api.AbstractSimpleTask;
+import bpskel.api.AbstractTask;
 
-public class WhileTruePrintTask extends AbstractSimpleTask {
+public class WhileTruePrintTask extends AbstractTask {
 
 	String thisString = null;
 	

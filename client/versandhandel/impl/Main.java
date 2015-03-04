@@ -43,21 +43,20 @@ public class Main {
 		ITask warten = new WaitTask(3);
 		
 		IGatewaySplit split2 = BPGFactory.createGatewayAndSplit();
-		ITask kundenAdressen = new ReadClientData(csvFiles);
-		
+		ITask kundenAdressen = new ReadClientData(csvFiles);		
 		
 		IDataSplit datasplit = new SplitAgencyData();
 		ITask adressDatenKonvertieren = new ConvertAgencyData();
 		IDataMerge datamerge = new MergeConvertedData();
 		
-		IGatewayJoin join2 = BPGFactory.createGatewayAndJoin();
-		ITask printData = new PrintDataTask();
 		
+		IGatewayJoin join2 = BPGFactory.createGatewayAndJoin();
+		ITask printData = new PrintDataTask();		
 		
 		// wire data
-		adressdaten‹bermitteln.setDataHandle(haushalteErmitteln.getDataHandle());
-		datasplit.setDataHandle(adressdaten‹bermitteln.getDataHandle());
-		
+		adressdaten‹bermitteln.overwriteDatahandle(haushalteErmitteln.getDataHandle());
+		datasplit.overwriteDatahandle(adressdaten‹bermitteln.getDataHandle());
+		printData.overwriteDatahandle(datamerge.getDataHandle());
 		
 		// setup BPG and connect tasks
 		IBPG bpg = BPGFactory.createBPG();

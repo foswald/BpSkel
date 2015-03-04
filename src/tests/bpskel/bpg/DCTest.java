@@ -25,7 +25,7 @@ public class DCTest {
 		ITask generateData = new GenerateStringList(400);
 		IDataSplit split = new SplitStringListConditional(10);
 		IDataMerge merge = new MergeStringListData();
-		ITask printData = new DataPrintTask();
+		ITask printData = new DataPrintTask(true);
 		ITask end = new StaticPrintTask("End");
 		
 		pro.connect(pro.getStart(), generateData);

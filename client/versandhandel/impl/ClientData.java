@@ -123,7 +123,7 @@ public class ClientData {
 	}
 	
 	public String toString(){
-		String msg = String.format("%, %, %, %, %, %, % ", 
+		String msg = String.format("%s, %s, %s, %s, %s, %s, %s ", 
 				this.name, this.surname, this.country, 
 				this.city, this.street, this.zipcode, this.email);
 		return msg;

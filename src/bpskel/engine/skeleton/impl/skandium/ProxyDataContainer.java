@@ -19,6 +19,15 @@ public class ProxyDataContainer implements IDataContainer {
 		this.typeT = typeT;
 		data = param;
 	}
+	
+	@Override
+	public void setData(Object param) {
+		System.out.println("ProxyDataContainer.setData: " + param.toString());
+		this.data = param;
+		if(data!=null){
+			this.typeT = data.getClass();
+		}
+	}
 
 	@Override
 	public Class<?> getDataType() {

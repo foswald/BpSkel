@@ -32,6 +32,14 @@ public class UniversalContainer implements IDataContainer {
 		data = param;
 		this.typeT = typeT;
 	}
+	
+	@Override
+	public void setData(Object param) {
+		this.data = param;
+		if(data!=null){
+			this.typeT = data.getClass();
+		}
+	}
 
 	@Override
 	public Class<?> getDataType() {

@@ -3,10 +3,9 @@ package impl;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import bpskel.api.AbstractSimpleTask;
-import bpskel.api.DataContainer;
+import bpskel.api.AbstractTask;
 
-public class ReadClientData extends AbstractSimpleTask {
+public class ReadClientData extends AbstractTask {
 
 
 	private ArrayList<String> files;
@@ -31,8 +30,9 @@ public class ReadClientData extends AbstractSimpleTask {
 				data.add(new ClientData(entry));
 			}
 		}
-	
-		this.setDataHandle(new DataContainer(data));
+
+		this.getDataHandle().setData(data);
+		System.out.println("ClientData read");
 	}
 
 }

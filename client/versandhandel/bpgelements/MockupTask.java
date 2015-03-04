@@ -2,9 +2,9 @@ package bpgelements;
 
 import java.util.concurrent.ExecutionException;
 
-import bpskel.api.AbstractSimpleTask;
+import bpskel.api.AbstractTask;
 
-public class MockupTask extends AbstractSimpleTask {
+public class MockupTask extends AbstractTask {
 
 	private String string;
 	

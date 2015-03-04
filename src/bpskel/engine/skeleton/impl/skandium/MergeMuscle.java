@@ -4,7 +4,7 @@ import bpskel.api.IDataContainer;
 import bpskel.bpg.elements.splitmerge.IDataMerge;
 import cl.niclabs.skandium.muscles.Merge;
 
-public class MergeMuscle implements Merge<IDataContainer, IDataContainer> {
+class MergeMuscle implements Merge<IDataContainer, IDataContainer> {
 
 	private IDataMerge dataMerge;
 	public MergeMuscle(IDataMerge merge){

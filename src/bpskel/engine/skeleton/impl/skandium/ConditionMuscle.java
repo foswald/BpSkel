@@ -4,7 +4,7 @@ import bpskel.api.ICondition;
 import bpskel.api.IDataContainer;
 import cl.niclabs.skandium.muscles.Condition;
 
-public class ConditionMuscle implements Condition<IDataContainer> {
+class ConditionMuscle implements Condition<IDataContainer> {
 	
 	private ICondition bpgCondition;
 	public ConditionMuscle(ICondition cond){

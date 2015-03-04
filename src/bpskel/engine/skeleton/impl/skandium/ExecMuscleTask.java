@@ -4,17 +4,15 @@ import bpskel.api.IDataContainer;
 import bpskel.api.ITask;
 import cl.niclabs.skandium.muscles.Execute;
 
-public class ExecMuscleTask implements Execute<IDataContainer, IDataContainer> {
+class ExecMuscleTask implements Execute<IDataContainer, IDataContainer> {
 
-	ITask task;
-	boolean setDataTroughMuscle;
+	private ITask task;
 
 	/**
 	 * @param in the task to process
 	 */
 	public ExecMuscleTask(ITask in){
 		this.task = in;
-		this.setDataTroughMuscle = false;
 	}
 
 	@Override

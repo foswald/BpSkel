@@ -4,11 +4,11 @@ import bpskel.api.IDataContainer;
 import bpskel.bpg.elements.splitmerge.IDataCondition;
 import cl.niclabs.skandium.muscles.Condition;
 
-public class CondMuscle implements Condition<IDataContainer> {
+class DataConditionMuscle implements Condition<IDataContainer> {
 	
 	private IDataCondition cond;
 	
-	public CondMuscle(IDataCondition cond){
+	public DataConditionMuscle(IDataCondition cond){
 		this.cond = cond;
 	}
 

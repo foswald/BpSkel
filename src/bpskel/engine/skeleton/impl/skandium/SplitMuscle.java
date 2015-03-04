@@ -4,7 +4,7 @@ import bpskel.api.IDataContainer;
 import bpskel.bpg.elements.splitmerge.IDataSplit;
 import cl.niclabs.skandium.muscles.Split;
 
-public class SplitMuscle implements Split<IDataContainer, IDataContainer> {
+class SplitMuscle implements Split<IDataContainer, IDataContainer> {
 
 	private IDataSplit split;
 	

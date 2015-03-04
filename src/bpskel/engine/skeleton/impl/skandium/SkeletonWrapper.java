@@ -2,7 +2,7 @@ package bpskel.engine.skeleton.impl.skandium;
 
 import bpskel.engine.skeleton.api.ISkeleton;
 
-public class SkeletonWrapper implements ISkeleton {
+class SkeletonWrapper implements ISkeleton {
 	
 	private Object skeleton;
 	

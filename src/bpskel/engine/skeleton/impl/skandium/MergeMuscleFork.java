@@ -4,7 +4,7 @@ import bpskel.api.DataContainer;
 import bpskel.api.IDataContainer;
 import cl.niclabs.skandium.muscles.Merge;
 
-public class MergeMuscleFork implements Merge<IDataContainer, IDataContainer>{
+class MergeMuscleFork implements Merge<IDataContainer, IDataContainer>{
 
 	@Override
 	public IDataContainer merge(IDataContainer[] r) throws Exception {

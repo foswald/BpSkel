@@ -1,6 +1,10 @@
 package bpskel.api;
 
-
+/**
+ * This class has package visibility and should not be directly implemented outside this scope.
+ * @author foswald
+ *
+ */
 abstract class AbstractPrivateTask extends AbstractDataHandle implements ITask{
 
 	private boolean executeInline;

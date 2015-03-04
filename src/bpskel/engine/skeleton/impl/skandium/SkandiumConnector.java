@@ -2,6 +2,7 @@ package bpskel.engine.skeleton.impl.skandium;
 
 import java.util.concurrent.Future;
 
+import bpskel.api.DataContainer;
 import bpskel.api.IDataContainer;
 import bpskel.api.IForTask;
 import bpskel.api.ITask;
@@ -135,8 +136,8 @@ public class SkandiumConnector implements ISkeletonAPI {
 	public ISkeleton createForkSkeleton(IFlowObject startingNode) {
 		GatewaySplit split = (GatewaySplit) startingNode;
 		
-		IDataContainer data1 = new ProxyDataContainer();
-		IDataContainer data2 = new ProxyDataContainer();		
+		IDataContainer data1 = new DataContainer(null);
+		IDataContainer data2 = new DataContainer(null);		
 		Split<IDataContainer,IDataContainer> splitMuscle = new SplitMuscleFork(data1, data2);
 
 		Skeleton<IDataContainer, IDataContainer> skel1 = this.getSkeletonFromProxy(split.getSuccessor());
@@ -158,7 +159,7 @@ public class SkandiumConnector implements ISkeletonAPI {
 	public ISkeleton createDCSkeleton(IFlowObject startingNode) {
 		IDataSplitConditional split = (IDataSplitConditional) startingNode;
 		Split<IDataContainer,IDataContainer> splitMuscle = new SplitMuscle(split);
-		Condition<IDataContainer> cond = new CondMuscle(split);
+		Condition<IDataContainer> cond = new DataConditionMuscle(split);
 		
 		Skeleton<IDataContainer, IDataContainer> skel = this.getSkeletonFromProxy(startingNode.getSuccessor());
 		Merge<IDataContainer, IDataContainer> mergeMuscle = new MergeMuscle((IDataMerge) startingNode.getSuccessor().getSuccessor());
@@ -175,8 +176,9 @@ public class SkandiumConnector implements ISkeletonAPI {
 		Skandium skandium = new Skandium(this.numThreads);
 
 		long init = System.currentTimeMillis();
-		Future<IDataContainer> future = skel.input(new ProxyDataContainer());
+		Future<IDataContainer> future = skel.input(new DataContainer(null));
 		
+		@SuppressWarnings("unused")
 		IDataContainer out;
 		try {
 			out = future.get();

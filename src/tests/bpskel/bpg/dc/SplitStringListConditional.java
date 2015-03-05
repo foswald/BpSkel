@@ -16,6 +16,7 @@ public class SplitStringListConditional extends AbstractDataSplitConditional{
 	@Override
 	public IDataContainer[] splitData(IDataContainer data) {
 		
+		@SuppressWarnings("unchecked")
 		List<String> list = (List<String>) data.getData();
 		
 		
@@ -29,6 +30,7 @@ public class SplitStringListConditional extends AbstractDataSplitConditional{
 
 	@Override
 	public boolean evaluate(IDataContainer param) {
+		@SuppressWarnings("unchecked")
 		List<String> list = (List<String>) param.getData();
 		if(list.size() > this.splitSize){
 			return true;

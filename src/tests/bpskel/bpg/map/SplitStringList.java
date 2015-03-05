@@ -10,6 +10,7 @@ public class SplitStringList extends AbstractDataSplit{
 
 	@Override
 	public IDataContainer[] splitData(IDataContainer data) {
+		@SuppressWarnings("unchecked")
 		ArrayList<String> list = (ArrayList<String>) data.getData();
 		
 		IDataContainer[] splitData = new IDataContainer[list.size()];

@@ -15,6 +15,7 @@ public class MergeStringListData extends AbstractDataMerge {
 		ArrayList<String> list = new ArrayList<String>(data.length);
 		
 		for(IDataContainer d:data){
+			@SuppressWarnings("unchecked")
 			List<String> l = (List<String>) d.getData();
 			list.addAll(l);
 		}

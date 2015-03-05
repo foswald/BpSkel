@@ -21,12 +21,11 @@ import bpskel.api.IGatewaySplit;
 import bpskel.api.ITask;
 import bpskel.bpg.elements.splitmerge.IDataMerge;
 import bpskel.bpg.elements.splitmerge.IDataSplit;
-import bpskel.bpg.elements.splitmerge.IDataSplitConditional;
 
 public class Main {
 
 	public static void main(String[] args) {
-		File folder = new File("C:\\Users\\ferdinand\\workspace\\Master\\BpSkel\\client\\resources\\");
+		File folder = new File("C:\\Users\\ferdinand\\workspace\\Master\\BpSkel\\examples\\resources\\");
 		File[] listOfFiles = folder.listFiles();
 
 		ArrayList<String> csvFiles = new ArrayList<>();

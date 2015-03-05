@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import bpskel.api.AbstractTask;
-import bpskel.api.DataContainer;
 
 public class GenerateStringList extends AbstractTask {
 

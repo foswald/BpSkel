@@ -32,9 +32,7 @@ public class BlockstructureConverter {
 		while(!isReduced(pro) || !(pro.getStart().getSuccessor() instanceof ProxyTask)){
 			createSkeletonStructure(pro, pro.getStart().getSuccessor(), false);
 		}
-		
-		System.out.println("Conversion finished.");
-		
+				
 		ProxyTask root = (ProxyTask) pro.getStart().getSuccessor();
 		
 		return root;

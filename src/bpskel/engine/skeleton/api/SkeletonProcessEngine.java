@@ -31,7 +31,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 		}
 	}
 	
-	public static Class<? extends ISkeletonAPI> getDefaultExecutor(){
+	private static Class<? extends ISkeletonAPI> getDefaultExecutor(){
 		return SkandiumConnector.class;
 	}
 	
@@ -39,7 +39,7 @@ public class SkeletonProcessEngine implements IProcessEngine{
 	public int execute(IBPG pro) {
 
 		ProxyTask root = this.conv.convert(pro);
-		System.out.println("Conversion finished.");
+		System.out.println("BPG Conversion finished, starting execution");
 		
 		// now start the skeleton application
 		return this.skeletonApi.execute(root.getSkeletonReference());

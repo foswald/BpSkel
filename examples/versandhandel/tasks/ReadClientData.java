@@ -35,7 +35,7 @@ public class ReadClientData extends AbstractTask {
 		}
 
 		this.getDataHandle().setData(data);
-		System.out.println("ClientData read");
+		System.out.println("Kundendaten eingelesen");
 	}
 
 }

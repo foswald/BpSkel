@@ -30,7 +30,6 @@ public class ReadAgencyData extends AbstractTask {
 		}
 		
 		this.getDataHandle().setData(csvData, csvData.getClass());
-		System.out.println("Agency data read");
 	}
 
 }

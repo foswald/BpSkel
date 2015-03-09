@@ -18,9 +18,23 @@ public interface IDataHandle {
 	 */
 	IDataContainer getDataHandle();
 
+	/**
+	 * If the handle is mutable, it might be overwritten using setDataHandle
+	 * @return true, if the dataHandle is mutable.
+	 */
 	boolean isDataHandleMutable();
 	
+	/**
+	 * Make the datahandle of this mutable to change it.
+	 * @param b the mutable status of the datahandle 
+	 */
 	void makeDataHandleMutable(boolean b);
 
+	/**
+	 * Explicitly overwrites the datacontainer of the datahandle. This is the same as calling <br>
+	 * <code>setDataHandleMutbale(true) </code><br>
+	 * <code>setDataHandle(newHandle) </code>
+	 * @param dataHandle the new container of this datahandle
+	 */
 	void overwriteDatahandle(IDataContainer dataHandle);
 }

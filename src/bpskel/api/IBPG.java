@@ -2,12 +2,16 @@ package bpskel.api;
 
 import bpskel.bpg.elements.core.IFlowObject;
 
+/**
+ * Defines connection methods for a BPG diagramm
+ * @author foswald
+ */
 public interface IBPG {
 
 	/**
 	 * Connects two BPMN elements. It might override existing previous connections.
-	 * @param e1 Gateway or Task
-	 * @param e2 Gateway or Task
+	 * @param source Gateway or Task
+	 * @param sink Gateway or Task
 	 */
 	public void connect(IFlowObject source, IFlowObject sink);
 

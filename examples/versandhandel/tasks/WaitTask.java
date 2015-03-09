@@ -14,9 +14,9 @@ public class WaitTask extends AbstractTask {
 
 	@Override
 	public void execute() throws ExecutionException {
-		
+		System.out.print("Waiting... ");
 		for(int seconds = this.dur; seconds > 0 ;seconds--){
-			System.out.print("Waiting " + seconds + "...");
+			System.out.print(seconds + "...");
 			try {
 				TimeUnit.SECONDS.sleep(1);
 			} catch (InterruptedException e) {
@@ -24,6 +24,7 @@ public class WaitTask extends AbstractTask {
 				e.printStackTrace();
 			}
 		}
+		System.out.println(":");
 	}
 
 }

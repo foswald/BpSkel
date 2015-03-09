@@ -11,7 +11,7 @@ import bpskel.bpg.elements.gateway.GatewaySplit;
  * It only holds direct references to the start and end events. All connect events can be accessed through the
  * traversion of the graph.
  * @author foswald
- *
+ * @see bpskel.api.IBPG
  */
 public class BusinessProcessGraph implements IBPG {
 
@@ -20,25 +20,19 @@ public class BusinessProcessGraph implements IBPG {
 	
 	/**
 	 * Creates a new BPG with unique Start and Endelement.
-	 * This ctor is abstract and should only be used by BPGFactory
+	 * This ctor is abstract and should only be used by the BPGFactory
 	 */
 	BusinessProcessGraph() {
 		start = new StartElement();
 		end = new EndElement();
 	}
 	
-	/* (non-Javadoc)
-	 * @see bpskel.api.IBPG#connect(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
-	 */
 	@Override
 	public void connect(IFlowObject source, IFlowObject sink){
 		source.setSuccessor(sink);
 		sink.setPredecessor(source);
 	}
 
-	/* (non-Javadoc)
-	 * @see bpskel.api.IBPG#reconnect(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
-	 */
 	@Override
 	public void reconnect(IFlowObject sourceElement, IFlowObject oldElement, IFlowObject newElement){
 		// no gateway means simply replace oldElement with newElement
@@ -64,9 +58,6 @@ public class BusinessProcessGraph implements IBPG {
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see bpskel.api.IBPG#connectToJoin(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, bpskel.api.IGatewayJoin)
-	 */
 	@Override
 	public void connectToJoin(IFlowObject source1, IFlowObject source2, IGatewayJoin join){
 		source1.setSuccessor(join);
@@ -75,9 +66,6 @@ public class BusinessProcessGraph implements IBPG {
 		join.setPredecessor2(source2);
 	}
 	
-	/* (non-Javadoc)
-	 * @see bpskel.api.IBPG#connectFromSplit(bpskel.api.IGatewaySplit, bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
-	 */
 	@Override
 	public void connectFromSplit(IGatewaySplit source, IFlowObject branch1, IFlowObject branch2){
 		source.setSuccessor(branch1);
@@ -86,9 +74,6 @@ public class BusinessProcessGraph implements IBPG {
 		branch2.setPredecessor(source);
 	}
 	
-	/* (non-Javadoc)
-	 * @see bpskel.api.IBPG#insertIntoWhileLoop(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, bpskel.api.ICondition, bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
-	 */
 	@Override
 	public void insertIntoWhileLoop(IFlowObject source, IFlowObject sink, ICondition cond, IFlowObject firstItem, IFlowObject lastItem){
 		IGatewaySplit split = BPGFactory.createGatewayXorSplit(cond);
@@ -102,25 +87,16 @@ public class BusinessProcessGraph implements IBPG {
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see bpskel.api.IBPG#insertIntoWhileLoop(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, bpskel.api.ICondition, bpskel.bpg.elements.core.IFlowObject)
-	 */
 	@Override
 	public void insertIntoWhileLoop(IFlowObject source, IFlowObject sink, ICondition cond, IFlowObject content){
 		insertIntoWhileLoop(source, sink, cond, content, content);
 	}
 	
-	/* (non-Javadoc)
-	 * @see bpskel.api.IBPG#getStart()
-	 */
 	@Override
 	public IFlowObject getStart(){
 		return start;
 	}
 
-	/* (non-Javadoc)
-	 * @see bpskel.api.IBPG#getEnd()
-	 */
 	@Override
 	public IFlowObject getEnd() {
 		return end;

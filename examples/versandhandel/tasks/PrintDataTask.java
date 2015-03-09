@@ -11,7 +11,7 @@ public class PrintDataTask extends AbstractTask {
 	public void execute() throws ExecutionException {
 		IDataContainer[] list = this.getDataHandle().getData(IDataContainer[].class);
 
-		System.out.println(String.format("Finished! %s matches found", list.length));
+		System.out.println(String.format("%s treffer gefunden.", list.length));
 	}
 
 }

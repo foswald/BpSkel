@@ -7,7 +7,12 @@ import bpskel.bpg.elements.gateway.GatewayXorJoin;
 import bpskel.bpg.elements.gateway.GatewayXorSplit;
 import bpskel.engine.skeleton.api.SkeletonProcessEngine;
 
-
+/**
+ * This Factory provides methods to create BPGs and its elements for execution.
+ * @author foswald
+ * @note you must call <code>BPGFactory.initialize()</code> before executing a BPG.
+ * @see bpskel.api.BusinessProcessGraph
+ */
 public class BPGFactory {
 
 	static private BPGFactory instance;
@@ -18,32 +23,68 @@ public class BPGFactory {
 		engine = pe;
 	}
 	
+	/**
+	 * Initialize the BPGFactory with a IProcessEngine.
+	 * You can use BPGFactory.getDefaultProcessingEngine() to retrieve the default processing engine.
+	 * @param pe the processing enine to use for processing the bpg.
+	 */
 	public static void initialize(IProcessEngine pe){
 		if(instance == null){
 			instance = new BPGFactory(pe);
 		}
 	}
 	
+	/**
+	 * Executes the BPG using the previously set IProcessingEngine 
+	 * @param pro
+	 * @return
+	 */
 	public static int executeProcess(IBPG pro){
 		return engine.execute(pro);
 	}
 	
+	/**
+	 * Returns an IBPG for BPG Modeling.
+	 * @return
+	 */
 	public static IBPG createBPG(){
 		return new BusinessProcessGraph();
 	}
 	
+	/**
+	 * Returns a GatewayANDSplit, for parallelization of two succeeding tasks.
+	 * @see bpskel.api.IBPG#connectFromSplit(IGatewaySplit, bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
+	 * @return an GatewayANDSplit
+	 */
 	public static IGatewaySplit createGatewayAndSplit(){
 		return new GatewayAndSplit();
 	}
 	
+	/**
+	 * Returns a GatewayANDJoin, for joining previously split branches.
+	 * @see bpskel.api.IBPG#connectToJoin(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, IGatewayJoin)
+	 * @return an GatewayANDSplit
+	 */
 	public static IGatewayJoin createGatewayAndJoin(){
 		return new GatewayAndJoin();
 	}
 
+	/**
+	 * Returns a GatewayXorSplit which will route to one of two succeeding tasks depending on the result of <code>cond</code>
+	 * @param cond the condition which will decide on which task to process next.
+	 * @return A GatewayXorSplit
+	 * @see bpskel.api.IBPG#connectFromSplit(IGatewaySplit, bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject)
+	 * @see bpskel.api.BPGFactory#createCondition(IDataContainer, String, IDataContainer)
+	 */
 	public static IGatewaySplit createGatewayXorSplit(ICondition cond){
 		return new GatewayXorSplit(cond);
-	}	
+	}
 	
+	/**
+	 * The Gateway XoRJoin merges previously split branches, which have been split by an GatewayXorSplit.
+	 * @return a GatewayXorJoin
+	 * @see bpskel.api.IBPG#connectToJoin(bpskel.bpg.elements.core.IFlowObject, bpskel.bpg.elements.core.IFlowObject, IGatewayJoin)
+	 */
 	public static IGatewayJoin createGatewayXorJoin(){
 		return new GatewayXorJoin();
 	}
@@ -74,6 +115,9 @@ public class BPGFactory {
 		return new Condition(lhs, string, rhs);
 	}
 
+	/**
+	 * @return The default ProcessingEngine to use when executing a BPG
+	 */
 	public static IProcessEngine getDefaultProcessEngine() {
 		if(engine == null){
 			engine = new SkeletonProcessEngine();

@@ -8,7 +8,6 @@ class MergeMuscleFork implements Merge<IDataContainer, IDataContainer>{
 
 	@Override
 	public IDataContainer merge(IDataContainer[] r) throws Exception {
-		System.out.println("Merging data");
 		return new DataContainer(r);		
 	}
 }

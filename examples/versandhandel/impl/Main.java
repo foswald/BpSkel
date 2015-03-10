@@ -10,6 +10,8 @@ import tasks.MockupTaskInline;
 import tasks.PrintDataTask;
 import tasks.ReadAgencyData;
 import tasks.ReadClientData;
+import tasks.StartTimer;
+import tasks.StopTimer;
 import tasks.WaitTask;
 import bpgelements.MergeCompareData;
 import bpgelements.MergeConvertedData;
@@ -60,7 +62,7 @@ public class Main {
 		// Pipe
 		ITask prospekteVerschicken = new MockupTask("Prospekte verschicken");
 		ITask adressdaten‹bermitteln = new MockupTask("Adressdaten ¸bermitteln");
-		ITask warten = new WaitTask(3);
+		ITask warten = new WaitTask(0);
 		bpg.connect(join1, prospekteVerschicken);
 		bpg.connect(prospekteVerschicken, adressdaten‹bermitteln);
 		bpg.connect(adressdaten‹bermitteln, warten);
@@ -72,29 +74,38 @@ public class Main {
 		ITask kundenAdressen = new ReadClientData(csvFiles);		
 		
 		// MAP (Fork2.b)
+		StartTimer startMapTimer = new StartTimer();
 		IDataSplit datasplit = new SplitAgencyData();
 		ITask adressDatenKonvertieren = new ConvertAgencyData();
 		
-		IDataMerge datamerge = new MergeConvertedData();			
-		bpg.connectFromSplit(split2, kundenAdressen, datasplit);		
+		IDataMerge datamerge = new MergeConvertedData();
+		StopTimer stopMapTimer = new StopTimer(startMapTimer);
+		
+		bpg.connectFromSplit(split2, kundenAdressen, startMapTimer);
+		bpg.connect(startMapTimer, datasplit);
 		bpg.connect(datasplit, adressDatenKonvertieren);
 		bpg.connect(adressDatenKonvertieren, datamerge);	
-		ITask agenturdatenKonvertiert = new MockupTaskInline("Agenturdaten konvertiert");
-		bpg.connect(datamerge, agenturdatenKonvertiert);	
+		ITask agenturdatenKonvertiert = new MockupTaskInline("Agenturdaten konvertiert");		
+		bpg.connect(datamerge, stopMapTimer);	
+		bpg.connect(stopMapTimer, agenturdatenKonvertiert);			
 		IGatewayJoin join2 = BPGFactory.createGatewayAndJoin();
 		bpg.connectToJoin(kundenAdressen, agenturdatenKonvertiert, join2);			
 		
 		// D&C 
+		StartTimer startDCTimer = new StartTimer();
 		IDataSplit datasplit2 = new SplitCompareData();
-		bpg.connect(join2, datasplit2);
+		bpg.connect(join2, startDCTimer);
+		bpg.connect(startDCTimer, datasplit2);
 		ITask compareData = new CompareData();
 		bpg.connect(datasplit2, compareData);
 		IDataMerge datamerge2 = new MergeCompareData();
 		bpg.connect(compareData, datamerge2);
+		StopTimer stopDCTimer = new StopTimer(startDCTimer);
+		bpg.connect(datamerge2, stopDCTimer);
 		
 		// print results
 		ITask printData = new PrintDataTask();		
-		bpg.connect(datamerge2, printData);
+		bpg.connect(stopDCTimer, printData);
 		// Finish
 		bpg.connect(printData, bpg.getEnd());
 		
@@ -107,17 +118,26 @@ public class Main {
 		BPGFactory.getDefaultProcessEngine().setNumThreads(1);
 		//BPGFactory.executeProcess(bpg);	
 		int numThreads = 8;
-		int[] times = new int[8];
+		long[][] times = new long[8][3];
 		for(int i =0; i < numThreads; i++){
 			System.out.println("");
 			System.out.println("########################################");
 			System.out.println(String.format("Starting run with %s threads", i));
 			BPGFactory.getDefaultProcessEngine().setNumThreads(1+i);
-			times[i] = BPGFactory.executeProcess(bpg);
-			System.out.println(String.format("Finished: %s [ms]", times[i]));
+			times[i][0] = BPGFactory.executeProcess(bpg);
+			times[i][1]= stopMapTimer.getDur();
+			times[i][2]= stopDCTimer.getDur();
+			System.out.println(String.format("Finished: TotalDur: %s [ms], Map: %s [ms], D&C: %s [ms]", times[i][0], stopMapTimer.getDur(), stopDCTimer.getDur()));
 		}
+		System.out.println("Threads, totaldur, map, dc");
 		for(int i =0; i < numThreads; i++){
-			System.out.println(String.format("Threads: %s / Time: %s [ms]", 1+i,times[i]));
+			System.out.println(String.format("%s, %s, %s, %s", 1+i,times[i][0], times[i][1], times[i][2]));
+		}
+		System.out.println("");
+		System.out.println("########################################");
+		System.out.println("Summary: ");
+		for(int i =0; i < numThreads; i++){
+			System.out.println(String.format("Threads: %s / TotalDur: %s [ms], Map: %s [ms], D&C: %s [ms]", 1+i,times[i][0], times[i][1], times[i][2]));
 		}
 			
 		System.exit(0);

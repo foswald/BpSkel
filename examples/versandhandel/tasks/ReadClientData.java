@@ -2,8 +2,10 @@ package tasks;
 
 import impl.CSVReader;
 import impl.ClientData;
+import impl.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import bpskel.api.AbstractTask;
@@ -25,7 +27,7 @@ public class ReadClientData extends AbstractTask {
 	@Override
 	public void execute() throws ExecutionException {
 		
-		ArrayList<ClientData> data = new ArrayList<>();
+		List<ClientData> data = new ArrayList<>();
 		
 		for(String f:this.files){
 			for(String[] entry:CSVReader.readCSV(f, ";", true)){
@@ -33,6 +35,9 @@ public class ReadClientData extends AbstractTask {
 				data.add(new ClientData(entry));
 			}
 		}
+		
+		// suffle and remove some
+		data = Utils.removeSome(data, 80);
 
 		this.getDataHandle().setData(data);
 		System.out.println("Kundendaten eingelesen");

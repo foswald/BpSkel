@@ -15,7 +15,7 @@ public class MockupTask extends AbstractTask {
 	
 	@Override
 	public void execute() throws ExecutionException {
-		System.out.println(this.string);
+		System.out.println(this.string);		
 	}
 
 }

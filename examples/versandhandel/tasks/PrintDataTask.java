@@ -10,8 +10,16 @@ public class PrintDataTask extends AbstractTask {
 	@Override
 	public void execute() throws ExecutionException {
 		IDataContainer[] list = this.getDataHandle().getData(IDataContainer[].class);
+		
+		int counter = 0;
+		// count for actual hits
+		for(IDataContainer d:list){
+			if(d.getData() != null){
+				++counter;
+			}
+		}
 
-		System.out.println(String.format("%s treffer gefunden.", list.length));
+		System.out.println(String.format("%s treffer gefunden.", counter));
 	}
 
 }

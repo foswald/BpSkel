@@ -29,8 +29,15 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		// Laden der testdaten aus ordner
-		File folder = new File("C:\\Users\\ferdinand\\workspace\\Master\\BpSkel\\examples\\resources\\");
+		File folder = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().getPath()+"/../testdata/");
+		if(args.length == 1){
+			folder = new File(args[0]);
+		}
+		
+		if(!folder.exists()){
+			System.out.println(String.format("Folder: %s does not exist! Please specify a valid path to the testdata!", folder.toPath()));
+			System.exit(1);
+		}
 		File[] listOfFiles = folder.listFiles();
 
 		ArrayList<String> csvFiles = new ArrayList<>();
@@ -62,7 +69,7 @@ public class Main {
 		// Pipe
 		ITask prospekteVerschicken = new MockupTask("Prospekte verschicken");
 		ITask adressdaten‹bermitteln = new MockupTask("Adressdaten ¸bermitteln");
-		ITask warten = new WaitTask(0);
+		ITask warten = new WaitTask(3);
 		bpg.connect(join1, prospekteVerschicken);
 		bpg.connect(prospekteVerschicken, adressdaten‹bermitteln);
 		bpg.connect(adressdaten‹bermitteln, warten);
